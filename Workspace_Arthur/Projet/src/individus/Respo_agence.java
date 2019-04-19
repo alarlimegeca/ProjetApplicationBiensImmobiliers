@@ -102,6 +102,49 @@ public class Respo_agence extends Agent_immobilier {
         }
 		return 0;
 	}
+	
+	public static void se_connecter_respo() {
+		System.out.println("Pseudo_respo ?");
+		String pseudo = scan.nextLine();
+		System.out.println("Mot_de_passe_respo ?");
+		String passe = scan.nextLine();
+		Connection conn = null;
+        try {
+        	// db parameters
+        	String url = "jdbc:sqlite:/media/formation/CLEF MENGIN/Projet info/BDD/Individus.db";
+        	//create a connection to the database
+        	Class.forName("org.sqlite.JDBC");
+        	conn = DriverManager.getConnection(url);
+        	// Requête SQL
+        	String query = "SELECT * FROM respo_agence WHERE pseudo_respo LIKE '" + pseudo+"'";
+        	Statement state = Connexion.getinstance().createStatement();
+        	ResultSet result = state.executeQuery(query);
+            
+            String mdp = result.getString("mot_de_passe_respo");
+            
+            
+            if (mdp.contentEquals(passe)) {
+            	System.out.println("Vous êtes connecté");
+            }
+            else { System.out.println("Mot de passe incorrect");}
+
+        } catch (SQLException e1) {
+        	System.out.println(e1.getMessage());
+        	
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+        	try {
+        		if (conn != null) {
+        			conn.close();
+        		}
+        	} catch (SQLException ex) {
+        		System.out.println(ex.getMessage());
+        	}
+        }
+
+	}
 
 	public static void main(String[] args) {
 		
