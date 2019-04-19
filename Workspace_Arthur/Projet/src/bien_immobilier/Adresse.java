@@ -1,7 +1,9 @@
 package bien_immobilier;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Adresse {
-	
 	public int id_adresse;
 	public int numero;
 	public String voie;
@@ -9,8 +11,9 @@ public class Adresse {
 	public String code_INSEE;
 	public String commune;
 	public String pays;
+	public Environnement environnement;
 	
-	public Adresse(int id_adresse, int numero, String voie, String code_postal, String code_INSEE, String commune, String pays) {
+	public Adresse(int id_adresse, int numero, String voie, String code_postal, String code_INSEE, String commune, String pays,Environnement environnement) {
 		super();
 		this.id_adresse=id_adresse;
 		this.numero=numero;
@@ -19,6 +22,7 @@ public class Adresse {
 		this.code_INSEE=code_INSEE;
 		this.commune=commune;
 		this.pays=pays;
+		this.environnement=environnement;
 	}
 	public int getId_adresse() {
 		return id_adresse;
@@ -61,5 +65,34 @@ public class Adresse {
 	}
 	public void setPays(String pays) {
 		this.pays=pays;
+	}
+	public Environnement getEnvironnement() {
+		return environnement;
+	}
+	public void setEnvironnement(Environnement environnement) {
+		this.environnement=environnement;
+	}
+	public void ajouterAdresse(int id_adresse) {
+		try {
+			String env=environnement.getContenu1();
+			PreparedStatement preparedState = Connexion.getInstance().prepareStatement("INSERT INTO biens_immobiliers(id_adresse,pays,numero,voie,code_postal,code_insee,commune,env) VALUES (?,?,?,?,?,?,?)");
+			preparedState.setInt(1, id_adresse); 
+			preparedState.setString(2, pays); 
+			preparedState.setDouble(3, numero); 
+			preparedState.setString(4,voie); 
+			preparedState.setString(5, code_postal); 
+			preparedState.setString(6, code_INSEE); 
+			preparedState.setString(7,commune); 
+			preparedState.setString(8,env);  
+			
+			System.out.println(preparedState.toString());
+
+			preparedState.executeUpdate();
+
+			preparedState.close();
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+		}
 	}
 }
