@@ -42,6 +42,53 @@ public class Agent_immobilier extends Individu{
 	public void setNote(double note) {
 		this.note = note;
 	}
+	
+	// AUTRES METHODES
+	
+	static Scanner scan = new Scanner(System.in);
+	
+	public static void se_connecter_agent() {
+		System.out.println("Pseudo_agent ?");
+		String pseudo = scan.nextLine();
+		System.out.println("Mot_de_passe_agent ?");
+		String passe = scan.nextLine();
+		Connection conn = null;
+        try {
+        	// db parameters
+        	String url = "jdbc:sqlite:/media/formation/CLEF MENGIN/Projet info/BDD/Individus.db";
+        	//create a connection to the database
+        	Class.forName("org.sqlite.JDBC");
+        	conn = DriverManager.getConnection(url);
+        	// Requête SQL
+        	String query = "SELECT * FROM agent_immobilier WHERE pseudo_agent LIKE '" + pseudo+"'";
+        	Statement state = Connexion.getinstance().createStatement();
+        	ResultSet result = state.executeQuery(query);
+            
+            String mdp = result.getString("mot_de_passe_agent");
+            
+            
+            if (mdp.contentEquals(passe)) {
+            	System.out.println("Vous êtes connecté");
+            }
+            else { System.out.println("Mot de passe incorrect");}
+
+        } catch (SQLException e1) {
+        	System.out.println(e1.getMessage());
+        	
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+        	try {
+        		if (conn != null) {
+        			conn.close();
+        		}
+        	} catch (SQLException ex) {
+        		System.out.println(ex.getMessage());
+        	}
+        }
+
+	}
 
 }
 
