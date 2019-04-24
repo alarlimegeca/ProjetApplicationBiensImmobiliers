@@ -33,4 +33,34 @@ public enum TypeHabitation {
 		    l1.getContenu2();
 		    l2.getContenu2();	   
 	}
+	
+	public TypeHabitation parseHabitation(String habitation){
+		if (habitation.equals("Prairie")){
+			return Prairie;
+		}
+		if (habitation.equals("Foret")){
+			return Foret;
+		}
+		if (habitation.equals("Maison")){
+			return Maison;
+		}
+		if (habitation.equals("Appartement")){
+			return Appartement;
+		}
+		if (habitation.equals("Chambre")){
+			return Chambre;
+		}
+		if (habitation.equals("Entrepot")){
+			return Entrepot;
+		}
+		if (habitation.equals("Parking")){
+			return Parking;
+		}
+		if (habitation.equals("Bureaux")){
+			return Bureaux;
+		}
+		else {
+			return Terrain_vague;
+		}
+	}
 }
