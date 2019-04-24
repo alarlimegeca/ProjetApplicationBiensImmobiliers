@@ -132,26 +132,43 @@ public class Client extends Particulier {
 	}
 	
 	public void soumettre_annonce() {
-		System.out.println("Votre bien est-il ? Constructible, Habitable, Non habitable");
-		String type = scan.nextLine();
+		String titre = Dialogue.titreAnnonce();
 		
-		System.out.println("nom du bien");
-		String nom = scan.nextLine();
+		String typeBien = Dialogue.typeBien();
 		
-		System.out.println("surface totale du bien");
-		double surface = scan.nextDouble();
-		scan.nextLine();
+		String precis = Dialogue.typeHabitation(typeBien);
 		
-		System.out.println("distance transports en commun");
-		double distance = scan.nextDouble();
-		scan.nextLine();
+		String environnement = Dialogue.typeEnvironnement();
 		
-		System.out.println("");
-		String type = scan.nextLine();
-		if (type.equals("Constructible")) {
-			
-			
+		String nom = Dialogue.nomBien();
+		
+		String surf = Dialogue.surfaceBien();
+		double surface = Double.parseDouble(surf);
+		
+		String dist = Dialogue.distanceTransports();
+		double distancetr = Double.parseDouble(dist);
+		
+		String dist2 = Dialogue.distanceCommerce();
+		double distancecom = Double.parseDouble(dist2);
+		
+		String dist3 = Dialogue.distanceTransports();
+		double distanceeco = Double.parseDouble(dist3);
+		
+		if (typeBien.equals("Constructible")) {
+		String qual = Dialogue.qualiteTerrain();
+		int qualite = Integer.parseInt(qual);
 		}
+		
+		if (typeBien.equals("Habitable")) {
+			
+		String surf2 = Dialogue.surfaceBien();
+		double surfaceJardin = Double.parseDouble(surf2);
+		
+		String nbpi = Dialogue.nb_pieces();
+		int nbpieces = Integer.parseInt(nbpi);
+		
+		String nbba = Dialogue.nb_pieces();
+		int nbbains = Integer.parseInt(nbba);
 	}
 	
 	public static void main(String[] args) {
