@@ -95,4 +95,26 @@ public class Adresse {
 			e.printStackTrace();
 		}
 	}
+		 public String toString(){
+		    String str;
+		    if(this.id_adresse == 0){
+		      str = "Affichage adresse \n";
+		      str += "id_adresse : à déterminer \n";
+		      str += this.pays +"\n";
+		      str += this.numero + " " + this.voie +  "\n";
+		      str += this.code_postal + " " + this.commune + "\n";
+		      str += "Code INSEE : " + this.code_INSEE + "\n";
+		      str += "Environnement : " + this.environnement.getContenu1() + "\n";
+		    }
+		    else{
+		    	str = "Affichage adresse \n";
+			      str += "id_adresse : " + this.id_adresse + "\n";
+			      str += this.pays+ "\n";
+			      str += this.numero + " " + this.voie +  "\n";
+			      str += this.code_postal + " " + this.commune + "\n";
+			      str += "Code INSEE : " + this.code_INSEE + "\n";
+			      str += "Environnement : " + this.environnement.getContenu1() + "\n";
+		    }
+		    return str;
+		  }
 }
