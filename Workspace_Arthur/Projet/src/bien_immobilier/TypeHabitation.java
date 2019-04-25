@@ -26,13 +26,7 @@ public enum TypeHabitation {
 	public String toString(){
 		return name;
 	}
-	public static void main(String args[]){
-		TypeHabitation l1 = TypeHabitation.Maison;
-		TypeHabitation l2 = TypeHabitation.Parking;
-		      
-		    l1.getContenu2();
-		    l2.getContenu2();	   
-	}
+
 	
 	public TypeHabitation parseHabitation(String habitation){
 		if (habitation.equals("Prairie")){
