@@ -25,7 +25,7 @@ public class Construit extends Bien_immobilier {
 	}
 
 	@Override
-	public void estimation(String DB_URL) {
+	public abstract double estimation(String DB_URL, int id_bien ) {
 		// TODO Auto-generated method stub
 		
 	}
