@@ -134,11 +134,38 @@ public class Client extends Particulier {
 	public void soumettre_annonce() {
 		String titre = Dialogue.titreAnnonce();
 		
+		JOptionPane jop = new JOptionPane();
+		jop.showMessageDialog(null, "Vous allez devoir rentrer l'adresse précise de votre bien dans un premier temps.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+		
+		String pays = Dialogue.pays();
+		
+		String commune = Dialogue.commune();
+		
+		String postal = Dialogue.code_postal();
+		
+		String insee = Dialogue.code_INSEE();
+		
+		String num = Dialogue.numero();
+		int numero = Integer.parseInt(num);
+		
+		String voie = Dialogue.voie();
+		
+		String environ = Dialogue.typeEnvironnement();
+		Environnement environnement = Environnement.parseEnvironnement(environ);
+		
+		Adresse adresse = new Adresse(0,numero,voie,postal,insee,commune,pays,environnement);
+		
+		JOptionPane jop1 = new JOptionPane();
+		jop1.showMessageDialog(null, adresse.toString(), "Récapitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
+		
+		JOptionPane jop2 = new JOptionPane();
+		jop2.showMessageDialog(null, "Vous allez maintenant devoir rentrer les caractéristiques du bien en lui-même","Bien", JOptionPane.INFORMATION_MESSAGE);
+		
 		String typeBien = Dialogue.typeBien();
 		
 		String precis = Dialogue.typeHabitation(typeBien);
 		
-		String environnement = Dialogue.typeEnvironnement();
+		String transaction = Dialogue.typeTransaction();
 		
 		String nom = Dialogue.nomBien();
 		
@@ -169,6 +196,8 @@ public class Client extends Particulier {
 		
 		String nbba = Dialogue.nb_pieces();
 		int nbbains = Integer.parseInt(nbba);
+		}	
+		
 	}
 	
 	public static void main(String[] args) {
