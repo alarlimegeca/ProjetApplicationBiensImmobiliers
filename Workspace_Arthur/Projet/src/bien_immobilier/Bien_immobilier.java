@@ -7,6 +7,7 @@ public abstract class Bien_immobilier {
 	public double surface;
 	public double transports;
 	public Typehabitation type_habitation;
+	public Environnement environnement;
 	
 	
 	public Bien_immobilier(int id_bien, String nom, int id_adresse, double surface,double transports, Typehabitation type_habitation) {
@@ -54,7 +55,12 @@ public abstract class Bien_immobilier {
 	public void setType_habitation(Typehabitation type_habitation) {
 		this.type_habitation=type_habitation;
 	}
-	
+	public Environnement getEnvironnement() {
+		return environnement;
+	}
+	public void setEnvironnement(Environnement environnement) {
+		this.environnement=environnement;
+	}
 	
 	static final String DB_URL = "jdbc:postgresql://localhost:5432/gestion_immobilier"; 
 	static final String USER = "postgres"; 
