@@ -19,4 +19,15 @@ public enum Environnement {
 		return name;
 	}
 	
+	public static Environnement parseEnvironnement(String environnement) {
+		if (environnement.equals("Ville")) {
+			return Ville;
+		}
+		if (environnement.equals("Banlieue")) {
+			return Banlieue;
+		}
+		else {
+			return Campagne;
+		}
+	
 }
