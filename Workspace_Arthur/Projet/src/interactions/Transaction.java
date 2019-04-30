@@ -1,94 +1,53 @@
 package interactions;
 
-import java.util.Date;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
+import java.util.Date;
 
-public class Creneau {
+import individus.Agent_immobilier;
+import individus.Particulier;
 
-	public String creneau;
+public class Transaction {
+ 
+	private String date_transaction;
+	private Particulier leparticulier;
+	private Agent_immobilier lagent;
+	private Type_Transaction type_transaction;
+	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
 	
-	
-	public Creneau(String creneau) {
-		this.creneau=creneau;
+
+	public Transaction(Type_Transaction type_transaction, Particulier leparticulier, Agent_immobilier lagent) {
+		super();
+		this.type_transaction=type_transaction;
+		this.leparticulier=leparticulier;
+		this.lagent=lagent;
+		this.date_transaction = Date_Ajd();
 	}
 	
-	public String getCreneau() {
-		return this.creneau;
+	public String Date_Ajd(){
+		Date date=new Date();	
+		String date_ajd = dateFormat.format(date);
+		return date_ajd;
+
 	}
 	
-	public void setCreneau(String creneau) {
-		this.creneau=creneau;
+	public Type_Transaction getType_Transaction() {
+		return this.type_transaction;
 	}
 	
-	
-	public static void ajouterCreneau() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Nouveau créneau à ajouter : (format dd/mm/YYYY hh:mm");
-		String creneau=sc.nextLine();
-		BDD.ajouterCreneau(creneau);
+	public void setType_Transaction(Type_Transaction type_transaction) {
+		this.type_transaction=type_transaction;
 	}
 	
+	public String getDate_Transaction() {
+		return this.date_transaction;
+	}
 	
-		
-		public static void supprimerCreneau() throws SQLException, ClassNotFoundException, ParseException, IOException {
-		      
-		    int count = 0;
-			Connection conn = null;
-		    Statement stmt = null;
-		    Statement stmt2 = null;
-		    Statement stmt3 = null;
+	public void setDate_Transaction(String date_transaction) {
+		this.date_transaction=date_transaction;
+	}
+	
 
-
-		    Class.forName("org.sqlite.JDBC");
-		    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
-		    stmt = conn.createStatement();
-		    stmt2 = conn.createStatement();
-		    stmt3 = conn.createStatement();
-
-
-            ResultSet res = stmt.executeQuery("SELECT COUNT(*) FROM creneau");
-            while (res.next()){
-                count = res.getInt(1);
-            }
-            
-            System.out.println("count = "+count);
-
-            for (int i = count ; i>0 ; i--  ) {
-            	System.out.println(i+" itération");
-            	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            	ResultSet res2 = stmt2.executeQuery("SELECT * FROM creneau WHERE rowid= " + i );
-        		Date date_ajd=new Date();
-        		String date ="";
-                while (res2.next()) {
-                	date = res2.getString("heure");
-                	System.out.println(date);
-                }
-            	Date date1 = format.parse(date);
-            	System.out.println("date1 ="+date1);
-            	System.out.println("dateajd ="+date_ajd);
-        		if (date_ajd.compareTo(date1) >= 0) {          	
-        			System.out.println("on supprime");
-        			conn.setAutoCommit(false);
-        			String sql = "DELETE from creneau where heure='"+date+"'";
-        			stmt3.executeUpdate(sql);
-        			conn.commit();
-        		}
-		   
-            }
-            stmt.close();
-            stmt2.close();
-            stmt3.close();
-		    conn.close();
-		}
-
-		
 }
 
