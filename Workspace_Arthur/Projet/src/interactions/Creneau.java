@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+import individus.Dialogue;
+
 public class Creneau {
 	
 	public String creneau;	
@@ -29,9 +31,7 @@ public class Creneau {
 	
 	
 	public static void ajouterCreneau() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Nouveau créneau à ajouter : (format dd/mm/YYYY hh:mm");
-		String creneau=sc.nextLine();
+		String creneau = Dialogue.creneau();
 		BDD.ajouterCreneau(creneau);
 	}
 	
@@ -66,7 +66,6 @@ public class Creneau {
 
             for (int i = count ; i>0 ; i--  ) {
             	try{
-            	System.out.println(i+" itération");
             	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             	ResultSet res2 = stmt2.executeQuery("SELECT * FROM creneau WHERE rowid= " + i );
         		Date date_ajd=new Date();
@@ -76,13 +75,9 @@ public class Creneau {
                 	System.out.println(date);
                 }
             	Date date1 = format.parse(date);
-            	System.out.println("date1 ="+date1);
-            	System.out.println("dateajd ="+date_ajd);
         		if (date_ajd.compareTo(date1) >= 0) {          	
-        			System.out.println("on supprime");
+        			System.out.println("supprime date trop ancienne");
         			conn.setAutoCommit(false);
-        			String sql = "DELETE from creneau where heure='"+date+"'";
-        			stmt3.executeUpdate(sql);
         			String sql2 ="DELETE from creneau where rowid="+i;
         			stmt4.executeUpdate(sql2);
         			conn.commit();
@@ -91,6 +86,11 @@ public class Creneau {
             }
             	catch (ParseException e){
             		continue;
+            	}
+            	catch (NullPointerException e){
+            		System.out.println("supprime null");
+            		String sql = "DELETE from creneau where rowid="+i;
+        			stmt3.executeUpdate(sql);
             	}
             }
             stmt.close();
@@ -101,7 +101,6 @@ public class Creneau {
 
 		    conn.close();
 		}
-	
 
 		
 }
