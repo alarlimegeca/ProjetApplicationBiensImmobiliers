@@ -6,15 +6,15 @@ public class Agent_immobilier extends Individu{
 	
 	private String pseudo_agent;
 	private String mot_de_passe_agent;
-	private double note;
+	private Respo_agence respo;
 
 	// CONSTRUCTEURS
 	
-	public Agent_immobilier(int id_individu, String nom, String prenom, String e_mail, int num_tel, String pseudo_agent, String mot_de_passe_agent, double note) {
+	public Agent_immobilier(int id_individu, String nom, String prenom, String e_mail, int num_tel, String pseudo_agent, String mot_de_passe_agent, Respo_agence respo) {
 		super(id_individu, nom, prenom, e_mail, num_tel);
 		this.pseudo_agent = pseudo_agent;
 		this.mot_de_passe_agent = mot_de_passe_agent;
-		this.note = note;
+		this.respo = respo;
 	}
 	
 	// ACCESSEURS ET MUTATEURS
@@ -35,12 +35,12 @@ public class Agent_immobilier extends Individu{
 		this.mot_de_passe_agent = mot_de_passe_agent;
 	}
 	
-	public double getNote() {
-		return note;
+	public Respo_agence getRespo() {
+		return respo;
 	}
-	
-	public void setNote(double note) {
-		this.note = note;
+
+	public void setRespo(Respo_agence respo) {
+		this.respo = respo;
 	}
 	
 	// AUTRES METHODES
