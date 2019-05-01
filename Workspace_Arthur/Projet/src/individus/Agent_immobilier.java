@@ -10,11 +10,10 @@ public class Agent_immobilier extends Individu{
 
 	// CONSTRUCTEURS
 	
-	public Agent_immobilier(int id_individu, String nom, String prenom, String e_mail, int num_tel, String pseudo_agent, String mot_de_passe_agent, Respo_agence respo) {
+	public Agent_immobilier(int id_individu, String nom, String prenom, String e_mail, int num_tel, String pseudo_agent, String mot_de_passe_agent) {
 		super(id_individu, nom, prenom, e_mail, num_tel);
 		this.pseudo_agent = pseudo_agent;
 		this.mot_de_passe_agent = mot_de_passe_agent;
-		this.respo = respo;
 	}
 	
 	// ACCESSEURS ET MUTATEURS
