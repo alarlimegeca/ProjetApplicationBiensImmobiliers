@@ -14,6 +14,10 @@ public class Respo_agence extends Agent_immobilier {
 	
 	private String pseudo_respo;
 	private String mot_de_passe_respo;
+	private ArrayList<Annonce> receptionA;
+	private ArrayList<Client> receptionC;
+	private ArrayList<Client> lclient;
+	private ArrayList<Agent_immobilier> lagent;
 	
 	// CONSTRUCTEURS
 
@@ -41,6 +45,39 @@ public class Respo_agence extends Agent_immobilier {
 	public void setPasseRespo(String mot_de_passe_respo) {
 		this.mot_de_passe_respo = mot_de_passe_respo;
 	}
+	
+	public ArrayList<Client> getLclient() {
+	return lclient;
+		 }
+		
+	 public void setLclient(ArrayList<Client> lclient) {
+	 this.lclient = lclient;
+	 }
+	 
+	 public ArrayList<Agent_immobilier> getLagent() {
+	 return lagent;
+	 }
+	
+	 public void setLagent(ArrayList<Agent_immobilier> lagent) {
+	 this.lagent = lagent;
+	 }
+	 
+	public void lienResAgent(Agent_immobilier agent){
+		lagent.add(agent);
+		agent.setRespo(this);
+	}
+	
+	public void lienResCli(Client client){
+		lclient.add(client);
+		client.setRespo(this);
+	}
+	
+	public void lienResRecClient(Client client){
+		receptionC.add(client);
+		client.setRespo(this);
+	}
+	
+	// AUTRES METHODES
 	
 	public static int voirStatAgent(int id_agent) {
 		Connection conn = null;
