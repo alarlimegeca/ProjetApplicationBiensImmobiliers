@@ -22,10 +22,14 @@ public class Respo_agence extends Agent_immobilier {
 	// CONSTRUCTEURS
 
 	public Respo_agence(int id_individu, String nom, String prenom, String e_mail, int num_tel, String pseudo_agent,
-			String mot_de_passe, double note, String pseudo_respo, String mot_de_passe_respo) {
-		super(id_individu, nom, prenom, e_mail, num_tel, pseudo_agent, mot_de_passe, note);
+			String mot_de_passe, String pseudo_respo, String mot_de_passe_respo) {
+		super(id_individu, nom, prenom, e_mail, num_tel, pseudo_agent, mot_de_passe);
 		this.pseudo_respo = pseudo_respo;
 		this.mot_de_passe_respo = mot_de_passe_respo;
+		this.lagent = new ArrayList<Agent_immobilier> ();
+		this.lclient = new ArrayList<Client>();
+		this.receptionA = new ArrayList<Annonce>();
+		this.receptionC = new ArrayList<Client>();
 	}
 	
 	// ACCESSEURS ET MUTATEURS
