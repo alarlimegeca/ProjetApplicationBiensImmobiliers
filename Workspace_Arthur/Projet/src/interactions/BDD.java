@@ -10,6 +10,28 @@ import java.util.Date;
 
 public class BDD {
 
+	public static void ajouterAnnonce(Integer id_annonce, String titre, boolean valide, Integer id_bien, Integer id_agent, Integer id_client) {
+		try {
+			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"annonce\"(id_annonce,titre,valide,id_bien,id_agent,id_client) VALUES (?,?,?,?,?,?)");
+			preparedState.setInt(1,id_annonce);
+			preparedState.setString(2, titre); 
+			preparedState.setBoolean(3, valide); 
+			preparedState.setInt(4, id_bien);
+			preparedState.setInt(5, id_agent);
+			preparedState.setInt(6, id_client);
+			
+			System.out.println(preparedState.toString()); // on affiche la requete prete a etre executee
+
+			preparedState.executeUpdate(); // execution de la requete preparee
+
+			preparedState.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+ 
+	
 	public void ajouterBien_immo_Hab() {
 		try {
 			String type_hab= type_habitation.getContenu2();
@@ -288,6 +310,84 @@ public static int search(String table){
     }
 	return 0;
 }
+	
+public static int trouver_id(String nom, String prenom){
+		Connection conn = null;
+		int rep = 0;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT id_individu FROM client WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+	    	String query2 = "SELECT id_individu FROM particulier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+	    	String query3 = "SELECT id_individu FROM agent_immobilier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+	    	String query4 = "SELECT id_individu FROM respo_agence WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    	if (result.next()){
+	    	rep = result.getInt("id_individu");}
+	    	
+	    	ResultSet result2 = state.executeQuery(query2);
+	    	if (result2.next()){
+		    	rep = result2.getInt("id_individu");}
+	    	
+	    	ResultSet result3 = state.executeQuery(query3);
+	    	if (result3.next()){
+		    	rep = result3.getInt("id_individu");}
+	    	
+	    	ResultSet result4 = state.executeQuery(query4);
+	    	if (result4.next()){
+		    	rep = result4.getInt("id_individu");}
+	    	
+	    	if (rep == 0) {
+	    		String query5 = "SELECT MAX(id_individu) FROM respo_agence";
+		    	String query6 = "SELECT MAX(id_individu) FROM particulier";
+		    	String query7 = "SELECT MAX(id_individu) FROM client";
+		    	String query8 = "SELECT MAX(id_individu) FROM agent_immobilier";
+	    
+	    	ResultSet result5 = state.executeQuery(query5);
+	    	int respo_max = 0;
+	    	if (result5.next()){
+	    	respo_max = result5.getInt("MAX(id_individu)");}
+	    	
+	    	ResultSet result6 = state.executeQuery(query6);
+	    	int part_max = 0;
+	    	if (result6.next()){
+		    	part_max = result6.getInt("MAX(id_individu)");}
+	    	
+	    	ResultSet result7 = state.executeQuery(query7);
+	    	int client_max = 0;
+	    	if (result7.next()){
+		    	client_max = result7.getInt("MAX(id_individu)");}
+	    	
+	    	ResultSet result8 = state.executeQuery(query8);
+	    	int agent_max = 0;
+	    	if (result8.next()){
+		    	agent_max = result8.getInt("MAX(id_individu)");}
+	    	
+	    	rep = Math.max(Math.max(Math.max(part_max,client_max),respo_max),agent_max);
+	    	rep++;
+	    	
+	    	}
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return rep;
+	}
+	
 	public static void main(String[] args) {
 		ajouterNote(001,2.5,"yo");
 		ajouterCreneau("30/04/2019 15:20");
