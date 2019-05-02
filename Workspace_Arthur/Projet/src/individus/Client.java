@@ -47,56 +47,48 @@ public class Client extends Particulier {
 	
 	static Scanner scan = new Scanner(System.in);
 	
-	public static void creer_compte() {
+	public static void creer_compte(Respo_agence respo) {
+	    
+		JOptionPane jop = new JOptionPane();
+	    
+		String nom = Dialogue.nom_ind();
+		String prenom = Dialogue.prenom_ind(); 
+		String e_mail = Dialogue.e_mail();
+		String num_tel = Dialogue.num_tel_ind();
 		
-		System.out.println("id_individu");
-		int id_individu = scan.nextInt();
-		scan.nextLine();
-		
-		System.out.println("nom");
-		String nom = scan.nextLine();
-		
-		System.out.println("prénom");
-		String prenom = scan.nextLine();
-		
-		System.out.println("adresse e_mail");
-		String e_mail = scan.nextLine();
-		
-		System.out.println("numéro de téléphone");
-		String num_tel = scan.nextLine();
-		
-		System.out.println("pseudo");
-		String pseudo = scan.nextLine();
+		String pseudo = Dialogue.pseudo("client");
 		while (BDDInd.est_dans_BDD("client", "pseudo_client", pseudo)) {
-			System.out.println("pseudo déjà pris");
-			System.out.println("pseudo");
-			pseudo = scan.nextLine();
-		};
-		
-        System.out.println("mot de passe");
-		String mdp = scan.nextLine();
-		System.out.println("confirmer mot de passe");
-		String cmdp = scan.nextLine();
-		while (!(mdp.contentEquals(cmdp))) {
-			System.out.println("Les deux mots de passe doivent correspondre");
-			System.out.println("mot de passe");
-			mdp = scan.nextLine();
-			System.out.println("confirmer mot de passe");
-			cmdp = scan.nextLine();
+			jop.showMessageDialog(null, "Le pseudo est déjà utilisé par un autre client.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+		    pseudo = Dialogue.pseudo("client");
 		}
 		
-		BDDInd.ajouterClient(id_individu, nom, prenom, e_mail, num_tel, pseudo, mdp);
+        String mdp = Dialogue.mot_de_passe("client");
+    	jop.showMessageDialog(null, "Veuillez confirmer votre mot de passe.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+	    String cmdp = Dialogue.mot_de_passe("client");
+		while (!(mdp.contentEquals(cmdp))) {
+			jop.showMessageDialog(null, "Les deux mots de passe doivent correspondre.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+			mdp = Dialogue.mot_de_passe("client");
+			jop.showMessageDialog(null, "Les deux mots de passe doivent correspondre.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+			cmdp = Dialogue.mot_de_passe("client");
+		}
+	    //BDDInd.ajouterClient(id_individu, nom, prenom, e_mail, num_tel, pseudo, mdp);
+		Client client = new Client(0,nom,prenom,e_mail,num_tel,pseudo,mdp);
+		jop.showMessageDialog(null, client.toString("client"),"Adresse", JOptionPane.INFORMATION_MESSAGE);
+		int valide = Dialogue.confirmation("Souhaitez-vous confirmer votre candidature ?");
+		if (valide == 0) {
+			client.lienCliRes(respo);
+		}
 	}
 	
+	
 	public static void se_connecter_client() {
-		System.out.println("Pseudo_client ?");
-		String pseudo = scan.nextLine();
-		System.out.println("Mot_de_passe_client ?");
-		String passe = scan.nextLine();
+		String pseudo = Dialogue.pseudo("client");
+		String passe = Dialogue.mot_de_passe("client");
 		Connection conn = null;
         try {
+        	JOptionPane jop = new JOptionPane();
         	// db parameters
-        	String url = "jdbc:sqlite:/media/formation/CLEF MENGIN/Projet info/BDD/Individus.db";
+        	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
         	//create a connection to the database
         	Class.forName("org.sqlite.JDBC");
         	conn = DriverManager.getConnection(url);
@@ -109,10 +101,13 @@ public class Client extends Particulier {
             
             
             if (mdp.contentEquals(passe)) {
-            	System.out.println("Vous êtes connecté");
+            	jop.showMessageDialog(null, "Vous êtes bien connecté sous le pseudo "+pseudo, "Récapitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
+        		
             }
-            else { System.out.println("Mot de passe incorrect");}
-
+            else { 
+            	jop.showMessageDialog(null, "Mot de passe incorrect", "connexion", JOptionPane.INFORMATION_MESSAGE);  
+            }
+            
         } catch (SQLException e1) {
         	System.out.println(e1.getMessage());
         	
@@ -130,6 +125,7 @@ public class Client extends Particulier {
         }
 
 	}
+	
 	
 	public void soumettre_annonce() {
 		String titre = Dialogue.titreAnnonce();
