@@ -145,14 +145,12 @@ public class Respo_agence extends Agent_immobilier {
 	}
 	
 	public static void se_connecter_respo() {
-		System.out.println("Pseudo_respo ?");
-		String pseudo = scan.nextLine();
-		System.out.println("Mot_de_passe_respo ?");
-		String passe = scan.nextLine();
+		String pseudo = Dialogue.pseudo("responsable d'agence");
+		String passe = Dialogue.mot_de_passe("responsable d'agence");
 		Connection conn = null;
         try {
-        	// db parameters
-        	String url = "jdbc:sqlite:/media/formation/CLEF MENGIN/Projet info/BDD/Individus.db";
+        	JOptionPane jop = new JOptionPane();
+        	String url = "jdbc:F:\\Projet info\\BDD\\bdd.db";
         	//create a connection to the database
         	Class.forName("org.sqlite.JDBC");
         	conn = DriverManager.getConnection(url);
@@ -165,10 +163,13 @@ public class Respo_agence extends Agent_immobilier {
             
             
             if (mdp.contentEquals(passe)) {
-            	System.out.println("Vous êtes connecté");
+            	jop.showMessageDialog(null, "Vous êtes connecté sous le pseudo " +pseudo, "Connexion", JOptionPane.INFORMATION_MESSAGE);  
+        		
             }
-            else { System.out.println("Mot de passe incorrect");}
-
+            else { 
+            	jop.showMessageDialog(null, "Mot de passe incorrect", "Connexion", JOptionPane.INFORMATION_MESSAGE);  
+            }
+    		
         } catch (SQLException e1) {
         	System.out.println(e1.getMessage());
         	
@@ -186,7 +187,7 @@ public class Respo_agence extends Agent_immobilier {
         }
 
 	}
-
+	
 	public static void main(String[] args) {
 		
 		voirStatAgent(1);
