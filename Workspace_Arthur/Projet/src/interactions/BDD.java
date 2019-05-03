@@ -388,6 +388,271 @@ public static int trouver_id(String nom, String prenom){
 		return rep;
 	}
 	
+	public static Individu construire_ind(int id_individu,String statut){
+		Connection conn = null;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT * FROM '" +statut+ "' WHERE id_individu = "+id_individu;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    	
+	    	int id_ind = result.getInt("id_individu");
+	    	String nom = result.getString("nom");
+	    	String prenom = result.getString("prenom");
+	    	String e_mail = result.getString("e_mail");
+	    	String num_tel = result.getString("num_tel");
+	    	
+	    	if (statut.equals("particulier")){
+	    		Particulier particulier = new Particulier(id_ind,nom,prenom,e_mail,num_tel);
+	    		return particulier;
+	    	}
+	    	if (statut.equals("client")){
+	    		String pseudo = result.getString("pseudo_client");
+	    		String mdp = result.getString("mot_de_passe_client");
+	    		Client client = new Client(id_ind,nom,prenom,e_mail,num_tel,pseudo,mdp);
+	    		return client;
+	    	}
+	    	if (statut.equals("agent")){
+	    		String pseudo = result.getString("pseudo_agent");
+	    		String mdp = result.getString("mot_de_passe_agent");
+	    		Agent_immobilier agent = new Agent_immobilier(id_ind,nom,prenom,e_mail,num_tel,pseudo,mdp);
+	    		return agent;
+	    	}
+	    	else {
+	    		String pseudo = result.getString("pseudo_agent");
+	    		String mdp = result.getString("mot_de_passe_agent");
+	    		String pseudo_respo = result.getString("pseudo_respo");
+	    		String mdp_respo = result.getString("mot_de_passe_respo");
+	    		Respo_agence respo = new Respo_agence(id_ind,nom,prenom,e_mail,num_tel,pseudo,mdp,pseudo_respo,mdp_respo);
+	    		return respo;
+	    	}
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return null;
+		
+	}
+	
+	public static Adresse construire_adresse(int id_adresse){
+		Connection conn = null;
+		int trouve = 0;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT * FROM adresse WHERE id_adresse = "+id_adresse;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    	int numero = result.getInt("numero");
+	    	String voie = result.getString("voie");
+	    	String postal = result.getString("code_postal");
+	    	String insee = result.getString("code_insee");
+	    	String commune = result.getString("commune");
+	    	String pays = result.getString("pays");
+	    	String environnement = result.getString("environnement");
+	    	Environnement environ = Environnement.parseEnvironnement(environnement);
+	    	Adresse adresse = new Adresse(id_adresse,numero,voie,postal,insee,commune,pays,environ);
+	    	return adresse;
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return null;
+		
+	}
+	
+	public static Bien_immobilier construire_bien(int id_bien,String statut){
+		Connection conn = null;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT * FROM '" +statut+ "' WHERE id_bien = "+id_bien;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    	
+	    	int id_adresse = result.getInt("id_adresse");
+			Adresse adresse = construire_adresse(id_adresse);
+			
+			String precis = result.getString("type_habitation");
+			TypeHabitation habitation = TypeHabitation.parseHabitation(precis);
+			
+			String transac = result.getString("type_transaction");
+			TypeTransaction transaction = TypeTransaction.parseTransaction(transac);
+			
+			String nom = result.getString("nom");
+			
+			double surface = result.getDouble("surface");
+			
+			double distancetr = result.getDouble("distance_transports");
+			
+			double distancecom = result.getDouble("distance_commerces");
+			
+			double distanceeco = result.getDouble("distance_ecole");
+	    	
+			
+	    	if (statut.equals("constructible")){
+
+	    		int qualite = result.getInt("qualite");
+	    		
+	    		Constructible constructible = new Constructible(id_bien, nom, adresse, surface,distancetr, habitation, qualite, distanceeco, distancecom);
+	    		return constructible;
+	    		
+	    	}
+	    	if (statut.equals("habitable")){
+	    		
+	    		double surface_batie = result.getDouble("surface_batie");
+	    		double surface_jardin = result.getDouble("surface_jardin");
+	    		int nbbains = result.getInt("nombre_sallesdeau");
+	    		int nbpieces = result.getInt("nombre_pieces");
+	    		int annee = result.getInt("date_construction");
+	    		
+	    		Habitable habitable = new Habitable(id_bien, nom,adresse, surface,distancetr, habitation, surface_batie,annee, nbpieces, nbbains, distancecom, distanceeco, surface_jardin); 
+	    		return habitable;
+	    		
+	    	}
+	    	else {
+	    		
+	    		double surface_batie = result.getDouble("surface_batie");
+	    		int annee = result.getInt("date_construction");
+	    		
+	    		Non_habitable non_habitable = new Non_habitable(0, nom,  adresse, surface,distancetr, habitation, surface_batie,annee); 
+	    		return non_habitable;
+	    	
+	    	}
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return null;
+		
+	}
+	
+	public static Annonce construire_annonce(int id_annonce){
+		Connection conn = null;
+		int trouve = 0;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT * FROM annonce WHERE id_annonce = "+id_annonce;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+
+	    	String hab = result.getString("habitation");
+	    	
+	    	String titre = result.getString("titre");
+	    	
+	    	boolean valide = result.getBoolean("valide");
+	    	
+	    	int id_bien = result.getInt("id_bien");
+	    	Bien_immobilier bien = construire_bien(id_bien, hab);	
+	    	
+	    	int id_agent = result.getInt("id_agent");
+	    	Agent_immobilier agent = (Agent_immobilier) construire_ind(id_agent,"agent");
+
+	    	int id_client = result.getInt("id_client");
+	    	Client client = (Client) construire_ind(id_client,"client");
+	    	
+	    	String trans = result.getString("type_transaction");
+	    	TypeTransaction transaction = TypeTransaction.parseTransaction(trans); 
+	    	
+	    	Annonce annonce = new Annonce(id_annonce,titre,valide,transaction,bien,agent,client);
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return null;
+		
+	}
+	
+	public static Transaction construire_transaction(int id_transaction){
+		Connection conn = null;
+		int trouve = 0;
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// RequÃªte SQL
+	    	String query = "SELECT * FROM transaction WHERE id_transaction = "+id_transaction;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+		return null;
+		
+	}
+	
 	public static void main(String[] args) {
 		ajouterNote(001,2.5,"yo");
 		ajouterCreneau("30/04/2019 15:20");
