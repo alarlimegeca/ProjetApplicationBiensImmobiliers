@@ -12,12 +12,12 @@ public class Transaction {
 	private String date_transaction;
 	private Particulier leparticulier;
 	private Agent_immobilier lagent;
-	private Type_Transaction type_transaction;
+	public static TypeTransaction type_transaction;
 	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 	
 
-	public Transaction(Type_Transaction type_transaction, Particulier leparticulier, Agent_immobilier lagent) {
+	public Transaction(TypeTransaction type_transaction, Particulier leparticulier, Agent_immobilier lagent) {
 		super();
 		this.type_transaction=type_transaction;
 		this.leparticulier=leparticulier;
@@ -32,7 +32,7 @@ public class Transaction {
 
 	}
 	
-	public Type_Transaction getType_Transaction() {
+	public TypeTransaction getType_Transaction() {
 		return this.type_transaction;
 	}
 	
