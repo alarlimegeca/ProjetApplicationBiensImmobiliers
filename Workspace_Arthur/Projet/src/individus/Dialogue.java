@@ -21,10 +21,10 @@ public static String typeBien() {
 
 public static String typeHabitation(String typeBien) {
 	if (typeBien.equals("Constructible")) {
-    String[] listeHabitation = {"Terrain_vague", "Prairie", "Forêt"};
+    String[] listeHabitation = {"Terrain_vague", "Prairie", "ForÃªt"};
     JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -36,7 +36,7 @@ public static String typeHabitation(String typeBien) {
 	String[] listeHabitation = {"Entrepot", "Parking", "Bureaux", "Garage"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -48,7 +48,7 @@ public static String typeHabitation(String typeBien) {
 	String[] listeHabitation = {"Maison", "Appartement", "Chateau", "Chambre"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -98,7 +98,7 @@ public static String titreAnnonce() {
   
   public static String qualiteTerrain() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String qualite = jop.showInputDialog(null, "Veuillez entrer la qualité du terrain (entre 1 et 5).", "Qualité", JOptionPane.QUESTION_MESSAGE);
+	    String qualite = jop.showInputDialog(null, "Veuillez entrer la qualitÃ© du terrain (entre 1 et 5).", "QualitÃ©", JOptionPane.QUESTION_MESSAGE);
 		return qualite;
 }
   
@@ -110,7 +110,7 @@ public static String titreAnnonce() {
   
   public static String distanceEcole() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String distanceeco = jop.showInputDialog(null, "Veuillez entrer la distance du bien à l'école la plus proche (km).", "Transports", JOptionPane.QUESTION_MESSAGE);
+	    String distanceeco = jop.showInputDialog(null, "Veuillez entrer la distance du bien Ã  l'Ã©cole la plus proche (km).", "Transports", JOptionPane.QUESTION_MESSAGE);
 		return distanceeco;
 }
 	
@@ -121,13 +121,20 @@ public static String titreAnnonce() {
 }
   public static String nb_pieces() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String nbpieces = jop.showInputDialog(null, "Veuillez entrer le nombre de pièces.", "Transports", JOptionPane.QUESTION_MESSAGE);
+	    String nbpieces = jop.showInputDialog(null, "Veuillez entrer le nombre de piÃ¨ces.", "Transports", JOptionPane.QUESTION_MESSAGE);
 		return nbpieces;
 }
   public static String nb_salles_eaux() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
 	    String nbbains = jop.showInputDialog(null, "Veuillez entrer le nombre de salles de bains.", "Transports", JOptionPane.QUESTION_MESSAGE);
 		return nbbains;
+}
+	
+ public static int confirmation(String contexte){
+  JOptionPane jop = new JOptionPane();			
+  int choix = jop.showConfirmDialog(null, contexte, "Validation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+return choix;
+
 }
   public static void main(String[] args) {
  typeBien();
