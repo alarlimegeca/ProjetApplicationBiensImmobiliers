@@ -53,7 +53,14 @@ public class Non_habitable extends Construit {
 		if(env=="Campagne") {m2=800;}
 		
 		double dmoy= (dt+ ds + dct)/3;
-		return surface*m2*dmoy*ds;
+		
+		String TypeTrans=Transaction.type_transaction.getContenu3();
+		
+		if (TypeTrans=="Vente") {return surface*m2*dmoy*ds;}
+		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy*ds;}
+		if (TypeTrans=="Vente_viager") {return (0.003393009)*surface*m2*dmoy*ds;}
+		
 	}
+
 
 }
