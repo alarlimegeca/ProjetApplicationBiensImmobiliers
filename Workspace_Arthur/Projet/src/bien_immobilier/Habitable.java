@@ -123,7 +123,13 @@ public class Habitable extends Construit {
 		if(env=="Campagne") {m2=1500;}
 		
 		double dmoy= (dt+dc+de+dp+dsa+dj)/6;
-		return surface*m2*dmoy;
+		
+		String TypeTrans=Transaction.type_transaction.getContenu3();
+		
+		if (TypeTrans=="Vente") {return surface*m2*dmoy;}
+		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy;}
+		if (TypeTrans=="Vente_viager") {return (0.003393009)*surface*m2*dmoy;}
+		
 	}
 }
 
