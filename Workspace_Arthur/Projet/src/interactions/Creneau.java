@@ -1,11 +1,10 @@
-ppackage interactions;
+package interactions;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import java.awt.List;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,33 +39,59 @@ public class Creneau {
 		BDD.ajouterCreneau(creneau);
 	}
 	
-	public static String visionner_creneaux_dispos() throws ClassNotFoundException, SQLException, IOException{
-		supprimerCreneau();
+	public static String visionner_creneaux_dispos(int id_particulier, int id_bien) throws ClassNotFoundException, SQLException, IOException{
+		supprimerCreneauAncien();
+		Connection conn = null;
+	    Statement stmt = null;
+	    Statement stmt2 = null;
+	    Class.forName("org.sqlite.JDBC");
+	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
+	    stmt = conn.createStatement();
+	    stmt2 = conn.createStatement();
+	    ArrayList<String> liste_creneau=new ArrayList<String>();
+	    ResultSet res = stmt.executeQuery("SELECT heure FROM creneau");
+        while (res.next()){
+             liste_creneau.add(res.getString("heure"));
+         }
+        String[] liste_creneau_simple = new String[ liste_creneau.size() ];
+        liste_creneau.toArray( liste_creneau_simple );
+        String lecreneau=Dialogue.creneauDispo(liste_creneau_simple);
+        BDD.ajouterRDV(lecreneau, id_particulier, 0, id_bien,0);
+        System.out.println(lecreneau);
+	    String sql = "DELETE FROM creneau WHERE heure = '"+lecreneau+"'";
+	    stmt2.executeUpdate(sql);
+	    stmt.close();
+	    stmt2.close();
+	    conn.close();
+	      
+	    return lecreneau;
+	}
+	
+	public static void demandeRdv() throws ClassNotFoundException, SQLException {
 		Connection conn = null;
 	    Statement stmt = null;
 	    Class.forName("org.sqlite.JDBC");
 	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 	    stmt = conn.createStatement();
-	    ArrayList<String> liste_creneau=new ArrayList<String>();
-	     ResultSet res = stmt.executeQuery("SELECT heure FROM creneau");
-         while (res.next()){
-             liste_creneau.add(res.getString("heure"));
-         }
-         String[] liste_creneau_simple = new String[ liste_creneau.size() ];
-         liste_creneau.toArray( liste_creneau_simple );
-         JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-         String lecreneau = (String)JOptionPane.showInputDialog(null, 
-	      "Choisissez le créneau vous convenant le mieux : ",
-	      "Horaire",
-	      JOptionPane.QUESTION_MESSAGE,
-	      null,
-	      liste_creneau_simple,
-	      liste_creneau_simple[2]);
-	      
-	    return lecreneau;
+	    ResultSet res = stmt.executeQuery("SELECT heure FROM rendezvous WHERE rdv_valide=0");        
+	    while (res.next()){
+     	   String heure = res.getString("heure");
+     	  stmt.close();
+     	  conn.close();
+     	   if (heure!=null){
+     		   String choix=Dialogue.voirRdv();
+     		   if (choix=="Oui"){
+     			  creneauDispo();
+     		   }
+     		   else{
+     			   
+     		   }
+     	   }
+        }
+	    
 	}
 	
-	public void creneauDispo() throws ClassNotFoundException, SQLException{
+	public static void creneauDispo() throws ClassNotFoundException, SQLException{
 		Connection conn = null;
 	    Statement stmt = null;
 	    Statement stmt2 = null;
@@ -79,12 +104,12 @@ public class Creneau {
 	    stmt2 = conn.createStatement();
 	    stmt3 = conn.createStatement();
 	    stmt4 = conn.createStatement();  
-	    ResultSet res = stmt.executeQuery("SELECT * FROM rendezvous WHERE rdv_valide = 0");
+	    ResultSet res = stmt.executeQuery("SELECT * FROM rendezvous WHERE rdv_valide =0");
         while (res.next()){
            String heure = res.getString("heure");
            String id_bien = res.getString("id_bien");
            String id_particulier = res.getString("id_particulier");
-           ResultSet res2 = stmt2.executeQuery("SELECT * FROM bienimmobilier WHERE id_bien = "+id_bien);
+           ResultSet res2 = stmt2.executeQuery("SELECT * FROM biens_immobiliers WHERE id_bien = "+id_bien);
            while (res2.next()){
         	   String nom_bien = res2.getString("nom");
         	   String id_adresse = res2.getString("id_adresse");
@@ -95,30 +120,29 @@ public class Creneau {
             	   String code_postal = res3.getString("code_postal");
             	   String commune = res3.getString("commune");
             	   String pays = res3.getString("pays");
-            	   ResultSet res4 = stmt4.executeQuery("SELECT * FROM particulier WHERE id_particulier = "+id_particulier);
+            	   ResultSet res4 = stmt4.executeQuery("SELECT * FROM particulier WHERE id_individu = "+id_particulier);
                    while (res4.next()){
                 	   String nom_particulier = res4.getString("nom");
                 	   String prenom_particulier = res4.getString("prenom");
-                	   
+           		        stmt.close();
+           		        stmt2.close();
+           		        stmt3.close();
+           		        stmt4.close();
+           			    conn.close();
                        valider_rdv(heure,nom_bien, numero, voie, code_postal, commune, pays, nom_particulier, prenom_particulier);
-
+                       demandeRdv();
                    }
                }
            }
            
         }
-        stmt.close();
-        stmt2.close();
-        stmt3.close();
-        stmt4.close();
-	    conn.close();
+
 	}
 	
 	
 	
-	public void valider_rdv(String heure, String nom_bien, String numero, String voie, String code_postal, 
+	public static void valider_rdv(String heure, String nom_bien, String numero, String voie, String code_postal, 
 			String commune, String pays, String nom_particulier, String prenom_particulier) throws ClassNotFoundException, SQLException{
-		
 			String choix=Dialogue.accepter_rdv(heure,  nom_bien,  numero,  voie,  code_postal,  commune, 
 				   pays,  nom_particulier,  prenom_particulier);
 			if (choix == "Oui"){
@@ -134,25 +158,33 @@ public class Creneau {
 		        while (res.next()){
 		             liste_agent.add(res.getString("nom"));
 		         }
-		         String[] liste_agent_simple = new String[ liste_agent.size() ];
-		         liste_agent.toArray( liste_agent_simple );
+		        String[] liste_agent_simple = new String[ liste_agent.size() ];
+		        liste_agent.toArray( liste_agent_simple );
 				String nom_agent = Dialogue.affecter_agent(liste_agent_simple);
-			    ResultSet res2 = stmt2.executeQuery("SELECT id_individu FROM agent_immobilier WHERE nom=" + nom_agent);
+			    ResultSet res2 = stmt2.executeQuery("SELECT id_individu FROM agent_immobilier WHERE nom LIKE '" + nom_agent+"'");
 			    while (res2.next()){
-		             int id_agent=res.getInt("id_individu");    
-		             int valide=1;
-		             PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"rendezvous\"(id_agent,valide) VALUES (?,?)");
-		             preparedState.setInt(1,id_agent);
-		             preparedState.setInt(2, valide); 
+		             int id_agent=res2.getInt("id_individu");  
+					 stmt.close();
+				     stmt2.close();
+				     String sql = "UPDATE rendezvous set id_agent = ? where heure= ?";
+				     PreparedStatement prepstmt = conn.prepareStatement(sql);
+				     prepstmt .setInt(1, id_agent);
+				     prepstmt .setString(2, heure);
+				     prepstmt .executeUpdate();
+				     String sql2 = "UPDATE rendezvous set rdv_valide = ? where heure= ?";
+				     PreparedStatement prepstmt2 = conn.prepareStatement(sql2);
+				     prepstmt2.setInt(1, 1);
+				     prepstmt2.setString(2, heure);
+				     prepstmt2.executeUpdate();
+				     conn.close();
+
 			    }
-			    stmt.close();
-		        stmt2.close();
-			    conn.close();
+
 			}
 			
 	}
 		
-		public static void supprimerCreneau() throws SQLException, ClassNotFoundException, IOException {
+		public static void supprimerCreneauAncien() throws SQLException, ClassNotFoundException, IOException {
 		      
 		    int count = 0;
 			Connection conn = null;
@@ -217,8 +249,9 @@ public class Creneau {
 		    conn.close();
 		}
 		
-	
+
 		
 }
+
 
 
