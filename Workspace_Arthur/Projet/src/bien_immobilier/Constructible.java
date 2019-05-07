@@ -2,12 +2,12 @@ package bien_immobilier;
 
 public class Constructible extends Bien_immobilier {
 	
-	public int qualite_terrain;
-	public double commerce;
-	public double ecole;
+		private int qualite_terrain;
+	private double commerce;
+	private double ecole;
 
-	public Constructible (int id_bien, String nom, int id_adresse, double surface, double transports, Typehabitation type_habitation, int qualite_terrain,double commerce, double ecole) {
-		super(id_bien, nom, id_adresse, surface,transports, type_habitation);
+	public Constructible (int id_bien, String nom, boolean en_ligne, Adresse adresse,double surface, double transports, TypeHabitation type_habitation, int qualite_terrain,double commerce, double ecole) {
+		super(id_bien, nom, en_ligne,adresse,surface,transports, type_habitation);
 		this.qualite_terrain=qualite_terrain;
 		this.commerce=commerce;
 		this.ecole=ecole;
