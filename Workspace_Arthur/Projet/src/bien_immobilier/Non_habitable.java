@@ -1,4 +1,15 @@
-private double commerce;
+package bien_immobilier;
+
+
+import individu.Connexion;
+import interactions.Transaction;
+import interactions.TypeTransaction;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Non_habitable extends Construit {
+	private double commerce;
 	private double ecole;	
 	
 	public Non_habitable(int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, double commerce,double ecole) {
@@ -6,36 +17,37 @@ private double commerce;
 		this.commerce = commerce;
 		this.ecole = ecole;
 	}
-	public void ajouterBien_immo_NonHab() {
-		 {
-		try {
-			String type_hab= getType_habitation().getContenu2();
-			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO non_habitable(id_bien,nom,id_adresse,surface,transports,commerce,ecole,type_habitation,surface_batie,date_construction,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-			preparedState.setInt(1,getId_bien()); 
-			preparedState.setString(2,getNom()); 
-			preparedState.setDouble(3,getAdresse().getId_adresse()); 
-			preparedState.setDouble(5,getTransports()); 
-			preparedState.setString(6,type_hab); 
-			preparedState.setDouble(7,commerce);
-			preparedState.setDouble(8,ecole); 
-			preparedState.setString(6,type_hab); 
-			preparedState.setDouble(9,getSurface_batie()); 
-			preparedState.setDouble(4,getSurface() ); 
-			preparedState.setInt(10,getDate_construction());
-			preparedState.setBoolean(11,isEn_ligne());
-			
-			
-			System.out.println(preparedState.toString());
-
-			preparedState.executeUpdate();
-
-			preparedState.close();
-		} catch (SQLException e) {
 	
-			e.printStackTrace();
-		}
+public void ajouterBien_immo_NonHab() {
+	 {
+	try {
+		String type_hab= getType_habitation().getContenu2();
+		PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO non_habitable(id_bien,nom,id_adresse,surface,transports,commerce,ecole,type_habitation,surface_batie,date_construction,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+		preparedState.setInt(1,getId_bien()); 
+		preparedState.setString(2,getNom()); 
+		preparedState.setDouble(3,getAdresse().getId_adresse()); 
+		preparedState.setDouble(5,getTransports()); 
+		preparedState.setString(6,type_hab); 
+		preparedState.setDouble(7,commerce);
+		preparedState.setDouble(8,ecole); 
+		preparedState.setString(6,type_hab); 
+		preparedState.setDouble(9,getSurface_batie()); 
+		preparedState.setDouble(4,getSurface() ); 
+		preparedState.setInt(10,getDate_construction());
+		preparedState.setBoolean(11,isEn_ligne());
+
+
+		System.out.println(preparedState.toString());
+
+		preparedState.executeUpdate();
+
+		preparedState.close();
+	} catch (SQLException e) {
+
+		e.printStackTrace();
 	}
-	}
+}
+}
 	
 	public String toString(){
 	    String str;
