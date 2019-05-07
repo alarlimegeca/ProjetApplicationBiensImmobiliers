@@ -32,8 +32,8 @@ public class Constructible extends Bien_immobilier {
 	public void setEcole(double ecole) {
 		this.ecole=ecole;
 	}
-
-		public void ajouterBien_immo_Constr() {
+		
+	public void ajouterBien_immo_Constr() {
 		try {
 			String type_hab= getType_habitation().getContenu2();
 			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO constructible(id_bien,nom,id_adresse,surface,transports,type_habitation,qualite_terrain,commerce,ecole,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?)");
