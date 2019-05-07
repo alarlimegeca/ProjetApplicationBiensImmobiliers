@@ -48,7 +48,7 @@ private double commerce;
 	      str += "Surface batie : " + this.getSurface_batie() + "\n";
 	      return str;
 	    }	
-	public double estimation(String DB_URL, int id_bien) {
+	public double estimation_Nhab() {
 		String env=environnement.getContenu1();
 		
 		double dt=0;
@@ -73,11 +73,11 @@ private double commerce;
 		
 		double dmoy= (dt+ ds + dct)/3;
 		
-		String TypeTrans=Transaction.type_transaction.getContenu3();
+String TypeTrans=Transaction.type_transaction.getContenu3();
 		
 		if (TypeTrans=="Vente") {return surface*m2*dmoy*ds;}
 		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy*ds;}
-		if (TypeTrans=="Vente_viager") {return (0.003393009)*surface*m2*dmoy*ds;}
+		else {return (0.003393009)*surface*m2*dmoy*ds;}
 		
 	}
 
