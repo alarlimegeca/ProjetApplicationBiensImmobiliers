@@ -50,5 +50,54 @@ public class Particulier extends Individu{
 		return id_particulier;
 	}
 	
+	public boolean recherche_bien() {
+		
+		Connection conn = null;
+	    try {
+	    	// db parameters
+	    	String url = "jdbc:sqlite:bdd";
+	    	//create a connection to the database
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+			
+			// Requête SQL
+			String query = "SELECT * FROM Constructible WHERE type_hab LIKE '"+Particulier.typeHabitation(typeBien())+"' AND type_env LIKE '"+Particulier.typeEnvironnement()+"'";
+			
+			Statement state = Connexion.getinstance().createStatement();
+
+	        ResultSet result = state.executeQuery(query);
+	        while (result.next()) {
+	        	String nom = result.getString("nom");
+	        	Double surface = result.getDouble("surface");
+	        	Double jardin  = result.getDouble("jardin");
+	        	Integer quali_terrain= result.getInt("quali_terrain");
+	        	Integer nbr_pieces =result.getInt("nbr_pieces");
+	        	Integer nbr_sallesdeau =result.getInt("nbr_sallesdeau");
+	        	Double ecole =result.getDouble("ecole");
+	        	Double commerce =result.getDouble("commerce");
+	        	Double transports =result.getDouble("transports");
+	        	Integer date_construction = result.getInt("date_construction");
+	        	System.out.println("nom:"+nom+"  date de la construction:"+date_construction+"  surface:"+surface+"  jardin:"+jardin+"  qualité du terrain:"+quali_terrain+"  nombre de pièces:"+nbr_pieces+"  nombre de salles d'eau:"+nbr_sallesdeau+"  distance des transports en commun:"+transports+"  distance d'un commerce:"+commerce+"  distance d'une école:"+ecole+"");
+	        	}
+	        }
+	        
+	         catch (SQLException e1) {
+	        	System.out.println(e1.getMessage());
+	        	
+	        } catch (ClassNotFoundException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	        	try {
+	        		if (conn != null) {
+	        			conn.close();
+	        		}
+	        	} catch (SQLException ex) {
+	        		System.out.println(ex.getMessage());
+	        	}
+	    	return false;
+	    	
+	        }
+	    }
+	
 
 }
