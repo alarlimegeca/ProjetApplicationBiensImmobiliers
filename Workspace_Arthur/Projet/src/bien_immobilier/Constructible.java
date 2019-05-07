@@ -72,7 +72,8 @@ public class Constructible extends Bien_immobilier {
 		      return str;
 		    }	
 	
-	public double estimation(String DB_URL,int id_bien) {
+	public double estimation_Cons() {
+		
 		String env=environnement.getContenu1();
 		
 		double dt=0;
@@ -112,7 +113,7 @@ public class Constructible extends Bien_immobilier {
 		
 		if (TypeTrans=="Vente") {return surface*m2*dmoy;}
 		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy;}
-		if (TypeTrans=="Vente_viager") {return (0.003393009)*surface*m2*dmoy;}
+		else {return (0.003393009)*surface*m2*dmoy;}
 	}
 		
 	public static void main(String[] args) {
