@@ -1,15 +1,23 @@
+
 package bien_immobilier;
 
+import individu.Connexion;
+import interactions.Application;
+import interactions.TypeTransaction;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Habitable extends Construit {
+
+private int nombre_pieces;
+	private int nombre_sallesdeau;
+	private double commerce;
+	private double ecole;
+	private double jardin;
 	
-	public int nombre_pieces;
-	public int nombre_sallesdeau;
-	public double commerce;
-	public double ecole;
-	public double jardin;
-	
-	public Habitable (int id_bien, String nom, int id_adresse, double surface,double transports, Typehabitation type_habitation, double surface_batie,int date_construction, int nombre_pieces, int nombre_sallesdeau, double commerce, double ecole, double jardin) {
-		super( id_bien,  nom, id_adresse, surface, transports, type_habitation, surface_batie, date_construction);
+	public Habitable (int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, int nombre_pieces, int nombre_sallesdeau, double commerce, double ecole, double jardin) {
+		super( id_bien,  nom, en_ligne, adresse, surface, transports, type_habitation, surface_batie, date_construction);
 		this.nombre_pieces=nombre_pieces;
 		this.nombre_sallesdeau=nombre_sallesdeau;
 		this.commerce=commerce;
