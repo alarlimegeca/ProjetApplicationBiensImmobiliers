@@ -78,7 +78,7 @@ public class Habitable extends Construit {
 		}
 	}
 
-	public double estimation(String DB_URL, int id_bien) {
+public double estimation_Hab() {
 		
 		String env=environnement.getContenu1();
 		
@@ -124,11 +124,11 @@ public class Habitable extends Construit {
 		
 		double dmoy= (dt+dc+de+dp+dsa+dj)/6;
 		
-		String TypeTrans=Transaction.type_transaction.getContenu3();
+String TypeTrans=Transaction.type_transaction.getContenu3();
 		
 		if (TypeTrans=="Vente") {return surface*m2*dmoy;}
 		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy;}
-		if (TypeTrans=="Vente_viager") {return (0.003393009)*surface*m2*dmoy;}
+		else {return (0.003393009)*surface*m2*dmoy;}
 		
 	}
 }
