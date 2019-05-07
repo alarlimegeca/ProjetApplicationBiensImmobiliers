@@ -33,19 +33,20 @@ public class Constructible extends Bien_immobilier {
 		this.ecole=ecole;
 	}
 
-		public static void ajouterBien_immo_Constr(TypeHabitation type_habitation,int id_bien,String nom, int id_adresse,double transports, int qualite_terrain, double ecole, double commerce, double surface) {
+		public void ajouterBien_immo_Constr() {
 		try {
-			String type_hab= type_habitation.getContenu2();
-			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO biens_immobiliers(id_bien,nom,id_adresse,surface,transports,type_habitation,qualite_terrain,commerce,ecole) VALUES (?,?,?,?,?,?,?,?,?)");
-			preparedState.setInt(1, id_bien); 
-			preparedState.setString(2, nom); 
-			preparedState.setInt(3, id_adresse); 
-			preparedState.setDouble(5,transports); 
+			String type_hab= getType_habitation().getContenu2();
+			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO constructible(id_bien,nom,id_adresse,surface,transports,type_habitation,qualite_terrain,commerce,ecole,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			preparedState.setInt(1, getId_bien()); 
+			preparedState.setString(2, getNom()); 
+			preparedState.setInt(3, getAdresse().getId_adresse()); 
+			preparedState.setDouble(5,getTransports()); 
 			preparedState.setString(6,type_hab); 
 			preparedState.setInt(7, qualite_terrain); 
 			preparedState.setDouble(8,commerce); 
 			preparedState.setDouble(9, ecole); 
-			preparedState.setDouble(4,surface ); 
+			preparedState.setDouble(4,getSurface() ); 
+			preparedState.setBoolean(10,isEn_ligne() );
 			
 			System.out.println(preparedState.toString());
 
@@ -57,6 +58,19 @@ public class Constructible extends Bien_immobilier {
 			e.printStackTrace();
 		}
 	}
+		
+	 public String toString(){
+		    String str;
+		      str = "Description bien \n";
+		      str += "Nom : " + this.getNom() + "\n";
+		      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+		      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+		      str += "Distance à l'école la plus proche : " + this.ecole  +  " km\n";
+		      str += "Distance aux commerces : " + this.commerce + " km\n";
+		      str += "Qualité terrain : " + this.qualite_terrain + "\n";
+		      str += "Surface du bien : " + this.getSurface() + "\n";
+		      return str;
+		    }	
 	
 	public double estimation(String DB_URL,int id_bien) {
 		String env=environnement.getContenu1();
