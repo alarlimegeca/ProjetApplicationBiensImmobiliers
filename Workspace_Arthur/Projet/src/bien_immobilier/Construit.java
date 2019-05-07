@@ -24,9 +24,4 @@ public abstract class Construit extends Bien_immobilier {
 		this.date_construction=date_construction;
 	}
 
-	@Override
-	public abstract double estimation(String DB_URL, int id_bien ) {
-		// TODO Auto-generated method stub
-		
-	}
 }
