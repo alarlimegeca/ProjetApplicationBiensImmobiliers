@@ -136,6 +136,73 @@ public static String titreAnnonce() {
 return choix;
 
 }
+	public static String voirRdv() {
+	  	
+	  	String[] listeChoix = {"Oui", "Non"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String choix = (String)jop.showInputDialog(null, 
+	     "Vous avez une demande de rendez-vous, souhaitez-vous y répondre",
+	      "Rendez-vous",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeChoix,
+	      listeChoix[1]);
+	    return choix;
+		}
+  public static String creneauDispo(String[] liste_creneau_simple){
+	  
+      JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+      String lecreneau = (String)JOptionPane.showInputDialog(null, 
+	      "Choisissez le créneau vous convenant le mieux : ",
+	      "Horaire",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      liste_creneau_simple,
+	      liste_creneau_simple[0]);
+      return lecreneau;
+  }
+  
+  public static String choisirBien(String[] liste_biens){
+	  
+      JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+      String lebien = (String)JOptionPane.showInputDialog(null, 
+	      "Choisissez le bien que vous voulez visiter : ",
+	      "Rendez-Vous",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      liste_biens,
+	      liste_biens[0]);
+      return lebien;
+  }
+  
+  public static  void voir_rdv(String[] liste_rdv){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null, liste_rdv,"Adresse", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  public static String nom() {
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String nom = jop.showInputDialog(null, "Veuillez votre nom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+		return nom;
+  }
+  public static String prenom() {
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String prenom = jop.showInputDialog(null, "Veuillez votre prenom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+		return prenom;
+}
+  
+  public static String telephone() {
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String telephone = jop.showInputDialog(null, "Veuillez votre numéro de téléphone : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+		return telephone;
+}
+  
+  public static String email() {
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String email = jop.showInputDialog(null, "Veuillez votre adresse email : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+		return email;
+}
+  
   public static void main(String[] args) {
  typeBien();
    
