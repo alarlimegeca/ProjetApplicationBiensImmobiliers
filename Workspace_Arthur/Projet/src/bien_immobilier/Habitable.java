@@ -48,24 +48,24 @@ public class Habitable extends Construit {
 		this.jardin=jardin;
 	}
 	public void ajouterBien_immo_Hab() {
+		 {
 		try {
-			String type_hab= type_habitation.getContenu2();
-			String env=environnement.getContenu1();
-			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO bien_immobilier(id_bien,nom,id_adresse,surface,transports,type_hab,commerce,ecole,surface_batie,date_construction,nombre_pieces,nombre_sallesdeau,jardin,env) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			preparedState.setInt(1,id_bien); 
-			preparedState.setString(2,nom); 
-			preparedState.setDouble(3,id_adresse); 
-			preparedState.setDouble(5,transports); 
+			String type_hab= getType_habitation().getContenu2();
+			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO habitable(id_bien,nom,id_adresse,surface,transports,type_habitation,commerce,ecole,surface_batie,date_construction,nombre_pieces,nombre_sallesdeau,jardin,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			preparedState.setInt(1,getId_bien()); 
+			preparedState.setString(2,getNom()); 
+			preparedState.setInt(3, getAdresse().getId_adresse()); 
+			preparedState.setDouble(5,getTransports()); 
 			preparedState.setString(6,type_hab);
-			preparedState.setDouble(10,surface_batie); 
-			preparedState.setDouble(8,commerce); 
-			preparedState.setDouble(9,ecole); 
-			preparedState.setDouble(4,surface ); 
-			preparedState.setInt(11,date_construction); 
-			preparedState.setInt(12,nombre_pieces ); 
-			preparedState.setInt(13,nombre_sallesdeau ); 
-			preparedState.setDouble(14,jardin ); 
-			preparedState.setString(15, env);
+			preparedState.setDouble(9,getSurface_batie()); 
+			preparedState.setDouble(7,commerce); 
+			preparedState.setDouble(8,ecole); 
+			preparedState.setDouble(4,getSurface() ); 
+			preparedState.setInt(10,getDate_construction()); 
+			preparedState.setInt(11,nombre_pieces ); 
+			preparedState.setInt(12,nombre_sallesdeau ); 
+			preparedState.setDouble(13,jardin ); 
+			preparedState.setBoolean(14, isEn_ligne());
 			
 			System.out.println(preparedState.toString());
 
@@ -76,6 +76,7 @@ public class Habitable extends Construit {
 	
 			e.printStackTrace();
 		}
+		 }
 	}
 
 public double estimation_Hab() {
