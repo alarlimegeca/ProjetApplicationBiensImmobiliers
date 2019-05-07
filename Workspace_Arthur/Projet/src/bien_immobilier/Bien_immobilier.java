@@ -85,8 +85,6 @@ public abstract class Bien_immobilier {
 		}
 	}
 }
-	
-	public abstract void estimation(String DB_URL);
 		
 }
 
