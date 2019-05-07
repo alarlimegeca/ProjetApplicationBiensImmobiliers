@@ -1,22 +1,28 @@
-package bien_immobilier;
-
-public class Non_habitable extends Construit {
-
-	public Non_habitable(int id_bien, String nom, int id_adresse, double surface,double transports, Typehabitation type_habitation, double surface_batie,int date_construction) {
-		super(id_bien, nom, id_adresse, surface, transports,type_habitation, surface_batie, date_construction);
+private double commerce;
+	private double ecole;	
+	
+	public Non_habitable(int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, double commerce,double ecole) {
+		super(id_bien, nom, en_ligne, adresse, surface, transports,type_habitation, surface_batie, date_construction);
+		this.commerce = commerce;
+		this.ecole = ecole;
 	}
 	public void ajouterBien_immo_NonHab() {
+		 {
 		try {
-			String type_hab= type_habitation.getContenu2();
-			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO bien_immobilier(id_bien,nom,id_adresse,surface,transports,type_hab,surface_batie,date_construction) VALUES (?,?,?,?,?,?,?,?)");
-			preparedState.setInt(1,id_bien); 
-			preparedState.setString(2,nom); 
-			preparedState.setDouble(3,id_adresse); 
-			preparedState.setDouble(5,transports); 
+			String type_hab= getType_habitation().getContenu2();
+			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO non_habitable(id_bien,nom,id_adresse,surface,transports,commerce,ecole,type_habitation,surface_batie,date_construction,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+			preparedState.setInt(1,getId_bien()); 
+			preparedState.setString(2,getNom()); 
+			preparedState.setDouble(3,getAdresse().getId_adresse()); 
+			preparedState.setDouble(5,getTransports()); 
 			preparedState.setString(6,type_hab); 
-			preparedState.setDouble(10,surface_batie); 
-			preparedState.setDouble(4,surface ); 
-			preparedState.setInt(11,date_construction); 
+			preparedState.setDouble(7,commerce);
+			preparedState.setDouble(8,ecole); 
+			preparedState.setString(6,type_hab); 
+			preparedState.setDouble(9,getSurface_batie()); 
+			preparedState.setDouble(4,getSurface() ); 
+			preparedState.setInt(10,getDate_construction());
+			preparedState.setBoolean(11,isEn_ligne());
 			
 			
 			System.out.println(preparedState.toString());
@@ -29,6 +35,19 @@ public class Non_habitable extends Construit {
 			e.printStackTrace();
 		}
 	}
+	}
+	
+	public String toString(){
+	    String str;
+	      str = "Description bien \n";
+	      str += "Nom : " + this.getNom() + "\n";
+	      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+	      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+	      str += "Année de construction : " + this.getDate_construction() + "\n";
+	      str += "Surface du bien : " + this.getSurface() + "\n";
+	      str += "Surface batie : " + this.getSurface_batie() + "\n";
+	      return str;
+	    }	
 	public double estimation(String DB_URL, int id_bien) {
 		String env=environnement.getContenu1();
 		
