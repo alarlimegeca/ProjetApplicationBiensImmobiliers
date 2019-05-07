@@ -50,6 +50,77 @@ public class Particulier extends Individu{
 		return id_particulier;
 	}
 	
+		public static String typeBien() {
+		String[] listeBiens = {"Constructible", "Non habitable", "Habitable"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String type = (String)jop.showInputDialog(null, 
+	      "Veuillez entrer le type de bien que vous souhaitez (Constructible, Non habitable ou Habitable).",
+	      "Type de bien",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeBiens,
+	      listeBiens[2]);
+	    return type;
+		}
+	
+	public static String typeHabitation(String typeBien) {
+		if (typeBien.equals("Constructible")) {
+	    String[] listeHabitation = {"Terrain_vague", "Prairie", "Forêt"};
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String type = (String)jop.showInputDialog(null, 
+	      "Veuillez sélectionner le type de bien (Terrain vague, Prairie ou Forêt).",
+	      "Type de bien",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeHabitation,
+	      listeHabitation[2]);
+	    return type;
+		}
+		if (typeBien.equals("Non habitable")) {
+		String[] listeHabitation = {"Entrepot", "Parking", "Bureaux", "Garage"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String type = (String)jop.showInputDialog(null, 
+	      "Veuillez sélectionner le type de bien (Entrepot, Parking, Bureaux ou Garage).",
+	      "Type de bien",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeHabitation,
+	      listeHabitation[2]);
+	    return type;
+		}
+		else {
+		String[] listeHabitation = {"Maison", "Appartement", "Chateau", "Chambre"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String type = (String)jop.showInputDialog(null, 
+	      "Veuillez sélectionner le type de bien (Maison, Appartement, Chateau ou Chambre).",
+	      "Type de bien",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeHabitation,
+	      listeHabitation[2]);
+	    return type;
+		}
+		
+	   
+	}
+	
+	public static String typeEnvironnement() {
+		String[] listeEnvironnements = {"Ville", "Banlieue", "Campagne"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String type = (String)jop.showInputDialog(null, 
+	      "Veuillez entrer la localisation recherchée (Ville, Banlieue ou Campagne).",
+	      "Environnement",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeEnvironnements,
+	      listeEnvironnements[2]);
+	    return type;
+	}
+	
+	
+	
+	
+	
 	public boolean recherche_bien() {
 		
 		Connection conn = null;
