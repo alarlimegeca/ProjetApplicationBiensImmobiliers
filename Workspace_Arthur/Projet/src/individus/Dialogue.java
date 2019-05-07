@@ -1,4 +1,4 @@
-package individu;
+package individus;
 
 import interactions.TypeTransaction;
 
