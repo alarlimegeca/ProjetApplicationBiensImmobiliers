@@ -1,6 +1,6 @@
 package bien_immobilier;
 
-public class Construit extends Bien_immobilier {
+public abstract class Construit extends Bien_immobilier {
 	
 	public double surface_batie;
 	public int date_construction;
