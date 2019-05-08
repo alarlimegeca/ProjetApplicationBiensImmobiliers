@@ -130,13 +130,39 @@ public static String titreAnnonce() {
 		return nbbains;
 }
 	
- public static int confirmation(String contexte){
-  JOptionPane jop = new JOptionPane();			
-  int choix = jop.showConfirmDialog(null, contexte, "Validation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-return choix;
-
-}
-	public static String voirRdv() {
+ public static String creneau() {
+	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String creneau = jop.showInputDialog(null, "Nouveau créneau à ajouter : (format jj/mm/AAAA hh:mm)", "Ajout créneau", JOptionPane.QUESTION_MESSAGE);
+		return creneau;
+  }
+  public static String accepter_rdv(String heure, String nom_bien, String numero, String voie, String code_postal, String commune, 
+		  String pays, String nom_particulier, String prenom_particulier) {
+	  	
+	  	String[] listeChoix = {"Oui", "Non"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String choix = (String)jop.showInputDialog(null, 
+	      nom_particulier+" "+prenom_particulier+" vous propose un rendez-vous pour le bien : "+nom_bien+"."+"\nAdresse : "+numero+" "+voie+" "+commune+" "+
+	    		  code_postal+" "+pays+"\nVoulez-vous accepter ce rendez-vous",
+	      "Rendez-vous",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeChoix,
+	      listeChoix[1]);
+	    return choix;
+		}
+  public static String affecter_agent(String[] liste_agent){
+	  JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String agent = (String)jop.showInputDialog(null, 
+	      "Quel agent voulez-vous affecter à ce rendez-vous ? ",
+	      "Rendez-vous",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      liste_agent,
+	      liste_agent[1]);
+	    return agent;
+		}
+  
+  public static String voirRdv() {
 	  	
 	  	String[] listeChoix = {"Oui", "Non"};
 		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
@@ -166,7 +192,7 @@ return choix;
 	  
       JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
       String lebien = (String)JOptionPane.showInputDialog(null, 
-	      "Choisissez le bien que vous voulez visiter : ",
+	      "Choisissez le bien que vous voulez visiter ou acheter : ",
 	      "Rendez-Vous",
 	      JOptionPane.QUESTION_MESSAGE,
 	      null,
@@ -174,6 +200,21 @@ return choix;
 	      liste_biens[0]);
       return lebien;
   }
+  
+  public static String choix_rdv_achat() {
+	  	
+	  	String[] listeChoix = {"Prendre rdv pour ce bien", "Acheter ce bien"};
+		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	    String choix = (String)jop.showInputDialog(null, 
+	     "Souhaitez-vous prendre rendez-vous pour ce bien ou l'acheter ? ",
+	      "Immobilier",
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      listeChoix,
+	      listeChoix[0]);
+	    return choix;
+		}
+  
  public static  void voir_rdv(String[] liste_rdv){
 	  JOptionPane jop = new JOptionPane();
 	jop.showMessageDialog(null, liste_rdv,"Adresse", JOptionPane.INFORMATION_MESSAGE);
