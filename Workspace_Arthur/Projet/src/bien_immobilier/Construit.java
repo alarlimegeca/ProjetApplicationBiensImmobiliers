@@ -2,14 +2,20 @@ package bien_immobilier;
 
 public abstract class Construit extends Bien_immobilier {
 	
+	//ATTRIBUTS
+	
 	public double surface_batie;
 	public int date_construction;
+	
+	//CONSTRUCTEUR
 	
 	public Construit (int id_bien, String nom, int id_adresse, double surface,double transports, Typehabitation type_habitation, double surface_batie,int date_construction) {
 		super(id_bien, nom, id_adresse, surface, transports, type_habitation);
 		this.surface_batie=surface_batie;
 		this.date_construction=date_construction;
 	}
+	
+	//ACCESSEURS ET MUTATEURS
 	
 	public double getSurface_batie() {
 		return surface_batie;
