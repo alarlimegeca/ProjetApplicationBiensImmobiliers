@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Adresse {
+	
+	//ATTRIBUTS
+	
 	public int id_adresse;
 	public int numero;
 	public String voie;
@@ -13,6 +16,8 @@ public class Adresse {
 	public String pays;
 	public Environnement environnement;
 	
+	//CONSTRUCTEUR
+
 	public Adresse(int id_adresse, int numero, String voie, String code_postal, String code_INSEE, String commune, String pays,Environnement environnement) {
 		super();
 		this.id_adresse=id_adresse;
@@ -24,6 +29,9 @@ public class Adresse {
 		this.pays=pays;
 		this.environnement=environnement;
 	}
+	
+	//ACCESSEURS ET MUTATEURS
+	
 	public int getId_adresse() {
 		return id_adresse;
 	}
@@ -72,6 +80,11 @@ public class Adresse {
 	public void setEnvironnement(Environnement environnement) {
 		this.environnement=environnement;
 	}
+	
+	/**Ajouter une adresse avec ses différents attributs à la base de données
+	 * @param id_adresse
+	 */
+	
 	public void ajouterAdresse(int id_adresse) {
 		try {
 			String env=environnement.getContenu1();
@@ -95,7 +108,12 @@ public class Adresse {
 			e.printStackTrace();
 		}
 	}
-		 public String toString(){
+		
+	/**
+	 * Donne une description des objets de la classe adresse
+	 */
+	
+		public String toString(){
 		    String str;
 		    if(this.id_adresse == 0){
 		      str = "Affichage adresse \n";
