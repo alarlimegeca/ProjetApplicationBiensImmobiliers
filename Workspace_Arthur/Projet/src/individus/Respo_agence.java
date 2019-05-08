@@ -1,7 +1,7 @@
 package individus;
 
 import interactions.Annonce;
-import interactions.B;
+import interactions.Transaction;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -23,7 +24,6 @@ public class Respo_agence extends Agent_immobilier {
 	private ArrayList<Client> receptionC;
 	private ArrayList<Client> lclient;
 	private ArrayList<Agent_immobilier> lagent;
-	private Fenetre fen;
 	
 	// CONSTRUCTEURS
 
@@ -68,13 +68,6 @@ public class Respo_agence extends Agent_immobilier {
 		return lagent;
 	}
 	
-	public Fenetre getFen() {
-		return fen;
-	}
-
-	public void setFen(Fenetre fen) {
-		this.fen = fen;
-	}
 	
 	public ArrayList<Client> getLClient() {
 		 return lclient;
@@ -149,7 +142,7 @@ public class Respo_agence extends Agent_immobilier {
             ResultSet result = state.executeQuery(query);
             while (result.next()) {
             	int id = result.getInt("id_individu");
-            	Client client = (Client) BDDInd.construire_ind(id,"reception_candidature_client");
+            	Client client = (Client) BDD.construire_ind(id,"reception_candidature_client");
             	receptionC.add(client);
         	   
             }
@@ -179,8 +172,8 @@ public class Respo_agence extends Agent_immobilier {
 			if (choix == 0){
 				Client ancien = receptionC.get(i);
 				Client nouveau = new Client(ancien.getId(),ancien.getNom(),ancien.getPrenom(),ancien.getEmail(),ancien.getNum(),ancien.getPseudoClient(), ancien.getPasse());
-				nouveau.setId(BDDInd.trouver_id(nouveau.getNom(), nouveau.getPrenom()));
-				BDDInd.ajouterClient("client",nouveau.getId(), nouveau.getNom(), nouveau.getPrenom(), nouveau.getEmail(), nouveau.getNum(), nouveau.getPseudoClient(), nouveau.getPasse());
+				nouveau.setId(BDD.trouver_id(nouveau.getNom(), nouveau.getPrenom()));
+				BDD.ajouterClient("client",nouveau.getId(), nouveau.getNom(), nouveau.getPrenom(), nouveau.getEmail(), nouveau.getNum(), nouveau.getPseudoClient(), nouveau.getPasse());
 			}
 			
 		}
@@ -211,19 +204,19 @@ public class Respo_agence extends Agent_immobilier {
             	String date = result.getString("date");
             	somme_note+=note;
             	nbr_note+=1;
-            	System.out.println("L'agent "+id+" a re�u la note : "+note +" le "+date);
+            	System.out.println("L'agent "+id+" a reçu la note : "+note +" le "+date);
             }
             double moy_note=somme_note/nbr_note;
             System.out.println("La note moyenne de cet agent est de : "+moy_note);
             if (moy_note<10) {
-                System.out.println("Nous vous proposons une prime de 0�");               
+                System.out.println("Nous vous proposons une prime de 0€");               
             }
             else if (moy_note>=10 && moy_note<15 ) {
-                System.out.println("Nous vous proposons une prime de 100�");               
+                System.out.println("Nous vous proposons une prime de 100€");               
 
             }
             else {
-                System.out.println("Nous vous proposons une prime de 200�");               
+                System.out.println("Nous vous proposons une prime de 200€");               
             }
           
            
@@ -266,8 +259,8 @@ public class Respo_agence extends Agent_immobilier {
             int id = result.getInt("id_individu");
             
             if (mdp.contentEquals(passe)) {
-            	jop.showMessageDialog(null, "Vous �tes connect� sous le pseudo " +pseudo, "Connexion", JOptionPane.INFORMATION_MESSAGE);  
-            	Respo_agence respo = (Respo_agence) BDDInd.construire_ind(id,"responsable");
+            	jop.showMessageDialog(null, "Vous êtes connecté sous le pseudo " +pseudo, "Connexion", JOptionPane.INFORMATION_MESSAGE);  
+            	Respo_agence respo = (Respo_agence) BDD.construire_ind(id,"responsable");
            		return respo;
             }
             else { 
@@ -295,16 +288,6 @@ public class Respo_agence extends Agent_immobilier {
 
 	}
 	
-	public ArrayList<String> dispo_agent() {
-		ArrayList<Integer> compte_annonce = BDDInd.compte_annonces(this.lagent);
-		ArrayList<String> l_agents = new ArrayList();
-		for (int i = 0;i<this.lagent.size();i++) {
-			String str = "" + this.lagent.get(i).getNom() + " " + this.lagent.get(i).getPrenom() + " " + compte_annonce.get(i);
-			l_agents.add(str);
-		}
-		return l_agents;
-	}
-	
 	public static void valider_annonces() {
 		
 		ArrayList<Annonce> receptionA = new ArrayList<>();
@@ -326,13 +309,13 @@ public class Respo_agence extends Agent_immobilier {
             ResultSet result = state.executeQuery(query);
             while (result.next()) {
             	int id = result.getInt("id_annonce");
-            	Annonce annonce = (Annonce) BDDInd.construire_annonce(id,"reception_annonce");
+            	Annonce annonce = (Annonce) BDD.construire_annonce(id,"reception_annonce");
             	receptionA.add(annonce);
         	    
             }
             System.out.println(receptionA.get(0).affichage().get(1));
-            //String query2 = "DELETE FROM reception_candidature_client";
-            //state.executeQuery(query2);
+            String query2 = "DELETE FROM reception_candidature_client";
+            state.executeQuery(query2);
 
 
         } catch (SQLException e1) {
@@ -349,24 +332,131 @@ public class Respo_agence extends Agent_immobilier {
         		System.out.println(ex.getMessage());
         	}
         }
+        
         JOptionPane jop = new JOptionPane();
         jop.showMessageDialog(null, "Vous avez "+receptionA.size()+" nouvelles candidatures.", "Validation", JOptionPane.INFORMATION_MESSAGE);  
 		for (int i = 0;i<receptionA.size();i++) {
 			jop.showMessageDialog(null, (receptionA.get(i).affichage()).get(0), "Adresse", JOptionPane.INFORMATION_MESSAGE);  
-			jop.showMessageDialog(null, (receptionA.get(i).affichage()).get(1), "Caract�ristiques du bien", JOptionPane.INFORMATION_MESSAGE);  
-			jop.showMessageDialog(null, (receptionA.get(i).affichage()).get(2), "Client", JOptionPane.INFORMATION_MESSAGE);  
-			int choix = Dialogue.confirmation("Souhaitez-vous mettre en ligne cette annonce ?");
-			if (choix == 0){
+			jop.showMessageDialog(null, (receptionA.get(i).affichage()).get(1), "Caractéristiques du bien", JOptionPane.INFORMATION_MESSAGE);  
+			jop.showMessageDialog(null, (receptionA.get(i).affichage()).get(2), "Client", JOptionPane.INFORMATION_MESSAGE); 
+			 
+			ArrayList<String> l_agents = new ArrayList();
+			try {
+			    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+			    	Class.forName("org.sqlite.JDBC");
+			    	conn = DriverManager.getConnection(url);
+			    	// Requête SQL
+			    	String query = "SELECT * FROM agent_immobilier";
+			    	Statement state = Connexion.getinstance().createStatement();
+			    	ResultSet result = state.executeQuery(query);
+			    
+			    	while (result.next()) {
+		            	int id_agent = result.getInt("id_agent");
+		            	Agent_immobilier agent = (Agent_immobilier) BDD.construire_ind(id_agent, "agent_immobilier");
+		            	int presence = BDD.compte_annonces(agent);
+		            	l_agents.add(id_agent+" "+agent.getPrenom() +" "+ agent.getNom() +"\n"+"Cet agent est déjà présent sur "+ presence+" annonces");
+			    	}
+			    	
+			    	
+			    } catch (SQLException e1) {
+			    	System.out.println(e1.getMessage());
+			    	
+			    } catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} finally {
+			    	try {
+			    		if (conn != null) {
+			    			conn.close();
+			    		}
+			    	} catch (SQLException ex) {
+			    		System.out.println(ex.getMessage());
+			    	}
+				}
+			    
+			    String[] agents = l_agents.toArray(new String[0]);
+			    String choix = Dialogue.choisir_agent(agents);
+			    String separation[]  = choix.split(" ");
+			    ArrayList < String > list = (ArrayList<String>) Arrays.asList(separation);
+			    
+			    int id_agent = Integer.parseInt(list.get(0));
+			    Agent_immobilier agent = (Agent_immobilier) BDD.construire_ind(id_agent, "agent_immobilier");
+			    
+			
+			
+			int decision = Dialogue.confirmation("Souhaitez-vous mettre en ligne cette annonce ?");
+			if (decision == 0){
 				Annonce ancienne = receptionA.get(i);
-				Annonce nouvelle = new Annonce(ancienne.getId_annonce(),ancienne.getTitre(), true,ancienne.getTransaction(),ancienne.getPrix(), ancienne.getLebien(), ancienne.getAgent(),ancienne.getClient(), ancienne.getHabitation() );
+				Annonce nouvelle = new Annonce(ancienne.getId_annonce(),ancienne.getTitre(), true,ancienne.getTransaction(),ancienne.getPrix(), ancienne.getLebien(), agent,ancienne.getClient(), ancienne.getHabitation() );
 				nouvelle.ajouterAnnonce("annonce");
 				}
 		
 		}
 	}
+	
+public void valider_transaction() {
+	ArrayList<Transaction> receptionT = new ArrayList<>();
+	Connection conn = null;
+    try {
+    	// db parameters
+    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+    	//create a connection to the database
+    	Class.forName("org.sqlite.JDBC");
+    	conn = DriverManager.getConnection(url);
 
-	public static void main(String[] args) {
+    	
+    	// Requête SQL
+    	String query = "SELECT * FROM reception_respo_transaction";
+   
+
+    	Statement state = Connexion.getinstance().createStatement();
+
+        ResultSet result = state.executeQuery(query);
+        while (result.next()) {
+        	int id_annonce = result.getInt("id_annonce");
+        	int id_particulier = result.getInt("id_particulier");
+        	Particulier particulier = (Particulier) BDD.construire_ind(id_particulier,"particulier");
+        	Annonce annonce = BDD.construire_annonce(id_annonce, "annonce");
+        	int id_transaction = BDD.trouver_id_transaction();
+        	Transaction transaction = new Transaction("",annonce.getTransaction(),id_transaction,annonce.getPrix(),annonce.getClient(),particulier,annonce.getAgent(),annonce.getLebien());
+        	receptionT.add(transaction);
+    	   
+        }
+        String query2 = "DELETE FROM reception_candidature_client";
+        state.executeQuery(query2);
+
+
+    } catch (SQLException e1) {
+    	System.out.println(e1.getMessage());
+    } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+    	try {
+    		if (conn != null) {
+    			conn.close();
+    		}
+    	} catch (SQLException ex) {
+    		System.out.println(ex.getMessage());
+    	}
+    }
+	JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null, "Vous avez "+receptionT.size()+" transactions à valider.", "Validation", JOptionPane.INFORMATION_MESSAGE);  
+	for (int i = 0;i<receptionC.size();i++) {
+		jop.showMessageDialog(null, receptionT.get(i).toString(), "Validation", JOptionPane.INFORMATION_MESSAGE);  
+		int choix = Dialogue.confirmation("Souhaitez-vous accepter cette transaction ?");
+		if (choix == 0){
+			Client ancien = receptionC.get(i);
+			Client nouveau = new Client(ancien.getId(),ancien.getNom(),ancien.getPrenom(),ancien.getEmail(),ancien.getNum(),ancien.getPseudoClient(), ancien.getPasse());
+			nouveau.setId(BDD.trouver_id(nouveau.getNom(), nouveau.getPrenom()));
+			receptionT.get(i).ajouterTransaction();
+		}
+		
+	}
+}
+
+public static void main(String[] args) {
 		
 		valider_annonces();
 		//voirStatAgent(1);
 	}
+}
