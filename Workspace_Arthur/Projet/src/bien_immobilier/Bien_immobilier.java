@@ -1,6 +1,9 @@
 package bien_immobilier;
 
 public abstract class Bien_immobilier {
+	
+	//ATTRIBUTS
+	
 	public int id_bien;
 	public String nom;
 	public int id_adresse;
@@ -9,6 +12,7 @@ public abstract class Bien_immobilier {
 	public Typehabitation type_habitation;
 	public Environnement environnement;
 	
+	//CONSTRUCTEUR
 	
 	public Bien_immobilier(int id_bien, String nom, int id_adresse, double surface,double transports, Typehabitation type_habitation) {
 		super();
@@ -19,6 +23,9 @@ public abstract class Bien_immobilier {
 		this.transports=transports;
 		this.type_habitation=type_habitation;
 		}
+	
+	//ACCESSEURS ET MUTATEURS
+	
 	public int getId_bien() {
 		return id_bien;
 	}
@@ -61,6 +68,11 @@ public abstract class Bien_immobilier {
 	public void setEnvironnement(Environnement environnement) {
 		this.environnement=environnement;
 	}
+	
+	/**
+	 * Connection à la base de données 
+	 */
+	
 	
 	static final String DB_URL = "jdbc:postgresql://localhost:5432/gestion_immobilier"; 
 	static final String USER = "postgres"; 
