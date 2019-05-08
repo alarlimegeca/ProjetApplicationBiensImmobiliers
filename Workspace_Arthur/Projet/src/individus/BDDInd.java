@@ -112,7 +112,6 @@ public static void ajouterReceptionClientParticulier(Integer id_client, int id_p
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-}
 	
 	public static int search(){
 		Connection conn = null;
