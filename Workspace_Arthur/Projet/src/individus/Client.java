@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -86,8 +87,8 @@ public class Client extends Particulier {
 		String num_tel = Dialogue.num_tel_ind();
 		
 		String pseudo = Dialogue.pseudo("client");
-		while (BDDInd.est_dans_BDD("client", "pseudo_client", pseudo)) {
-			jop.showMessageDialog(null, "Le pseudo est d�j� utilis� par un autre client.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+		while (BDD.est_dans_BDD("client", "pseudo_client", pseudo)) {
+			jop.showMessageDialog(null, "Le pseudo est déjà utilisé par un autre client.","Adresse", JOptionPane.INFORMATION_MESSAGE);
 		    pseudo = Dialogue.pseudo("client");
 		}
 		
@@ -100,13 +101,13 @@ public class Client extends Particulier {
 			jop.showMessageDialog(null, "Les deux mots de passe doivent correspondre.","Adresse", JOptionPane.INFORMATION_MESSAGE);
 			cmdp = Dialogue.mot_de_passe("client");
 		}
-		int id_client = BDDInd.trouver_id(nom, prenom);
+		int id_client = BDD.trouver_id(nom, prenom);
 	    Client client = new Client(id_client,nom,prenom,e_mail,num_tel,pseudo,mdp);
 		jop.showMessageDialog(null, client.toString("client"),"Adresse", JOptionPane.INFORMATION_MESSAGE);
 		int valide = Dialogue.confirmation("Souhaitez-vous confirmer votre candidature ?");
 		if (valide == 0) {
-			BDDInd.ajouterClient("reception_candidature_client",id_client, nom, prenom, e_mail, num_tel, pseudo, mdp);
-			jop.showMessageDialog(null, "Consultez votre bo�te e-mail,\n notre responsable confirmera ou non votre candidature \n dans les meilleurs d�lais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
+			BDD.ajouterClient("reception_candidature_client",id_client, nom, prenom, e_mail, num_tel, pseudo, mdp);
+			jop.showMessageDialog(null, "Consultez votre boîte e-mail,\n notre responsable confirmera ou non votre candidature \n dans les meilleurs délais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 	}
@@ -133,8 +134,8 @@ public class Client extends Particulier {
             int id = result.getInt("id_individu");
             
             if (mdp.contentEquals(passe)) {
-            	jop.showMessageDialog(null, "Vous �tes bien connect� sous le pseudo "+pseudo, "R�capitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
-            	Client client = (Client) BDDInd.construire_ind(id,"client");
+            	jop.showMessageDialog(null, "Vous êtes bien connecté sous le pseudo "+pseudo, "Récapitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
+            	Client client = (Client) BDD.construire_ind(id,"client");
                 return client;
             }
             else { 
@@ -166,9 +167,9 @@ public class Client extends Particulier {
 		String titre = Dialogue.titreAnnonce();
 		
 		JOptionPane jop = new JOptionPane();
-		jop.showMessageDialog(null, "Vous allez devoir rentrer l'adresse pr�cise de votre bien dans un premier temps.","Adresse", JOptionPane.INFORMATION_MESSAGE);
+		jop.showMessageDialog(null, "Vous allez devoir rentrer l'adresse précise de votre bien dans un premier temps.","Adresse", JOptionPane.INFORMATION_MESSAGE);
 		
-		int id_adresse = BDDInd.trouver_id_adresse();
+		int id_adresse = BDD.trouver_id_adresse();
 		
 		String pays = Dialogue.pays();
 		
@@ -190,10 +191,10 @@ public class Client extends Particulier {
 		Adresse.ajouterAdresse(id_adresse, pays, numero, voie, postal, insee, commune, environnement);
 		
 		JOptionPane jop1 = new JOptionPane();
-		jop1.showMessageDialog(null, adresse.toString(), "R�capitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
+		jop1.showMessageDialog(null, adresse.toString(), "Récapitulatif adresse", JOptionPane.INFORMATION_MESSAGE);  
 		
 		JOptionPane jop2 = new JOptionPane();
-		jop2.showMessageDialog(null, "Vous allez maintenant devoir rentrer les caract�ristiques du bien en lui-m�me","Bien", JOptionPane.INFORMATION_MESSAGE);
+		jop2.showMessageDialog(null, "Vous allez maintenant devoir rentrer les caractéristiques du bien en lui-même","Bien", JOptionPane.INFORMATION_MESSAGE);
 		
 		String typeBien = Dialogue.typeBien();
 		
@@ -217,12 +218,10 @@ public class Client extends Particulier {
 		String dist3 = Dialogue.distanceEcole();
 		double distanceeco = Double.parseDouble(dist3);
 		
-		Agent_immobilier agent = new Agent_immobilier(0, "� d�terminer", "� d�terminer", "� d�terminer", "� d�terminer", "� d�terminer", "� d�terminer");
+		Agent_immobilier agent = new Agent_immobilier(0, "à déterminer", "à déterminer", "à déterminer", "à déterminer", "à déterminer", "à déterminer");
 		
-		double prix = 0;
-		
-		int id_annonce = BDDInd.trouver_id_annonce();
-		int id_bien = BDDInd.trouver_id_bien();	
+		int id_annonce = BDD.trouver_id_annonce();
+		int id_bien = BDD.trouver_id_bien();	
 		
 		Annonce annonce = new Annonce(0,"",true,null,0,null,null,this,typeBien);
 		
@@ -231,17 +230,18 @@ public class Client extends Particulier {
 		int qualite = Integer.parseInt(qual);
 		typeBien = "constructible";
 		Constructible constructible = new Constructible(id_bien, nom, false, adresse, surface,distancetr, habitation, qualite, distanceeco, distancecom);
-		prix = constructible.estimation_Constr(transaction);
+		double prix = constructible.estimation_Constr(transaction);
+		System.out.println(prix);
 		annonce = new Annonce(id_annonce,titre, true, transaction,prix, constructible, agent, this,typeBien);
 		
 		JOptionPane jop5 = new JOptionPane();
-		jop5.showMessageDialog(null, constructible.toString(), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
-		jop5.showMessageDialog(null, annonce.affichage().get(2), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop5.showMessageDialog(null, constructible.toString(), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop5.showMessageDialog(null, annonce.affichage().get(2), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
 		
 		int valide = Dialogue.confirmation("Souhaitez-vous confirmer votre candidature ?");
 		if (valide == 0) {
 			constructible.ajouterBien_immo_Constr() ;
-			jop.showMessageDialog(null, "Consultez votre bo�te e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs d�lais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
+			jop.showMessageDialog(null, "Consultez votre boîte e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs délais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
 			annonce.ajouterAnnonce("reception_annonce");
 			}
 		}
@@ -265,17 +265,17 @@ public class Client extends Particulier {
 		int anneeconstr = Integer.parseInt(annee);
 		
 		Habitable habitable = new Habitable(id_bien, nom, false, adresse, surface,distancetr, habitation, surfaceBatie,anneeconstr, nbpieces, nbbains, distancecom, distanceeco, surfaceJardin); 
-		prix = habitable.estimation_Hab(transaction);
+		double prix = habitable.estimation_Hab(transaction);
 		annonce = new Annonce(id_annonce,titre, true, transaction,prix, habitable, agent, this,typeBien);
 		
 		JOptionPane jop3 = new JOptionPane();
-		jop3.showMessageDialog(null, habitable.toString(), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
-		jop3.showMessageDialog(null, annonce.affichage().get(2), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop3.showMessageDialog(null, habitable.toString(), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop3.showMessageDialog(null, annonce.affichage().get(2), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
 		
 		int valide = Dialogue.confirmation("Souhaitez-vous confirmer votre annonce ?");
 		if (valide == 0) {
 			habitable.ajouterBien_immo_Hab() ;
-			jop.showMessageDialog(null, "Consultez votre bo�te e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs d�lais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
+			jop.showMessageDialog(null, "Consultez votre boîte e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs délais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
 			annonce = new Annonce(id_annonce,titre, true, transaction,prix, habitable, agent, this, typeBien);
 			annonce.ajouterAnnonce("reception_annonce");
 		}
@@ -291,18 +291,19 @@ public class Client extends Particulier {
 		 
 		
 		Non_habitable non_habitable = new Non_habitable(id_bien, nom,  false, adresse, surface,distancetr, habitation, surfaceBatie,anneeconstr, distancecom, distanceeco); 
-		prix = non_habitable.estimation_Nhab(transaction);
+		double prix = non_habitable.estimation_Nhab(transaction);
+		System.out.println(prix);
 		annonce = new Annonce(id_annonce,titre, true, transaction,prix, non_habitable, agent, this,typeBien);
 		
 		JOptionPane jop4 = new JOptionPane();
-		jop4.showMessageDialog(null, non_habitable.toString(), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
-		jop4.showMessageDialog(null, annonce.affichage().get(2), "R�capitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop4.showMessageDialog(null, non_habitable.toString(), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop4.showMessageDialog(null, annonce.affichage().get(2), "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
 		
 		
 		int valide = Dialogue.confirmation("Souhaitez-vous confirmer votre annonce ?");
 		if (valide == 0) {
 			non_habitable.ajouterBien_immo_NonHab();	
-			jop4.showMessageDialog(null, "Consultez votre bo�te e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs d�lais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
+			jop4.showMessageDialog(null, "Consultez votre boîte e-mail,\n notre responsable confirmera la mise en ligne de votre annonce \n dans les meilleurs délais" ,"Adresse", JOptionPane.INFORMATION_MESSAGE);
 			annonce.ajouterAnnonce("reception_annonce");
 		}
 
@@ -312,10 +313,99 @@ public class Client extends Particulier {
 	
 	}
 	
+	public void choisir_particulier() {
+		Connection conn = null;
+		ArrayList<String> titres_annonces = new ArrayList();
+		ArrayList<Annonce> annonces = new ArrayList();
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// Requête SQL
+	    	String query = "SELECT * FROM annonce WHERE id_client = " +this.getId();
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    	while (result.next()) {
+            	int id = result.getInt("id_annonce");
+            	String type_bien = result.getString("habitation");
+            	String titre = result.getString("titre");
+            	Annonce annonce = BDD.construire_annonce(id, type_bien);
+            	annonces.add(annonce);
+        	    titres_annonces.add(titre);
+            }
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+	  
+	    String[] array_titres = titres_annonces.toArray(new String[0]);
+		String titre = Dialogue.choisir_annonce(array_titres);
+		int position = Dialogue.chercher(titres_annonces,titre);
+		int id_annonce = annonces.get(position).getId_annonce();
+		
+		ArrayList<String> l_particuliers = new ArrayList();
+		
+	    try {
+	    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+	    	Class.forName("org.sqlite.JDBC");
+	    	conn = DriverManager.getConnection(url);
+	    	// Requête SQL
+	    	String query = "SELECT * FROM reception_client_particulier WHERE id_client = "+this.getId()+" AND id_annonce = "+id_annonce;
+	    	
+	    	Statement state = Connexion.getinstance().createStatement();
+	    	ResultSet result = state.executeQuery(query);
+	    
+	    	while (result.next()) {
+            	int id_particulier = result.getInt("id_particulier");
+            	Particulier particulier = (Particulier) BDD.construire_ind(id_particulier, "particulier");
+            	l_particuliers.add(id_particulier+" "+particulier.getPrenom() +" "+ particulier.getNom());
+	    	}
+	    	
+	    	  String query2 = "DELETE FROM reception_client_particulier WHERE id_client = "+this.getId()+" AND id_annonce = "+id_annonce;
+	            state.executeQuery(query2);
+	    	
+	    } catch (SQLException e1) {
+	    	System.out.println(e1.getMessage());
+	    	
+	    } catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+	    	try {
+	    		if (conn != null) {
+	    			conn.close();
+	    		}
+	    	} catch (SQLException ex) {
+	    		System.out.println(ex.getMessage());
+	    	}
+		}
+	    
+	    String[] particuliers = l_particuliers.toArray(new String[0]);
+	    String choix = Dialogue.choisir_particulier(particuliers);
+	    String separation[]  = choix.split(" ");
+	    ArrayList < String > list = (ArrayList<String>) Arrays.asList(separation);
+	    
+	    int id_particulier = Integer.parseInt(list.get(0));
+	    BDD.ajouterReceptionTrans(id_annonce,getId(),id_particulier, "reception_respo_transaction");
+		
+	}
+	
 	public static void main(String[] args) {
-		System.out.println("Bienvenue sur l'espace client de notre agence immobilière");
-		Client.creer_compte();
+		//System.out.println(("Bienvenue sur l'espace client de notre agence immobilière").split(" ").charAt(0));
+		
 	}
 
 }
+
 
