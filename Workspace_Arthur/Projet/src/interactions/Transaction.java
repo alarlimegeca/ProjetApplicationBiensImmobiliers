@@ -84,6 +84,13 @@ public class Transaction {
 		}
 	}
 	
+	public static String dateAjd(){
+    	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date date=new Date();
+		String date_ajd=format.format(date);
+		return date_ajd;
+	}
+	
 	public String toString() {
 		String str = "Récapitulatif transaction : \n";
 		str += "Date : "+"\n";
