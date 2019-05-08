@@ -9,12 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Habitable extends Construit {
-
-private int nombre_pieces;
+	
+	//ATTRIBUTS
+	
+	private int nombre_pieces;
 	private int nombre_sallesdeau;
 	private double commerce;
 	private double ecole;
 	private double jardin;
+	
+	//CONSTRUCTEUR
 	
 	public Habitable (int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, int nombre_pieces, int nombre_sallesdeau, double commerce, double ecole, double jardin) {
 		super( id_bien,  nom, en_ligne, adresse, surface, transports, type_habitation, surface_batie, date_construction);
@@ -24,6 +28,8 @@ private int nombre_pieces;
 		this.ecole=ecole;
 		this.jardin=jardin;
 	}
+	
+	//ACCESSEURS ET MUTATEURS
 	
 	public double getCommerce () {
 		return commerce;
@@ -55,6 +61,11 @@ private int nombre_pieces;
 	public void setJardin (double jardin) {
 		this.jardin=jardin;
 	}
+	
+	/**
+	 * Méthode d'ajout d'un bien immobilier de type Habitable avec ses différents attributs à la base de données
+	 */
+	
 	public void ajouterBien_immo_Hab() {
 		 {
 		try {
@@ -87,7 +98,16 @@ private int nombre_pieces;
 		 }
 	}
 
-public double estimation_Hab() {
+	/**
+	 * Méthode d'estimation d'un bien Habitable
+	 * L'estimation est calculée par rapport au nombre de mètres carrés ainsi qu'à la localisation du bien.
+	 * La valeur obtenue est alors ajustée selon les avantages et inconvénients autour du bien.
+	 * @return la valeur de l'estimation qu'il s'agisse du prix de vente (vente), du loyer (location) 
+	 * ou de la rente (vente en viager).
+	 */
+	
+	
+	public double estimation_Hab() {
 		
 		String env=environnement.getContenu1();
 		
