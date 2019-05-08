@@ -28,8 +28,8 @@ public enum Environnement {
 	}
 	
 	/**
-	*Méthode permettant de passer de l'objet environnement (String) à l'objet de type Environnement (enum).
-	*return un objet de type enum.
+	*Méthode permettant de passer de l'objet de type String à type Environnement.
+	*return un objet de type Environnement.
 	*/
 	
 	public static Environnement parseEnvironnement(String environnement) {
