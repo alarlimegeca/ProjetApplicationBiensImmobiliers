@@ -91,7 +91,7 @@ public static ArrayList<Object> recherche_bien() {
 	        			+nbr_pieces+"\nNombre de salles d'eau : "+nbr_sallesdeau+"\nDistance à l'école : "+ecole+" m"
 	        			+"\nDistance aux commerces : "+commerce+" m"+"\nDistance aux transports en commun "+transports
 	        			+" m"+"\nDate de construction : "+date_construction+"\nAdresse : "+numero+" "+voie+"\n"+commune
-	        			+" "+code_postal+"\n"+pays+"\n\n-----------------\n\n";
+	        			+" "+code_postal+"\n"+pays+"\nType de transaction : "+type_transaction+"\nPrix : "+prix+" €"+"\n\n-----------------\n\n";
 	        	System.out.println(affichage);
 	        	}
 		        }
@@ -165,14 +165,15 @@ public static ArrayList<Object> recherche_bien() {
 		if (choix=="Prendre rdv pour ce bien"){
 			int id_particulier=donnerInfo();
 			liste_resultat.add(id_particulier);
-			BDD.ajouterReceptionClientParticulier((int)liste_resultat.get(0), (int)liste_resultat.get(3), (int)liste_resultat.get(2), (int)liste_resultat.get(1));
 			System.out.println("la liste : "+liste_resultat);
 			String lecreneau=Creneau.visionner_creneaux_dispos( id_particulier, (int)liste_resultat.get(0));
 			return liste_resultat;
 		}
 		else if (choix=="Acheter ce bien"){
 			int id_particulier=donnerInfo();
-			
+			liste_resultat.add(id_particulier);
+			BDD.ajouterReceptionClientParticulier((int)liste_resultat.get(0), (int)liste_resultat.get(3), 
+					(int)liste_resultat.get(2), (int)liste_resultat.get(1));
 			return liste_resultat;
 		}
 		return liste_resultat;
@@ -187,7 +188,8 @@ public static ArrayList<Object> recherche_bien() {
 		String nom = Dialogue.nom();
 		String prenom = Dialogue.prenom();
 		if (BDD.est_dans_BDD("particulier", "nom", nom)==true && BDD.est_dans_BDD("particulier", "prenom", prenom)==true){
-			recupererId_Particulier( nom,  prenom);
+			int id_particulier=recupererId_Particulier( nom,  prenom);
+			return id_particulier;
 
 		    }
 				 
@@ -198,7 +200,6 @@ public static ArrayList<Object> recherche_bien() {
 		BDD.ajouterParticulier(id_particulier, nom, prenom, email, telephone);
 		return id_particulier;
 		}
-		return 0;
 	}
 	
 	public static int recupererId_Particulier(String nom, String prenom) throws ClassNotFoundException, SQLException{
@@ -210,10 +211,10 @@ public static ArrayList<Object> recherche_bien() {
 	    ResultSet res = stmt.executeQuery("SELECT * FROM particulier WHERE nom LIKE '"+nom+"' AND prenom LIKE '"+prenom+"'");
 	    while (res.next()){
 	    	String email = res.getString("e_mail");
-	           String telephone = res.getString("num_tel");
+	        String telephone = res.getString("num_tel");
 	           int id_particulier = res.getInt("id_individu");
 				int confirmation = Dialogue.confirmation("Êtes-vous bien "+prenom+" "+nom+" ?\n"+email+"\n"+telephone);
-			    if (confirmation==1){
+			    if (confirmation==0){
 			    	stmt.close();
 			    	conn.close();
 					return id_particulier;
@@ -291,15 +292,22 @@ public static ArrayList<Object> recherche_bien() {
 	    return type;
 	}
 	
-	
+
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, ParseException {
 
+		
+		
 		ArrayList liste_nom_biens=recherche_bien();
 		ArrayList liste_resultat=choisirBien(liste_nom_biens);
 		System.out.println(liste_resultat);
 		ArrayList liste_resultat_final=choix_rdv_achat( liste_resultat);
-				
+		//		int id_particulier = donnerInfoRdv() ;
+//		Creneau.visionner_creneaux_dispos(id_particulier, 200);
+//		Creneau.demandeRdv();
+//		Agent_immobilier.rdvAgent(200);
+		
+		
 		
 		
 	}
