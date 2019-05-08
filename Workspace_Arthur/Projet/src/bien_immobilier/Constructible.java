@@ -2,10 +2,14 @@ package bien_immobilier;
 
 public class Constructible extends Bien_immobilier {
 	
-		private int qualite_terrain;
+	//ATTRIBUTS
+	
+	private int qualite_terrain;
 	private double commerce;
 	private double ecole;
 
+	//CONSTRUCTEUR
+	
 	public Constructible (int id_bien, String nom, boolean en_ligne, Adresse adresse,double surface, double transports, TypeHabitation type_habitation, int qualite_terrain,double commerce, double ecole) {
 		super(id_bien, nom, en_ligne,adresse,surface,transports, type_habitation);
 		this.qualite_terrain=qualite_terrain;
@@ -13,6 +17,8 @@ public class Constructible extends Bien_immobilier {
 		this.ecole=ecole;
 		
 	}
+	
+	//ACCESSEURS ET MUTATEURS
 	
 	public int getQualite_terrain() {
 		return qualite_terrain;
@@ -33,6 +39,10 @@ public class Constructible extends Bien_immobilier {
 		this.ecole=ecole;
 	}
 		
+	/**
+	 * Méthode d'ajout d'un bien immobilier de type Constructible avec ses différents attributs à la base de données
+	 */
+	
 	public void ajouterBien_immo_Constr() {
 		try {
 			String type_hab= getType_habitation().getContenu2();
@@ -58,19 +68,14 @@ public class Constructible extends Bien_immobilier {
 			e.printStackTrace();
 		}
 	}
-		
-	 public String toString(){
-		    String str;
-		      str = "Description bien \n";
-		      str += "Nom : " + this.getNom() + "\n";
-		      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
-		      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
-		      str += "Distance à l'école la plus proche : " + this.ecole  +  " km\n";
-		      str += "Distance aux commerces : " + this.commerce + " km\n";
-		      str += "Qualité terrain : " + this.qualite_terrain + "\n";
-		      str += "Surface du bien : " + this.getSurface() + "\n";
-		      return str;
-		    }	
+	
+	/**
+	 * Méthode d'estimation d'un bien Constructible
+	 * L'estimation est calculée par rapport au nombre de mètres carrés ainsi qu'à la localisation du bien.
+	 * La valeur obtenue est alors ajustée selon les avantages et inconvénients autour du bien.
+	 * @return la valeur de l'estimation qu'il s'agisse du prix de vente (vente), du loyer (location) 
+	 * ou de la rente (vente en viager).
+	 */
 	
 	public double estimation_Cons() {
 		
@@ -115,6 +120,23 @@ public class Constructible extends Bien_immobilier {
 		if (TypeTrans=="Location") {return (1/230)*surface*m2*dmoy;}
 		else {return (0.003393009)*surface*m2*dmoy;}
 	}
+	
+	/**
+	 * Donne une description des objets de la classe Constructible
+	 */
+	
+	public String toString(){
+		    String str;
+		      str = "Description bien \n";
+		      str += "Nom : " + this.getNom() + "\n";
+		      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+		      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+		      str += "Distance à l'école la plus proche : " + this.ecole  +  " km\n";
+		      str += "Distance aux commerces : " + this.commerce + " km\n";
+		      str += "Qualité terrain : " + this.qualite_terrain + "\n";
+		      str += "Surface du bien : " + this.getSurface() + "\n";
+		      return str;
+		    }	
 		
 	public static void main(String[] args) {
 		TypeHabitation type_habitation=TypeHabitation.Appartement;
