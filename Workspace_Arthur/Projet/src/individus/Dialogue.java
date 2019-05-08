@@ -174,34 +174,57 @@ return choix;
 	      liste_biens[0]);
       return lebien;
   }
-  
-  public static  void voir_rdv(String[] liste_rdv){
+ public static  void voir_rdv(String[] liste_rdv){
 	  JOptionPane jop = new JOptionPane();
 	jop.showMessageDialog(null, liste_rdv,"Adresse", JOptionPane.INFORMATION_MESSAGE);
 		
 }
   public static String nom() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String nom = jop.showInputDialog(null, "Veuillez votre nom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+	    String nom = jop.showInputDialog(null, "Veuillez entrer votre nom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
 		return nom;
   }
   public static String prenom() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String prenom = jop.showInputDialog(null, "Veuillez votre prenom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+	    String prenom = jop.showInputDialog(null, "Veuillez entrer votre prenom : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
 		return prenom;
 }
   
   public static String telephone() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String telephone = jop.showInputDialog(null, "Veuillez votre numéro de téléphone : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+	    String telephone = jop.showInputDialog(null, "Veuillez entrer votre numéro de téléphone : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
 		return telephone;
 }
   
   public static String email() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String email = jop.showInputDialog(null, "Veuillez votre adresse email : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+	    String email = jop.showInputDialog(null, "Veuillez entrer votre adresse email : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
 		return email;
 }
+  
+  public static  void refus_rdv(String email, String telephone){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null, "Rendez-vous supprimé, pensez à envoyer un mail à : "+email+" ou à appeler le : "+telephone,"Rendez-Vous", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  public static  void afficher_recherche(String liste_biens){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,liste_biens , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  public static  void aucun_resultat(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Votre recherche ne donne aucun résultat" , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  
+  public static int confirmation(String contexte){
+	  JOptionPane jop = new JOptionPane();			
+	  int choix = jop.showConfirmDialog(null, contexte, "Validation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+	return choix;
+
+	}
+  
   
   public static void main(String[] args) {
  typeBien();
