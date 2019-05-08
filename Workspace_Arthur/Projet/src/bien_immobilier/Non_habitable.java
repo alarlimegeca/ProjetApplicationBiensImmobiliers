@@ -9,14 +9,23 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Non_habitable extends Construit {
+	
+	//ATTRIBUTS
+	
 	private double commerce;
 	private double ecole;	
+	
+	//CONSTRUCTEUR
 	
 	public Non_habitable(int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, double commerce,double ecole) {
 		super(id_bien, nom, en_ligne, adresse, surface, transports,type_habitation, surface_batie, date_construction);
 		this.commerce = commerce;
 		this.ecole = ecole;
 	}
+	
+	/**
+	 * Méthode d'ajout d'un bien immobilier de type Non_Habitable avec ses différents attributs à la base de données
+	 */
 	
 public void ajouterBien_immo_NonHab() {
 	 {
@@ -49,17 +58,14 @@ public void ajouterBien_immo_NonHab() {
 }
 }
 	
-	public String toString(){
-	    String str;
-	      str = "Description bien \n";
-	      str += "Nom : " + this.getNom() + "\n";
-	      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
-	      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
-	      str += "Année de construction : " + this.getDate_construction() + "\n";
-	      str += "Surface du bien : " + this.getSurface() + "\n";
-	      str += "Surface batie : " + this.getSurface_batie() + "\n";
-	      return str;
-	    }	
+	/**
+ 	* Méthode d'estimation d'un bien Non_Habitable
+ 	* L'estimation est calculée par rapport au nombre de mètres carrés ainsi qu'à la localisation du bien.
+ 	* La valeur obtenue est alors ajustée selon les avantages et inconvénients autour du bien.
+ 	* @return la valeur de l'estimation qu'il s'agisse du prix de vente (vente), du loyer (location) 
+ 	* ou de la rente (vente en viager).
+ 	*/
+	
 	public double estimation_Nhab() {
 		String env=environnement.getContenu1();
 		
@@ -92,6 +98,22 @@ String TypeTrans=Transaction.type_transaction.getContenu3();
 		else {return (0.003393009)*surface*m2*dmoy*ds;}
 		
 	}
+	
+	/**
+	 * Donne une description des objets de la classe Non_habitable
+	 */
+	
+	public String toString(){
+	    String str;
+	      str = "Description bien \n";
+	      str += "Nom : " + this.getNom() + "\n";
+	      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+	      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+	      str += "Année de construction : " + this.getDate_construction() + "\n";
+	      str += "Surface du bien : " + this.getSurface() + "\n";
+	      str += "Surface batie : " + this.getSurface_batie() + "\n";
+	      return str;
+	    }	
 
 
 }
