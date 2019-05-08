@@ -93,6 +93,26 @@ public static void ajouterParticulier(Integer id_individu, String nom, String pr
 			e.printStackTrace();
 		}
 	}
+
+public static void ajouterReceptionClientParticulier(Integer id_client, int id_particulier, int id_bien, int id_annonce){
+		try {
+		PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"reception_client_particulier"
+				+ "\"(id_client,id_particulier,id_bien,id_annonce) VALUES (?,?,?,?)");
+		preparedState.setInt(1,id_client);
+		preparedState.setInt(2, id_particulier); 
+		preparedState.setInt(3, id_bien); 
+		preparedState.setInt(4, id_annonce);
+
+		System.out.println(preparedState.toString()); // on affiche la requete prete a etre executee
+
+		preparedState.executeUpdate(); // execution de la requete preparee
+
+		preparedState.close();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 	
 	public static int search(){
 		Connection conn = null;
