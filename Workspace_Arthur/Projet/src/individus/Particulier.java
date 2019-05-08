@@ -43,35 +43,59 @@ public static ArrayList<Object> recherche_bien() {
 			String query = "SELECT * FROM "+type_bien+" WHERE type_habitation LIKE '"+Particulier.typeHabitation(type_bien)+"' AND environnement LIKE '"+Particulier.typeEnvironnement()+"'";
 			System.out.println(query);
 			Statement state = Connexion.getinstance().createStatement();
+			Statement state2 = Connexion.getinstance().createStatement();
+			Statement state3 = Connexion.getinstance().createStatement();
 	        String affichage ="";
 	        ResultSet result = state.executeQuery(query);
 	        while (result.next()) {
+	        	System.out.println("1");
+	        	int id_bien = result.getInt("id_bien");
 	        	String nom = result.getString("nom");
 	        	liste_resultat.add(nom);
-	        	liste_affichage.add(nom);
 	        	Double surface = result.getDouble("surface");
-	        	liste_affichage.add(surface);
 	        	Double jardin  = result.getDouble("jardin");
-	        	liste_affichage.add(jardin);
 	        	Integer nbr_pieces =result.getInt("nombre_pieces");
-	        	liste_affichage.add(nbr_pieces);
 	        	Integer nbr_sallesdeau =result.getInt("nombre_sallesdeau");
-	        	liste_affichage.add(nbr_sallesdeau);
 	        	Double ecole =result.getDouble("ecole");
-	        	liste_affichage.add(ecole);
 	        	Double commerce =result.getDouble("commerce");
-	        	liste_affichage.add(commerce);
 	        	Double transports =result.getDouble("transports");
-	        	liste_affichage.add(transports);
-	        	Integer date_construction = result.getInt("date_construction");
-	        	liste_affichage.add(date_construction);
+	        	int date_construction = result.getInt("date_construction");
+	        	int id_adresse = result.getInt("id_adresse");
+				String query2 = "SELECT * FROM annonce WHERE id_bien LIKE '"+id_bien+"'";
+		        ResultSet result2 = state2.executeQuery(query2);
+		        while (result2.next()) {
+		        	System.out.println("2");
+		        	int id_client = result2.getInt("id_client");
+		        	liste_resultat.add(id_client);
+		        	int id_annonce = result2.getInt("id_annonce");
+		        	liste_resultat.add(id_annonce);
+		        	String titre_annonce = result2.getString("titre");
+		        	double prix = result2.getDouble("prix");
+		        	String type_transaction = result2.getString("type_transaction");
+					String query3 = "SELECT * FROM adresse WHERE id_adresse LIKE '"+id_adresse+"'";
+			        ResultSet result3 = state3.executeQuery(query3);
+			        while (result3.next()) {
+			        	System.out.println("3");
+			        	String environnement = result3.getString("environnement");
+			        	int numero = result3.getInt("numero");
+			        	String  voie = result3.getString("voie");
+			        	String commune = result3.getString("commune");
+			        	String pays = result3.getString("pays");
+			        	String code_postal = result3.getString("code_postal");
+		        
+
 	        	System.out.println("nom:"+nom+"  date de la construction:"+date_construction+"  surface:"+surface+"  jardin:"+jardin+
-	        			"  nombre de pièces:"+nbr_pieces+"  nombre de salles d'eau:"+nbr_sallesdeau+"  distance des transports en commun:"+transports+"  distance d'un commerce:"+commerce+"  distance d'une école:"+ecole+"");
-	        	affichage=affichage+nom+"\nSurface : "+surface+"    Surface jardin : "+jardin+"\nNombre de pièces : "
+	        			"  nombre de pièces:"+nbr_pieces+"  nombre de salles d'eau:"+nbr_sallesdeau+"  distance des transports en commun:"
+	        			+transports+"  distance d'un commerce:"+commerce+"  distance d'une école:"+ecole+"");
+	        	affichage=affichage+titre_annonce+"\n"+nom+"\nSurface : "+surface+"    Surface jardin : "+jardin+"\nNombre de pièces : "
 	        			+nbr_pieces+"\nNombre de salles d'eau : "+nbr_sallesdeau+"\nDistance à l'école : "+ecole+" m"
 	        			+"\nDistance aux commerces : "+commerce+" m"+"\nDistance aux transports en commun "+transports
-	        			+" m"+"\nDate de construction : "+date_construction+"\n\n-----------------\n\n";
+	        			+" m"+"\nDate de construction : "+date_construction+"\nAdresse : "+numero+" "+voie+"\n"+commune
+	        			+" "+code_postal+"\n"+pays+"\n\n-----------------\n\n";
+	        	System.out.println(affichage);
 	        	}
+		        }
+	        }
 	        Dialogue.afficher_recherche(affichage);
 	        return liste_resultat;
 	        }
@@ -94,26 +118,34 @@ public static ArrayList<Object> recherche_bien() {
 	    }
 
 	public static ArrayList choisirBien(ArrayList liste_noms_biens) throws ClassNotFoundException, SQLException{
-		
 		ArrayList<Object> liste_resultat=new ArrayList<>();
-		if (liste_noms_biens==null){
+		
+
+		
+	    if (liste_noms_biens.size()==1){
 			Dialogue.aucun_resultat();
 		}
 		else{
+			String type_bien=(String)liste_noms_biens.get(0);
+		    liste_noms_biens.remove(0);
+		    int id_client = (int)liste_noms_biens.get(liste_noms_biens.size()-2);
+		    liste_noms_biens.remove(liste_noms_biens.size()-2);
+		    liste_resultat.add(id_client);
+		    int id_annonce = (int)liste_noms_biens.get(liste_noms_biens.size()-1);
+		    liste_noms_biens.remove(liste_noms_biens.size()-1);
+		    liste_resultat.add(id_annonce);
+
 		
-	 
 		Statement stmt = null;
 	    Connection conn = null;
 		Class.forName("org.sqlite.JDBC");
 	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 	    stmt = conn.createStatement();
-	    String type_bien=(String)liste_noms_biens.get(0);
-	    liste_noms_biens.remove(0);
+
    	  	String[] liste_noms_biens_simple = new String[ liste_noms_biens.size() ];
    	  	
    	  	liste_noms_biens.toArray( liste_noms_biens_simple );
    		String choix_bien = Dialogue.choisirBien(liste_noms_biens_simple);
-   		liste_resultat.add(choix_bien);
    		ResultSet res = stmt.executeQuery("SELECT * FROM "+type_bien+" WHERE nom LIKE '"+choix_bien+"'");
    		while (res.next()){
    	  				int id_bien = res.getInt("id_bien");
@@ -128,19 +160,22 @@ public static ArrayList<Object> recherche_bien() {
 	    return liste_resultat; 
 	 }
 	
-	public static int choix_rdv_achat(ArrayList liste_resultat) throws ClassNotFoundException, SQLException, IOException{
+	public static ArrayList choix_rdv_achat(ArrayList liste_resultat) throws ClassNotFoundException, SQLException, IOException{
 		String choix = Dialogue.choix_rdv_achat();
 		if (choix=="Prendre rdv pour ce bien"){
 			int id_particulier=donnerInfo();
+			liste_resultat.add(id_particulier);
+			BDD.ajouterReceptionClientParticulier((int)liste_resultat.get(0), (int)liste_resultat.get(3), (int)liste_resultat.get(2), (int)liste_resultat.get(1));
 			System.out.println("la liste : "+liste_resultat);
-			String lecreneau=Creneau.visionner_creneaux_dispos( id_particulier, (int)liste_resultat.get(1));
-			return id_particulier;
+			String lecreneau=Creneau.visionner_creneaux_dispos( id_particulier, (int)liste_resultat.get(0));
+			return liste_resultat;
 		}
 		else if (choix=="Acheter ce bien"){
 			int id_particulier=donnerInfo();
-			return id_particulier;
+			
+			return liste_resultat;
 		}
-		return 0;
+		return liste_resultat;
 	}
 	
 	public void acheter_bien() throws ClassNotFoundException, SQLException{
@@ -187,6 +222,7 @@ public static ArrayList<Object> recherche_bien() {
 	    }
 		return 0;
 	}
+	
 	
 	public static String typeBien() {
 	String[] listeBiens = {"constructible", "non habitable", "habitable"};
@@ -255,17 +291,15 @@ public static ArrayList<Object> recherche_bien() {
 	    return type;
 	}
 	
+	
+	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, ParseException {
 
 		ArrayList liste_nom_biens=recherche_bien();
 		ArrayList liste_resultat=choisirBien(liste_nom_biens);
-		int id_particulier=choix_rdv_achat( liste_resultat);
-		//		int id_particulier = donnerInfoRdv() ;
-//		Creneau.visionner_creneaux_dispos(id_particulier, 200);
-//		Creneau.demandeRdv();
-//		Agent_immobilier.rdvAgent(200);
-		
-		
+		System.out.println(liste_resultat);
+		ArrayList liste_resultat_final=choix_rdv_achat( liste_resultat);
+				
 		
 		
 	}
