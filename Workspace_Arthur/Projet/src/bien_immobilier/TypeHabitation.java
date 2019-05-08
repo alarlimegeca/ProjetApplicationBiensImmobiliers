@@ -1,6 +1,8 @@
 package bien_immobilier;
 
 public enum TypeHabitation {
+	
+	//Différents types de bien possibles
 	Terrain_vague("Terrain_vague","Terrain_vague"),
 	Prairie("Prairie","Prairie"),
 	Foret("Foret","Foret"),
@@ -20,6 +22,11 @@ public enum TypeHabitation {
 		this.name=name;
 		this.contenu=contenu;
 	}
+	
+	/**
+	*Méthode permettant de récupérer l'objet de type TypeHabitation en type String
+	*return une chaîne de caractères correspondant au type d'habitation.
+	*/
 	public String getContenu2() {
 		return contenu;
 	}
@@ -27,6 +34,10 @@ public enum TypeHabitation {
 		return name;
 	}
 
+	/**
+	*Méthode permettant de passer de l'objet de type String à type TypeHabitation.
+	*return un objet de type TypeHabitation.
+	*/
 	
 	public TypeHabitation parseHabitation(String habitation){
 		if (habitation.equals("Prairie")){
