@@ -126,8 +126,8 @@ public static ArrayList<Object> recherche_bien() {
 	    }
 
 	public static ArrayList choisirBien(ArrayList liste_noms_biens) throws ClassNotFoundException, SQLException{
-		ArrayList<Object> liste_resultat=new ArrayList<>();
 		
+		ArrayList<Object> liste_resultat=new ArrayList<>();	
 		
 	    if (liste_noms_biens==null){
 	    	System.out.println("NON");
@@ -136,19 +136,27 @@ public static ArrayList<Object> recherche_bien() {
 		else{
 			String type_bien=(String)liste_noms_biens.get(0);
 		    liste_noms_biens.remove(0);
-		    int id_client = (int)liste_noms_biens.get(liste_noms_biens.size()-2);
-		    liste_noms_biens.remove(liste_noms_biens.size()-2);
-		    liste_resultat.add(id_client);
-		    int id_annonce = (int)liste_noms_biens.get(liste_noms_biens.size()-1);
-		    liste_noms_biens.remove(liste_noms_biens.size()-1);
-		    liste_resultat.add(id_annonce);
+		    System.out.println(liste_noms_biens);
+			for (int i=0;i<liste_noms_biens.size()-2;i++){	
+			    System.out.println(liste_noms_biens.get(i+1));
 
-		
+				int id_client = (int)liste_noms_biens.get(i+1);
+				liste_noms_biens.remove(i+1);
+			    System.out.println(liste_noms_biens.get(i+1));
+				int id_annonce = (int)liste_noms_biens.get(i+1);
+				liste_noms_biens.remove(i+1);
+			}
+
+
+			
 		Statement stmt = null;
+		Statement stmt2 = null;
 	    Connection conn = null;
 		Class.forName("org.sqlite.JDBC");
 	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 	    stmt = conn.createStatement();
+	    stmt2 = conn.createStatement();
+
 
    	  	String[] liste_noms_biens_simple = new String[ liste_noms_biens.size() ];
    	  	
@@ -157,14 +165,20 @@ public static ArrayList<Object> recherche_bien() {
    		ResultSet res = stmt.executeQuery("SELECT * FROM "+type_bien+" WHERE nom LIKE '"+choix_bien+"'");
    		while (res.next()){
    	  				int id_bien = res.getInt("id_bien");
+   	  				System.out.println("oui");
    	  				liste_resultat.add(id_bien);
-   	  			}
+   		}
+		ResultSet res2 = stmt2.executeQuery("SELECT * FROM annonce WHERE id_bien = "+liste_resultat.get(0));
+				while (res2.next()){
+					int id_annonce = res2.getInt("id_annonce");
+	  				liste_resultat.add(id_annonce);
+					int id_client = res2.getInt("id_client");
+	  				liste_resultat.add(id_client);
+			}
 	  	stmt.close();
+	  	stmt2.close();
 	  	res.close();
 	  	conn.close();
-	  	System.out.println("allezzzz");
-
-
 		}
 	    return liste_resultat; 
 	 }
@@ -178,11 +192,12 @@ public static ArrayList<Object> recherche_bien() {
 			String lecreneau=Creneau.visionner_creneaux_dispos( id_particulier, (int)liste_resultat.get(0));
 			return liste_resultat;
 		}
-		else if (choix=="Acheter ce bien"){
+		else if (choix=="Acheter ou louer ce bien"){
 			int id_particulier=donnerInfo();
 			liste_resultat.add(id_particulier);
-			BDD.ajouterReceptionClientParticulier((int)liste_resultat.get(0), (int)liste_resultat.get(3), 
-					(int)liste_resultat.get(2), (int)liste_resultat.get(1));
+			BDD.ajouterReceptionClientParticulier((int)liste_resultat.get(2), (int)liste_resultat.get(3), 
+					(int)liste_resultat.get(0), (int)liste_resultat.get(1));
+			Dialogue.demande_transaction();
 			return liste_resultat;
 		}
 		return liste_resultat;
@@ -226,10 +241,14 @@ public static ArrayList<Object> recherche_bien() {
 			    if (confirmation==0){
 			    	stmt.close();
 			    	conn.close();
+			    	System.out.println("wesh alors");
 					return id_particulier;
 			    }
+			    
 	    
 	    }
+	    stmt.close();
+    	conn.close();
 		return 0;
 	}
 	
