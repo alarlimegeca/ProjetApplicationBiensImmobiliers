@@ -99,13 +99,15 @@ public class BDD {
 		}
 	}
 	
-	public static void ajouterRDV(String creneau, int id_particulier, int id_agent, int id_bien){
+public static void ajouterRDV(String creneau, int id_particulier, int id_agent, int id_bien, int rdv_valide){
 		try {
-			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"rendezvous\"(heure,id_particulier,id_agent) VALUES (?,?,?,?)");
+			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"rendezvous\"(heure,id_particulier,id_agent,id_bien,rdv_valide) VALUES (?,?,?,?,?)");
 			preparedState.setString(1,creneau);
 			preparedState.setInt(2, id_particulier); 
 			preparedState.setInt(3, id_agent); 
 			preparedState.setInt(4, id_bien); 
+			preparedState.setInt(5, rdv_valide); 
+
 
 
 
