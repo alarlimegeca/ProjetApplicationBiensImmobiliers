@@ -43,11 +43,9 @@ public class Creneau {
 		supprimerCreneauAncien();
 		Connection conn = null;
 	    Statement stmt = null;
-	    Statement stmt2 = null;
 	    Class.forName("org.sqlite.JDBC");
 	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 	    stmt = conn.createStatement();
-	    stmt2 = conn.createStatement();
 	    ArrayList<String> liste_creneau=new ArrayList<String>();
 	    ResultSet res = stmt.executeQuery("SELECT heure FROM creneau");
         while (res.next()){
@@ -55,16 +53,29 @@ public class Creneau {
          }
         String[] liste_creneau_simple = new String[ liste_creneau.size() ];
         liste_creneau.toArray( liste_creneau_simple );
+	    stmt.close();
+        conn.close();
+        try{
         String lecreneau=Dialogue.creneauDispo(liste_creneau_simple);
         BDD.ajouterRDV(lecreneau, id_particulier, 0, id_bien,0);
         System.out.println(lecreneau);
+		Connection conn2 = null;
+	    Statement stmt2 = null;
 	    String sql = "DELETE FROM creneau WHERE heure = '"+lecreneau+"'";
+	    Class.forName("org.sqlite.JDBC");
+	    conn2 = DriverManager.getConnection("jdbc:sqlite:bdd.db");
+	    stmt2 = conn2.createStatement();
 	    stmt2.executeUpdate(sql);
-	    stmt.close();
 	    stmt2.close();
-	    conn.close();
-	      
+	    conn2.close();
+	    
 	    return lecreneau;
+
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+        	Dialogue.aucun_creneau();
+        	return null;
+        }
 	}
 	
 	public static void demandeRdv() throws ClassNotFoundException, SQLException {
