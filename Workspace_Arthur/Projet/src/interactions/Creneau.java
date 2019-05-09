@@ -316,6 +316,18 @@ public class Creneau {
 
 		    conn.close();
 		}
+			
+		/**
+		 * regroupe toutes les fonctions pour la validation d'un rdv
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
+		
+	public static void fonction_validation_rdv() throws ClassNotFoundException, SQLException{
+		demandeRdv();   
+		Dialogue.pas_de_demande();
+
+	}
 		
 
 		
