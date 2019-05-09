@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -87,7 +89,7 @@ public static ArrayList<Object> recherche_bien() {
 	        	System.out.println("nom:"+nom+"  date de la construction:"+date_construction+"  surface:"+surface+"  jardin:"+jardin+
 	        			"  nombre de pièces:"+nbr_pieces+"  nombre de salles d'eau:"+nbr_sallesdeau+"  distance des transports en commun:"
 	        			+transports+"  distance d'un commerce:"+commerce+"  distance d'une école:"+ecole+"");
-	        	affichage=affichage+titre_annonce+"\n"+nom+"\nSurface : "+surface+"    Surface jardin : "+jardin+"\nNombre de pièces : "
+	        	affichage=affichage+titre_annonce+"\n"+nom+"\nSurface : "+surface+" m2    Surface jardin : "+jardin+" m2\nNombre de pièces : "
 	        			+nbr_pieces+"\nNombre de salles d'eau : "+nbr_sallesdeau+"\nDistance à l'école : "+ecole+" m"
 	        			+"\nDistance aux commerces : "+commerce+" m"+"\nDistance aux transports en commun "+transports
 	        			+" m"+"\nDate de construction : "+date_construction+"\nAdresse : "+numero+" "+voie+"\n"+commune
@@ -96,8 +98,14 @@ public static ArrayList<Object> recherche_bien() {
 	        	}
 		        }
 	        }
+	        if (affichage==""){
+	        	Dialogue.aucun_resultat();
+	        	return null;
+	        }
+	        else{
 	        Dialogue.afficher_recherche(affichage);
 	        return liste_resultat;
+	        }
 	        }
 	        
 	         catch (SQLException e1) {
@@ -120,11 +128,11 @@ public static ArrayList<Object> recherche_bien() {
 	public static ArrayList choisirBien(ArrayList liste_noms_biens) throws ClassNotFoundException, SQLException{
 		ArrayList<Object> liste_resultat=new ArrayList<>();
 		
-
 		
-	    if (liste_noms_biens.size()==1){
-			Dialogue.aucun_resultat();
-		}
+	    if (liste_noms_biens==null){
+	    	System.out.println("NON");
+	    	
+	    }
 		else{
 			String type_bien=(String)liste_noms_biens.get(0);
 		    liste_noms_biens.remove(0);
@@ -154,6 +162,7 @@ public static ArrayList<Object> recherche_bien() {
 	  	stmt.close();
 	  	res.close();
 	  	conn.close();
+	  	System.out.println("allezzzz");
 
 
 		}
@@ -292,24 +301,30 @@ public static ArrayList<Object> recherche_bien() {
 	    return type;
 	}
 	
+	public static String dateAjd(){
+    	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date date=new Date();
+		String date_ajd=format.format(date);
+		return date_ajd;
+	}
+	
+	public static void fonction_particulier() throws ClassNotFoundException, SQLException, IOException{
+		ArrayList liste_nom_biens=recherche_bien();
+		if (liste_nom_biens==null){
+			System.exit(0);
+		}
+		ArrayList liste_resultat=choisirBien(liste_nom_biens);
+		ArrayList liste_resultat_final=choix_rdv_achat( liste_resultat);
+	}
 
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, ParseException {
 
-		
-		
-		ArrayList liste_nom_biens=recherche_bien();
-		ArrayList liste_resultat=choisirBien(liste_nom_biens);
-		System.out.println(liste_resultat);
-		ArrayList liste_resultat_final=choix_rdv_achat( liste_resultat);
-		//		int id_particulier = donnerInfoRdv() ;
-//		Creneau.visionner_creneaux_dispos(id_particulier, 200);
-//		Creneau.demandeRdv();
-//		Agent_immobilier.rdvAgent(200);
-		
-		
-		
-		
+
+		fonction_particulier();
+
+				
 	}
 
 }
+
