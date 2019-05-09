@@ -273,9 +273,21 @@ public static String titreAnnonce() {
 		
 }
   
-  public static  void validation_rdv(){
+  public static  void validation_rdv_particulier(){
 	  JOptionPane jop = new JOptionPane();
 	jop.showMessageDialog(null,"Votre rendez-vous a bien été pris.\nBonne journée." , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  
+  public static  void validation_rdv_respo(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Rendez-vous validé." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  
+  public static  void pas_de_demande(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Vous n'avez aucune demande de rendez-vous." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
 		
 }
   
