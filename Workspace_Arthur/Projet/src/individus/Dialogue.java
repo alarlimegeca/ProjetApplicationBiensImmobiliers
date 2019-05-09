@@ -290,6 +290,13 @@ public static String titreAnnonce() {
 	jop.showMessageDialog(null,"Vous n'avez aucune demande de rendez-vous." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
 		
 }
+	
+	  
+  public static  void demande_transaction(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Votre demande vient d'être envoyée.\nElle sera analysée par le propriétaire du bien." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
+		
+}  
   
   
   public static void main(String[] args) {
