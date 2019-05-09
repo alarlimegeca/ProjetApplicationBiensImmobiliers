@@ -243,6 +243,7 @@ public static String titreAnnonce() {
 		return email;
 }
   
+    
   public static  void refus_rdv(String email, String telephone){
 	  JOptionPane jop = new JOptionPane();
 	jop.showMessageDialog(null, "Rendez-vous supprimé, pensez à envoyer un mail à : "+email+" ou à appeler le : "+telephone,"Rendez-Vous", JOptionPane.INFORMATION_MESSAGE);
@@ -265,6 +266,18 @@ public static String titreAnnonce() {
 	return choix;
 
 	}
+  
+  public static  void aucun_creneau(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Nous sommes désolé, il n'y a plus de créneau disponible" , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+		
+}
+  
+  public static  void validation_rdv(){
+	  JOptionPane jop = new JOptionPane();
+	jop.showMessageDialog(null,"Votre rendez-vous a bien été pris.\nBonne journée." , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+		
+}
   
   
   public static void main(String[] args) {
