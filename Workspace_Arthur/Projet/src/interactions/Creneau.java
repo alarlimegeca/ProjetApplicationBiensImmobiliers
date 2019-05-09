@@ -209,29 +209,44 @@ public class Creneau {
 		
 			if (choix == "Oui"){
 				//S'il accepte, le rdv est valide et la BDD est modifiée
-				Connection conn = null;
+		    	int id_agent = 0;
+		    	Connection conn = null;
 			    Statement stmt = null;
 			    Class.forName("org.sqlite.JDBC");
 			    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 			    stmt = conn.createStatement();
+			    
+
 			    ResultSet res = stmt.executeQuery("SELECT id_agent FROM annonce WHERE id_bien LIKE '" + id_bien+"'");
 			    while (res.next()){
-		             int id_agent=res.getInt("id_agent");  
-					 stmt.close();
-				     String sql = "UPDATE rendezvous set id_agent = ? where heure= ?";
-				     PreparedStatement prepstmt = conn.prepareStatement(sql);
-				     prepstmt .setInt(1, id_agent);
-				     prepstmt .setString(2, heure);
-				     prepstmt .executeUpdate();
-				     String sql2 = "UPDATE rendezvous set rdv_valide = ? where heure= ?";
-				     PreparedStatement prepstmt2 = conn.prepareStatement(sql2);
-				     prepstmt2.setInt(1, 1);
-				     prepstmt2.setString(2, heure);
-				     prepstmt2.executeUpdate();
-				     conn.close();
+		             id_agent+=res.getInt("id_agent");  
+					
+			    }
+			    res.close();
+			    stmt.close();
+			    conn.close();
+			    try{
+			    	Connection conn2 = DriverManager.getConnection("jdbc:sqlite:bdd.db");
+			    	String sql = "UPDATE rendezvous set id_agent = ? where heure= ?";
+				    PreparedStatement prepstmt = conn2.prepareStatement(sql);
+				    prepstmt.setInt(1, id_agent);
+				    prepstmt.setString(2, heure);
+				    prepstmt.executeUpdate();
+				    String sql2 = "UPDATE rendezvous set rdv_valide = ? where heure= ?";
+				    PreparedStatement prepstmt2 = conn2.prepareStatement(sql2);
+				    prepstmt2.setInt(1, 1);
+				    prepstmt2.setString(2, heure);
+				    prepstmt2.executeUpdate();
+			    
+			    }
+			
+			    finally{
+				    Dialogue.validation_rdv_respo();
 
 			    }
-			    Dialogue.validation_rdv_respo();
+			    
+
+			    
 			}
 			
 			else{
@@ -250,7 +265,7 @@ public class Creneau {
 			}
 			
 	}
-	
+		
 		
 		public static void supprimerCreneauAncien() throws SQLException, ClassNotFoundException, IOException {
 		      
