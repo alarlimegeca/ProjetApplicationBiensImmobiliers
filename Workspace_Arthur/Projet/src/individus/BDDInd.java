@@ -190,93 +190,112 @@ public static void ajouterReceptionClientParticulier(Integer id_client, int id_p
 	
     }
 	
-	public static int trouver_id(String nom, String prenom){
-		Connection conn = null;
-		int rep = 0;
-	    try {
-	    	String url = "jdbc:sqlite:G:\\Projet info\\BDD\\bdd.db";
-	    	Class.forName("org.sqlite.JDBC");
-	    	conn = DriverManager.getConnection(url);
-	    	// Requête SQL
-	    	String query = "SELECT id_individu FROM client WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	    	String query2 = "SELECT id_individu FROM particulier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	    	String query3 = "SELECT id_individu FROM agent_immobilier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	    	String query4 = "SELECT id_individu FROM respo_agence WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	    	String query9 = "SELECT id_individu FROM reception_candidature_client WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	    	
-	    	Statement state = Connexion.getinstance().createStatement();
-	    	ResultSet result = state.executeQuery(query);
-	    	if (result.next()){
-	    	rep = result.getInt("id_individu");}
-	    	
-	    	ResultSet result2 = state.executeQuery(query2);
-	    	if (result2.next()){
-		    	rep = result2.getInt("id_individu");}
-	    	
-	    	ResultSet result3 = state.executeQuery(query3);
-	    	if (result3.next()){
-		    	rep = result3.getInt("id_individu");}
-	    	
-	    	ResultSet result4 = state.executeQuery(query4);
-	    	if (result4.next()){
-		    	rep = result4.getInt("id_individu");}
-	    	
-	    	ResultSet result9 = state.executeQuery(query9);
-	    	if (result9.next()){
-		    	rep = result9.getInt("id_individu");}
-	    	
-	    	if (rep == 0) {
-	    		String query5 = "SELECT MAX(id_individu) FROM respo_agence";
-		    	String query6 = "SELECT MAX(id_individu) FROM particulier";
-		    	String query7 = "SELECT MAX(id_individu) FROM client";
-		    	String query8 = "SELECT MAX(id_individu) FROM agent_immobilier";
-		    	String query10 = "SELECT MAX(id_individu) FROM reception_candidature_client";
-	    
-	    	ResultSet result5 = state.executeQuery(query5);
-	    	int respo_max = 0;
-	    	if (result5.next()){
-	    	respo_max = result5.getInt("MAX(id_individu)");}
-	    	
-	    	ResultSet result6 = state.executeQuery(query6);
-	    	int part_max = 0;
-	    	if (result6.next()){
-		    	part_max = result6.getInt("MAX(id_individu)");}
-	    	
-	    	ResultSet result7 = state.executeQuery(query7);
-	    	int client_max = 0;
-	    	if (result7.next()){
-		    	client_max = result7.getInt("MAX(id_individu)");}
-	    	
-	    	ResultSet result8 = state.executeQuery(query8);
-	    	int agent_max = 0;
-	    	if (result8.next()){
-		    	agent_max = result8.getInt("MAX(id_individu)");}
-	    	
-	    	ResultSet result10 = state.executeQuery(query10);
-	    	int cand_max = 0;
-	    	if (result10.next()){
-		    	agent_max = result10.getInt("MAX(id_individu)");}
-	    	
-	    	rep = Math.max(Math.max(Math.max(part_max,Math.max(cand_max,client_max)),respo_max),agent_max);
-	    	rep++;
-	    	
-	    	}
-	    } catch (SQLException e1) {
-	    	System.out.println(e1.getMessage());
-	    	
-	    } catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-	    	try {
-	    		if (conn != null) {
-	    			conn.close();
-	    		}
-	    	} catch (SQLException ex) {
-	    		System.out.println(ex.getMessage());
-	    	}
-		}
-		return rep;
+	public static int trouver_id(String nom, String prenom) throws SQLException {
+	Connection conn = null;
+	int rep = 0;
+    try {
+    	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
+    	Class.forName("org.sqlite.JDBC");
+    	conn = DriverManager.getConnection(url);
+    	// RequÃªte SQL
+    	String query = "SELECT id_individu FROM client WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+    	String query2 = "SELECT id_individu FROM particulier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+    	String query3 = "SELECT id_individu FROM agent_immobilier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+    	String query4 = "SELECT id_individu FROM respo_agence WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
+    	
+    	Statement state = Connexion.getinstance().createStatement();
+    	Statement state2 = Connexion.getinstance().createStatement();
+    	Statement state3 = Connexion.getinstance().createStatement();
+    	Statement state4 = Connexion.getinstance().createStatement();
+    	Statement state5 = Connexion.getinstance().createStatement();
+    	Statement state6 = Connexion.getinstance().createStatement();
+    	Statement state7 = Connexion.getinstance().createStatement();
+    	Statement state8 = Connexion.getinstance().createStatement();
+
+
+    	ResultSet result = state.executeQuery(query);
+    	if (result.next()){
+    	rep = result.getInt("id_individu");}
+    	
+    	ResultSet result2 = state2.executeQuery(query2);
+    	if (result2.next()){
+	    	rep = result2.getInt("id_individu");}
+    	
+    	ResultSet result3 = state3.executeQuery(query3);
+    	if (result3.next()){
+	    	rep = result3.getInt("id_individu");}
+    	
+    	ResultSet result4 = state4.executeQuery(query4);
+    	if (result4.next()){
+	    	rep = result4.getInt("id_individu");}
+    	
+    	if (rep == 0) {
+    		String query5 = "SELECT MAX(id_individu) FROM respo_agence";
+	    	String query6 = "SELECT MAX(id_individu) FROM particulier";
+	    	String query7 = "SELECT MAX(id_individu) FROM client";
+	    	String query8 = "SELECT MAX(id_individu) FROM agent_immobilier";
+    
+    	ResultSet result5 = state5.executeQuery(query5);
+    	int respo_max = 0;
+    	if (result5.next()){
+    	respo_max = result5.getInt("MAX(id_individu)");}
+    	
+    	ResultSet result6 = state6.executeQuery(query6);
+    	int part_max = 0;
+    	if (result6.next()){
+	    	part_max = result6.getInt("MAX(id_individu)");}
+    	
+    	ResultSet result7 = state7.executeQuery(query7);
+    	int client_max = 0;
+    	if (result7.next()){
+	    	client_max = result7.getInt("MAX(id_individu)");}
+    	
+    	ResultSet result8 = state8.executeQuery(query8);
+    	int agent_max = 0;
+    	if (result8.next()){
+	    	agent_max = result8.getInt("MAX(id_individu)");}
+    	
+    	rep = Math.max(Math.max(Math.max(part_max,client_max),respo_max),agent_max);
+    	rep++;
+    	
+    	 state.close();
+    	 state2.close();
+    	 state3.close();
+    	 state4.close();
+    	 state5.close();
+    	 state6.close();
+    	 state7.close();
+    	 state8.close();
+    	 result.close();
+    	 result2.close();
+    	 result3.close();
+    	 result4.close();
+    	 result5.close();
+    	 result6.close();
+    	 result7.close();
+    	 result8.close();
+    	 conn.close();
+
+    	}
+    } catch (SQLException e1) {
+    	System.out.println(e1.getMessage());
+    	
+    } catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} finally {
+    	try {
+    		
+    			conn.close();
+    		
+    	} catch (SQLException ex) {
+    		System.out.println(ex.getMessage());
+    	}
 	}
+	conn.close();
+
+	return rep;
+}
+	
 	
 	public static int trouver_id_adresse() {
 	Connection conn = null;
