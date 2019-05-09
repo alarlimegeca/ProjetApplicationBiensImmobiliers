@@ -39,13 +39,16 @@ public class Creneau {
 		BDD.ajouterCreneau(creneau);
 	}
 	
+		
 	public static String visionner_creneaux_dispos(int id_particulier, int id_bien) throws ClassNotFoundException, SQLException, IOException{
 		supprimerCreneauAncien();
 		Connection conn = null;
 	    Statement stmt = null;
+	    Statement stmt2 = null;
 	    Class.forName("org.sqlite.JDBC");
 	    conn = DriverManager.getConnection("jdbc:sqlite:bdd.db");
 	    stmt = conn.createStatement();
+	    stmt2 = conn.createStatement();
 	    ArrayList<String> liste_creneau=new ArrayList<String>();
 	    ResultSet res = stmt.executeQuery("SELECT heure FROM creneau");
         while (res.next()){
@@ -53,30 +56,35 @@ public class Creneau {
          }
         String[] liste_creneau_simple = new String[ liste_creneau.size() ];
         liste_creneau.toArray( liste_creneau_simple );
-	    stmt.close();
-        conn.close();
-        try{
-        String lecreneau=Dialogue.creneauDispo(liste_creneau_simple);
-        BDD.ajouterRDV(lecreneau, id_particulier, 0, id_bien,0);
-        System.out.println(lecreneau);
-		Connection conn2 = null;
-	    Statement stmt2 = null;
-	    String sql = "DELETE FROM creneau WHERE heure = '"+lecreneau+"'";
-	    Class.forName("org.sqlite.JDBC");
-	    conn2 = DriverManager.getConnection("jdbc:sqlite:bdd.db");
-	    stmt2 = conn2.createStatement();
-	    stmt2.executeUpdate(sql);
-	    stmt2.close();
-	    conn2.close();
-	    
-	    return lecreneau;
+	    ResultSet res2 = stmt2.executeQuery("SELECT id_agent FROM annonce WHERE id_bien="+id_bien);
+	    while (res2.next()){
+	    	int id_agent = res2.getInt("id_agent");
+		    stmt.close();
+	        conn.close();
+	        try{
+	            String lecreneau=Dialogue.creneauDispo(liste_creneau_simple);
+	            BDD.ajouterRDV(lecreneau, id_particulier, id_agent, id_bien,0);
+	            System.out.println(lecreneau);
+	    		Connection conn2 = null;
+	    	    Statement stmt3 = null;
+	    	    String sql = "DELETE FROM creneau WHERE heure = '"+lecreneau+"'";
+	    	    Class.forName("org.sqlite.JDBC");
+	    	    conn2 = DriverManager.getConnection("jdbc:sqlite:bdd.db");
+	    	    stmt3 = conn2.createStatement();
+	    	    stmt3.executeUpdate(sql);
+	    	    stmt3.close();
+	    	    conn2.close();
+	    	    
+	    	    return lecreneau;
 
-        }
-        catch (ArrayIndexOutOfBoundsException e){
-        	Dialogue.aucun_creneau();
-        	return null;
-        }
-	}
+	            }
+	            catch (ArrayIndexOutOfBoundsException e){
+	            	Dialogue.aucun_creneau();
+	            	return null;
+	            }
+	    	}
+		return null;
+	    }
 	
 	public static void demandeRdv() throws ClassNotFoundException, SQLException {
 		Connection conn = null;
