@@ -24,6 +24,8 @@ Exécutez l'installateur du Browser.
 
 Dans la fenètre Eclipse, faites un clic droit sur le projet "Immobilier" > Build Path > Configure Build Path > Librairies > add external jars > retrouvez la librairie précédemment recherchée
 
+Vous pouvez trouver notre base de données dans le dossier "Immobilier", puis il suffit de l'ouvrir dans SQLite.
+
 Pour lancer l'application, il suffit maintenant d'exécuter la classe Application qui se trouve dans le package "interactions".
 A chaque fois que vous voulez changer de rôle, il faut fermer la fenêtre et relancer l'application.
 
