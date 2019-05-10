@@ -13,18 +13,18 @@ import javax.swing.JOptionPane;
 
 public class Dialogue {
 
-// Ici nous stockons les méthodes permettant de dialoguer avec l'utilisateur
-// Il y a également quelques fonctions auxiliaires indépendantes 	
+// Ici nous stockons les mÃ©thodes permettant de dialoguer avec l'utilisateur
+// Il y a Ã©galement quelques fonctions auxiliaires indÃ©pendantes 	
 	
 public static String pays() {
 	    JOptionPane jop = new JOptionPane();
-	    String pays = jop.showInputDialog(null, "Veuillez entrer le pays où se situe le bien.", "Pays", JOptionPane.QUESTION_MESSAGE);
+	    String pays = jop.showInputDialog(null, "Veuillez entrer le pays oÃ¹ se situe le bien.", "Pays", JOptionPane.QUESTION_MESSAGE);
 		return pays;
 }
  
 public static String numero() {
 	    JOptionPane jop = new JOptionPane();
-	    String numero = jop.showInputDialog(null, "Veuillez entrer le numéro du bien.", "Numï¿½ro", JOptionPane.QUESTION_MESSAGE);
+	    String numero = jop.showInputDialog(null, "Veuillez entrer le numÃ©ro du bien.", "NumÃ¯Â¿Â½ro", JOptionPane.QUESTION_MESSAGE);
 	    return numero;
 }
 
@@ -75,7 +75,7 @@ public static String typeTransaction() {
 	String[] listeBiens = {"Viager", "Vente", "Location"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Sélectionnez le type de transaction.",
+      "SÃ©lectionnez le type de transaction.",
       "Type de transaction",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -89,7 +89,7 @@ public static String typeHabitation(String typeBien) {
     String[] listeHabitation = {"Terrain_vague", "Prairie", "Foret"};
     JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -101,7 +101,7 @@ public static String typeHabitation(String typeBien) {
 	String[] listeHabitation = {"Entrepot", "Parking", "Bureaux", "Garage"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -113,7 +113,7 @@ public static String typeHabitation(String typeBien) {
 	String[] listeHabitation = {"Maison", "Appartement", "Chateau", "Chambre"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String type = (String)jop.showInputDialog(null, 
-      "Veuillez sélectionner le type de bien.",
+      "Veuillez sÃ©lectionner le type de bien.",
       "Type de bien",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -145,7 +145,7 @@ public static String titreAnnonce() {
 
  public static String surfaceBien() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String surface = jop.showInputDialog(null, "Veuillez entrer la surface de votre bien (en m²).", "Surface", JOptionPane.QUESTION_MESSAGE);
+	    String surface = jop.showInputDialog(null, "Veuillez entrer la surface de votre bien (en mÂ²).", "Surface", JOptionPane.QUESTION_MESSAGE);
 		return surface;
   }	
 
@@ -163,7 +163,7 @@ public static String titreAnnonce() {
   
   public static String qualiteTerrain() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String qualite = jop.showInputDialog(null, "Veuillez entrer la qualité du terrain (entre 1 et 5).", "Qualité", JOptionPane.QUESTION_MESSAGE);
+	    String qualite = jop.showInputDialog(null, "Veuillez entrer la qualitÃ© du terrain (entre 1 et 5).", "QualitÃ©", JOptionPane.QUESTION_MESSAGE);
 		return qualite;
 }
   
@@ -175,13 +175,13 @@ public static String titreAnnonce() {
   
   public static String distanceEcole() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String distanceeco = jop.showInputDialog(null, "Veuillez entrer la distance du bien à l'école la plus proche (en km).", "Transports", JOptionPane.QUESTION_MESSAGE);
+	    String distanceeco = jop.showInputDialog(null, "Veuillez entrer la distance du bien Ã  l'Ã©cole la plus proche (en km).", "Transports", JOptionPane.QUESTION_MESSAGE);
 		return distanceeco;
 }
 
   public static String surfaceBatie() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String surfacebatie = jop.showInputDialog(null, "Veuillez entrer la surface batie (étages inclus) (en m²).", "Surface", JOptionPane.QUESTION_MESSAGE);
+	    String surfacebatie = jop.showInputDialog(null, "Veuillez entrer la surface batie (Ã©tages inclus) (en mÂ²).", "Surface", JOptionPane.QUESTION_MESSAGE);
 		return surfacebatie;
   }
   
@@ -192,7 +192,7 @@ public static String titreAnnonce() {
 }
   public static String nb_pieces() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String nbpieces = jop.showInputDialog(null, "Veuillez entrer le nombre de pièces.", "Composition", JOptionPane.QUESTION_MESSAGE);
+	    String nbpieces = jop.showInputDialog(null, "Veuillez entrer le nombre de piÃ¨ces.", "Composition", JOptionPane.QUESTION_MESSAGE);
 		return nbpieces;
 }
   public static String nb_salles_eaux() {
@@ -202,7 +202,7 @@ public static String titreAnnonce() {
 }
   public static String date_construction() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String datecons = jop.showInputDialog(null, "Veuillez entrer l'année de construction.", "Age", JOptionPane.QUESTION_MESSAGE);
+	    String datecons = jop.showInputDialog(null, "Veuillez entrer l'annÃ©e de construction.", "Age", JOptionPane.QUESTION_MESSAGE);
 		return datecons;
   }
   
@@ -215,42 +215,42 @@ public static String titreAnnonce() {
   
   public static String nom_ind(){
 	  JOptionPane jop = new JOptionPane();			
-	  String nom= jop.showInputDialog(null, "Veuillez entrer votre nom de famille.", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String nom= jop.showInputDialog(null, "Veuillez entrer votre nom de famille.", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return nom;
 
   }
   
   public static String prenom_ind(){
 	  JOptionPane jop = new JOptionPane();			
-	  String prenom= jop.showInputDialog(null, "Veuillez entrer votre prenom (seulement le premier).", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String prenom= jop.showInputDialog(null, "Veuillez entrer votre prenom (seulement le premier).", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return prenom;
 
   }
   
   public static String num_tel_ind(){
 	  JOptionPane jop = new JOptionPane();			
-	  String num_tel= jop.showInputDialog(null, "Veuillez entrer votre numï¿½ro de tï¿½lï¿½phone.", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String num_tel= jop.showInputDialog(null, "Veuillez entrer votre numÃ©ro de tÃ©lÃ©phone.", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return num_tel;
 
   }
   
   public static String e_mail(){
 	  JOptionPane jop = new JOptionPane();			
-	  String e_mail= jop.showInputDialog(null, "Veuillez entrer votre adresse e-mail.", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String e_mail= jop.showInputDialog(null, "Veuillez entrer votre adresse e-mail.", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return e_mail;
 
   }
   
   public static String pseudo(String statut){
 	  JOptionPane jop = new JOptionPane();			
-	  String pseudo_client = jop.showInputDialog(null, "Veuillez entrer votre pseudo pour votre compte " +statut+".", "Identité½", JOptionPane.QUESTION_MESSAGE);
+	  String pseudo_client = jop.showInputDialog(null, "Veuillez entrer votre pseudo pour votre compte " +statut+".", "IdentitÃ©Â½", JOptionPane.QUESTION_MESSAGE);
 	return pseudo_client;
 
   }
   
   public static String mot_de_passe(String statut){
 	  JOptionPane jop = new JOptionPane();			
-	  String mdp= jop.showInputDialog(null, "Veuillez entrer votre mot de passe pour votre compte " +statut+ ".", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String mdp= jop.showInputDialog(null, "Veuillez entrer votre mot de passe pour votre compte " +statut+ ".", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return mdp;
 
   }
@@ -273,7 +273,7 @@ public static String titreAnnonce() {
 	  while (decide==1) {
 		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
 	    String annonce = (String)jop.showInputDialog(null, 
-	      "Quel bien vous intéresse ?",
+	      "Quel bien vous intÃ©resse ?",
 	      "Proposition",
 	      JOptionPane.QUESTION_MESSAGE,
 	      null,
@@ -287,9 +287,9 @@ public static String titreAnnonce() {
 	    Annonce ann = BDD.construire_annonce(id_annonce, "annonce");
 	    ArrayList<String> affichage = ann.affichage();
 	    jop.showMessageDialog(null, affichage.get(0), "Adresse", JOptionPane.INFORMATION_MESSAGE);  
-		jop.showMessageDialog(null, affichage.get(1), "Caractéristiques du bien", JOptionPane.INFORMATION_MESSAGE);  
+		jop.showMessageDialog(null, affichage.get(1), "CaractÃ©ristiques du bien", JOptionPane.INFORMATION_MESSAGE);  
 		jop.showMessageDialog(null, affichage.get(2), "Client", JOptionPane.INFORMATION_MESSAGE); 
-		decide = confirmation("Voulez-vous acquérir ce bien"); 
+		decide = confirmation("Voulez-vous acquÃ©rir ce bien"); 
 		choix = ann;
 		
 	    }
@@ -322,7 +322,7 @@ public static String titreAnnonce() {
   
   public static String notation(String statut){
 	  JOptionPane jop = new JOptionPane();			
-	  String mdp= jop.showInputDialog(null, "Veuillez entrer la note de l'agent " +statut+ ".", "Identité", JOptionPane.QUESTION_MESSAGE);
+	  String mdp= jop.showInputDialog(null, "Veuillez entrer la note de l'agent " +statut+ ".", "IdentitÃ©", JOptionPane.QUESTION_MESSAGE);
 	return mdp;
 
   }
@@ -339,7 +339,7 @@ public static String prenom() {
 
 public static String telephone() {
 	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    String telephone = jop.showInputDialog(null, "Veuillez entrer votre numéro de téléphone : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
+	    String telephone = jop.showInputDialog(null, "Veuillez entrer votre numÃ©ro de tÃ©lÃ©phone : ", "Rendez-vous", JOptionPane.QUESTION_MESSAGE);
 		return telephone;
 }
 
@@ -351,17 +351,17 @@ public static String email() {
 
 public static  void refus_rdv(String email, String telephone){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null, "Rendez-vous supprimé, pensez à envoyer un mail à : "+email+" ou à appeler le : "+telephone,"Rendez-Vous", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null, "Rendez-vous supprimÃ©, pensez Ã  envoyer un mail Ã  : "+email+" ou Ã  appeler le : "+telephone,"Rendez-Vous", JOptionPane.INFORMATION_MESSAGE);
 		
 }
 public static  void afficher_recherche(String liste_biens){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,liste_biens , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,liste_biens , "RÃ©sultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
 		
 }
 public static  void aucun_resultat(){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Votre recherche ne donne aucun résultat" , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,"Votre recherche ne donne aucun rÃ©sultat" , "RÃ©sultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
 		
 }
 
@@ -370,7 +370,7 @@ public static String voirRdv() {
   	String[] listeChoix = {"Oui", "Non"};
 	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
     String choix = (String)jop.showInputDialog(null, 
-     "Vous avez une demande de rendez-vous, souhaitez-vous y répondre",
+     "Vous avez une demande de rendez-vous, souhaitez-vous y rÃ©pondre",
       "Rendez-vous",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -382,7 +382,7 @@ public static String creneauDispo(String[] liste_creneau_simple){
   
   JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
   String lecreneau = (String)JOptionPane.showInputDialog(null, 
-      "Choisissez le créneau vous convenant le mieux : ",
+      "Choisissez le crÃ©neau vous convenant le mieux : ",
       "Horaire",
       JOptionPane.QUESTION_MESSAGE,
       null,
@@ -411,7 +411,7 @@ jop.showMessageDialog(null, liste_rdv,"Adresse", JOptionPane.INFORMATION_MESSAGE
 
 public static String creneau() {
     JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-    String creneau = jop.showInputDialog(null, "Nouveau créneau à ajouter : (format jj/mm/AAAA hh:mm)", "Ajout créneau", JOptionPane.QUESTION_MESSAGE);
+    String creneau = jop.showInputDialog(null, "Nouveau crÃ©neau Ã  ajouter : (format jj/mm/AAAA hh:mm)", "Ajout crÃ©neau", JOptionPane.QUESTION_MESSAGE);
 	return creneau;
 }
 public static String accepter_rdv(String heure, String nom_bien, String numero, String voie, String code_postal, String commune, 
@@ -447,7 +447,7 @@ public static String choix_rdv_achat() {
 public static String affecter_agent(String[] liste_agent){
 	  JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
 	    String agent = (String)jop.showInputDialog(null, 
-	      "Quel agent voulez-vous affecter à ce rendez-vous ? ",
+	      "Quel agent voulez-vous affecter Ã  ce rendez-vous ? ",
 	      "Rendez-vous",
 	      JOptionPane.QUESTION_MESSAGE,
 	      null,
@@ -466,7 +466,7 @@ public static String dateAjd(){
 
 public static  void aucun_creneau(){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Nous sommes désolé, il n'y a plus de créneau disponible" , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,"Nous sommes dÃ©solÃ©, il n'y a plus de crÃ©neau disponible" , "RÃ©sultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
 		
 }
 
@@ -484,13 +484,13 @@ public static  void aucun_creneau(){
   
   public static  void validation_rdv_particulier(){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Votre rendez-vous a bien été pris.\nBonne journée." , "Résultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,"Votre rendez-vous a bien Ã©tÃ© pris.\nBonne journÃ©e." , "RÃ©sultat de votre recherche", JOptionPane.INFORMATION_MESSAGE);
 		
 }
   
   public static  void validation_rdv_respo(){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Rendez-vous validé." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,"Rendez-vous validÃ©." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
 		
 }
   
@@ -501,7 +501,7 @@ public static  void aucun_creneau(){
 }
   public static  void demande_transaction(){
 	  JOptionPane jop = new JOptionPane();
-	jop.showMessageDialog(null,"Votre demande vient d'être envoyée.\nElle sera analysée par le propriétaire du bien." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
+	jop.showMessageDialog(null,"Votre demande vient d'Ãªtre envoyÃ©e.\nElle sera analysÃ©e par le propriÃ©taire du bien." , "Demande de rendez-vous", JOptionPane.INFORMATION_MESSAGE);
 		
 }
   
