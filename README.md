@@ -11,16 +11,66 @@ Notre projet est une application de gestion de biens immobiliers capable de rép
 
 ## <a name="installation et lancement"></a> Installation et lancement
 Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gitHUB en cliquant sur [ce lien](https://github.com/LePaulM/ProjetJavaEcosysteme.git)
-Ensuite lancez [tel fichier]() 
+
+Vous aurez besoin de télécharger un browser de SQLite :
+
+Si votre OS est Windows cliquez sur [ce lien]
+(https://sqlitebrowser.org/dl/)
 
 ## <a name="exemples"></a> Exemples
-* Exemple client
+
+* Exemple client *
+Client test : id : vide / mdp : italien
+
+- Créer un compte :
+Espaces>Client>Créer un nouveau compte
+Puis rentrer vos informations
+C'est maintenant au responsable d'agence de valider votre compte (voir : Exemple responsable d'agence>Valider compte client)
+
+- Soumettre une annonce :
+Espaces>Client>Se connecter>Actions>Soumettre une annonce
+Rentrer les informations
+
+- 
+
+
+
   
-* Exemple agent 
+* Exemple agent *
+Agent test : id : lilica / mdp : azertyuiop
 
-* Exemple particulier
 
-* Exemple responsable d'agence
+- Voir ses statistiques :
+Espaces>Agent immobilier>Se connecter>Actions>
+
+- Ajouter créneau :
+Espaces>Agent immobilier>Se connecter>Actions>
+
+* Exemple particulier *
+
+- Prendre rendez-vous : 
+Espaces>Particulier>
+
+
+* Exemple responsable d'agence *
+Responsable test : id : argen / mdp : dbislocked
+
+- Valider compte client :
+Espaces>Responsable d'agence>Se connecter>Actions>Valider les nouveaux clients
+
+- Valider transaction :
+Espaces>Responsable d'agence>Se connecter>Actions>
+
+-Valider annonce :
+Espaces>Responsable d'agence>Se connecter>Actions>Valider les annonces
+
+- Valider rendez-vous : 
+Espaces>Responsable d'agence>Se connecter>Actions>Valider les rendez-vous
+
+
+
+
+
 
 
 ## <a name="maj"></a> Et encore... 
