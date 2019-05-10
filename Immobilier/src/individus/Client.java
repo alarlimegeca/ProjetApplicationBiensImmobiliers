@@ -347,7 +347,7 @@ public class Client extends Particulier {
 	    	Class.forName("org.sqlite.JDBC");
 	    	conn = DriverManager.getConnection(url);
 	    	// Requête SQL
-	    	String query = "SELECT * FROM annonce WHERE id_client = " +this.getId();
+	    	String query = "SELECT * FROM annonce WHERE valide = 1 AND id_client = " +this.getId();
 	    	
 	    	Statement state = Connexion.getinstance().createStatement();
 	    	ResultSet result = state.executeQuery(query);
