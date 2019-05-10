@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import individus.Connexion;
 
 public class Adresse {
+	
+	//ATTRIBUTS
+	
 	public int id_adresse;
 	public int numero;
 	public String voie;
@@ -14,6 +17,8 @@ public class Adresse {
 	public String commune;
 	public String pays;
 	public Environnement environnement;
+	
+	//CONSTRUCTEUR
 	
 	public Adresse(int id_adresse, int numero, String voie, String code_postal, String code_INSEE, String commune, String pays,Environnement environnement) {
 		super();
@@ -26,6 +31,9 @@ public class Adresse {
 		this.pays=pays;
 		this.environnement=environnement;
 	}
+	
+	//ACCESSEURS ET MUTATEURS
+	
 	public int getId_adresse() {
 		return id_adresse;
 	}
@@ -75,6 +83,11 @@ public class Adresse {
 		this.environnement=environnement;
 	}
 
+	//AUTRES METHODES
+	
+	/**Ajouter une adresse avec ses diff√©rents attributs √† la base de donn√©es
+	 * @param id_adresse
+	 */
 	
 	public static void ajouterAdresse(int id_adresse, String pays, int numero, String voie, String code_postal, String code_INSEE,String commune, Environnement environnement ) {
 		try {
@@ -99,11 +112,16 @@ public class Adresse {
 			e.printStackTrace();
 		}
 	}
-	 public String toString(){
+	
+	/**
+	 * Donne une description des objets de la classe adresse
+	 */
+	
+	public String toString(){
 		    String str;
 		    if(this.id_adresse == 0){
 		      str = "Affichage adresse \n";
-		      str += "id_adresse : ‡ dÈterminer \n";
+		      str += "id_adresse : √† d√©terminer \n";
 		      str += this.pays +"\n";
 		      str += this.numero + " " + this.voie +  "\n";
 		      str += this.code_postal + " " + this.commune + "\n";
@@ -122,8 +140,4 @@ public class Adresse {
 		    return str;
 		  }
 
-public static void main(String[] args) {
-	//Adresse.ajouterAdresse(0,"rue du ch‚teau d'eau",7,"25260","25242","MONTENOIS","FRANCE",Environnement.Campagne); 
-	System.out.println(8);
-	}
 }
