@@ -3,8 +3,12 @@ package bien_immobilier;
 
 public abstract class Construit extends Bien_immobilier {
 	
+	//ATTRIBUTS
+	
 	private double surface_batie;
 	private int date_construction;
+	
+	//CONSTRUCTEUR
 	
 	public Construit (int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction) {
 		super(id_bien, nom, en_ligne, adresse, surface, transports, type_habitation);
@@ -12,10 +16,12 @@ public abstract class Construit extends Bien_immobilier {
 		this.date_construction=date_construction;
 	}
 	
+	//ACCESSEURS ET MUTATEURS
+	
 	public double getSurface_batie() {
 		return surface_batie;
 	}
-	public void setSurface_b‚tie(double surface_batie) {
+	public void setSurface_b√¢tie(double surface_batie) {
 		this.surface_batie=surface_batie;
 	}
 	public int getDate_construction () {
