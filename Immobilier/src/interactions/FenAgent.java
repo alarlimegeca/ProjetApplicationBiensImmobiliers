@@ -21,12 +21,10 @@ public class FenAgent extends JFrame {
   private Agent_immobilier agent;
 
   private JMenuItem item_res = new JMenuItem("Voir les résultats");
- 
+  private JMenuItem item_creneau = new JMenuItem("Ajouter un créneau");
 
-  public static void main(String[] args){
-
-  }
-
+  // CONSTRUCTEUR
+  
   public FenAgent(Agent_immobilier agent){
 	this.agent = agent;
     this.setSize(400, 200);
@@ -35,16 +33,27 @@ public class FenAgent extends JFrame {
 
     //On initialise nos menus      
     this.actions.add(item_res);  
+    this.actions.add(item_creneau);
    
     this.menuBar.add(actions);
     this.setJMenuBar(menuBar);
     this.setVisible(true);
+    
+    // LIENS BOUTONS CODE
     
     item_res.addActionListener(new ActionListener() {
     	Agent_immobilier age = agent;
 
 		public void actionPerformed(ActionEvent event){
 			age.voir_statistiques();
+        }
+    });
+    
+    item_creneau.addActionListener(new ActionListener() {
+    	Agent_immobilier age = agent;
+
+		public void actionPerformed(ActionEvent event){
+			age.ajouterCreneau();;
         }
     });
   }

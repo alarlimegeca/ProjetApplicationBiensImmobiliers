@@ -2,6 +2,7 @@ package interactions;
 
 	import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
@@ -14,6 +15,9 @@ import javax.swing.JRadioButtonMenuItem;
 import individus.Respo_agence;
 
 	public class FenRespo extends JFrame {
+		
+	// ATTRIBUTS
+		
 	  private JMenuBar menuBar = new JMenuBar();
 	  private JMenu actions = new JMenu("Actions");
 	  private Respo_agence respo;
@@ -22,12 +26,9 @@ import individus.Respo_agence;
 	  private JMenuItem item_cli = new JMenuItem("Valider les nouveaux clients");
 	  private JMenuItem item_rdv = new JMenuItem("Valider les rendez-vous");
 	  private JMenuItem item_note = new JMenuItem("Noter un agent immobilier");
-	  private JMenuItem item_stat = new JMenuItem("Voir les statistiques");
 	  private JMenuItem item_trans = new JMenuItem("Valider les transactions");
-	 
-	  public static void main(String[] args){
-	    
-	  }
+	
+	  // CONSTRUCTEUR
 
 	  public FenRespo(Respo_agence respo){
 	    this.setSize(400, 200);
@@ -38,13 +39,14 @@ import individus.Respo_agence;
 	    this.actions.add(item_ann);
 	    this.actions.add(item_cli);  
 	    this.actions.add(item_rdv);
-	    this.actions.add(item_stat);
 	    this.actions.add(item_note);
 	    this.actions.add(item_trans);
 
 	    this.menuBar.add(actions);
 	    this.setJMenuBar(menuBar);
 	    this.setVisible(true);
+	    
+	    // LIENS BOUTONS CODE
 	    
 	    item_cli.addActionListener(new ActionListener() {
 	    	Respo_agence respo = this.respo;
@@ -69,8 +71,16 @@ import individus.Respo_agence;
 	    	
 
 			public void actionPerformed(ActionEvent event){
-	         //   respo.fonction_validation_rdv();
-	        }
+	         try {
+				respo.fonction_validation_rdv();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
 	    });
 	    
 	    item_trans.addActionListener(new ActionListener() {

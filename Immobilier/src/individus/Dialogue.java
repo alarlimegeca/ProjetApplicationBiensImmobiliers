@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 
 public class Dialogue {
 
+// Ici nous stockons les méthodes permettant de dialoguer avec l'utilisateur
+// Il y a également quelques fonctions auxiliaires indépendantes 	
+	
 public static String pays() {
 	    JOptionPane jop = new JOptionPane();
 	    String pays = jop.showInputDialog(null, "Veuillez entrer le pays où se situe le bien.", "Pays", JOptionPane.QUESTION_MESSAGE);

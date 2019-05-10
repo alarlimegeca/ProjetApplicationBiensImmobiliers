@@ -15,6 +15,8 @@ import individus.Respo_agence;
 
 public class Annonce {
 	
+	// ATTRIBUTS
+	
 	private int id_annonce;
 	private String titre;
 	private boolean valide;
@@ -24,6 +26,9 @@ public class Annonce {
 	private Client client;
 	private double prix;
 	private String habitation;
+	
+	
+	// CONSTRUCTEUR
 	
 	public Annonce(int id_annonce,String titre, boolean valide, TypeTransaction transaction, double prix, Bien_immobilier lebien,Agent_immobilier agent, Client client, String habitation) {
 		super();
@@ -38,7 +43,7 @@ public class Annonce {
 		this.habitation = habitation;
 	}
 	
-	
+	// ACCESSEURS ET MUTATEURS
 
 	public void setTitre(String titre) {
 		this.titre = titre;
@@ -92,7 +97,34 @@ public class Annonce {
 	public void setTransaction(TypeTransaction transaction) {
 		this.transaction = transaction;
 	}
+	
+	public double getPrix() {
+		return prix;
+	}
 
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+
+
+	public String getHabitation() {
+		return habitation;
+	}
+
+
+
+	public void setHabitation(String habitation) {
+		this.habitation = habitation;
+	}
+
+	// AUTRES METHODES
+	
+	/**
+	 * ajoute l'annonce dans la base de données
+	 * @param categorie
+	 */
+	
 	public void ajouterAnnonce(String categorie) {
 		try {
 			String statement = "INSERT INTO "+categorie+"(id_annonce,titre,valide,type_transaction,prix,id_bien,id_agent,id_client,habitation) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -118,6 +150,12 @@ public class Annonce {
 		}
 	}
 
+	/**
+	 * permet d'afficher proprement l'annonce
+	 * @return plusieurs châine de caractères qui décrivent l'adresse, le bien, le prix, le client et l'agent
+	 */
+	
+	
 	public ArrayList<String> affichage() {
 		String str1 = this.getLebien().getAdresse().toString();
 		String str2 = this.getLebien().toString();
@@ -142,25 +180,7 @@ public class Annonce {
 		return affichage;
 	}
 
-	public double getPrix() {
-		return prix;
-	}
 
-	public void setPrix(double prix) {
-		this.prix = prix;
-	}
-
-
-
-	public String getHabitation() {
-		return habitation;
-	}
-
-
-
-	public void setHabitation(String habitation) {
-		this.habitation = habitation;
-	}
 
 	
 	

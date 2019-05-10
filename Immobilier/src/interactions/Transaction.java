@@ -14,6 +14,8 @@ import individus.Particulier;
 
 public class Transaction {
  
+	//ATTRIBUTS
+	
 	private String date_transaction;
 	private int id_transaction;
 	private Bien_immobilier lebien;
@@ -24,7 +26,7 @@ public class Transaction {
 	private double prix;
 	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-	
+	//CONSTRUCTEUR
 
 	public Transaction(String date_transaction, TypeTransaction type_transaction, int id_transaction, double prix, Client leclient, Particulier leparticulier, Agent_immobilier lagent, Bien_immobilier lebien) {
 		super();
@@ -37,7 +39,7 @@ public class Transaction {
 		this.date_transaction= date_transaction;
 	}
 	
-
+	//ACCESSEURS ET MUTATEURS
 
 	public TypeTransaction getType_transaction() {
 		return type_transaction;
@@ -112,6 +114,10 @@ public class Transaction {
 		this.date_transaction=date_transaction;
 	}
 	
+	/**
+	 * permet d'ajouter la transaction à la BDD
+	 */
+	
 	public void ajouterTransaction() {
 		try {
 			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO latransaction(date_transaction,id_transaction,id_bien,id_agent,id_client,id_particulier,prix,typ_transaction) VALUES (?,?,?,?,?,?,?,?)");
@@ -134,6 +140,10 @@ public class Transaction {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * permet d'afficher proprement la transaction
+	 */
 	
 	public String toString() {
 		String str = "Récapitulatif transaction : \n";
@@ -164,6 +174,11 @@ public class Transaction {
 		return str;
 		
 	}
+	
+	/**
+	 * renvoie la date courante sous forme de chaîne de caractère
+	 * @return date courante
+	 */
 	
 	public static String dateAjd(){
     	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

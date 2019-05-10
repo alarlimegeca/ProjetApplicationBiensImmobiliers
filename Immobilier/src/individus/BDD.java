@@ -19,7 +19,17 @@ import interactions.Annonce;
 import interactions.Transaction;
 import interactions.TypeTransaction;
 
+
 public class BDD {
+	
+	/**
+	 * permet d'ajouter un particulier à la base de données
+	 * @param id_individu
+	 * @param nom
+	 * @param prenom
+	 * @param e_mail
+	 * @param num_tel
+	 */
 	public static void ajouterParticulier(Integer id_individu, String nom, String prenom, String e_mail, String num_tel) {
 		try {
 			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"particulier\"(id_individu,nom,prenom,e_mail,num_tel) VALUES (?,?,?,?,?)");
@@ -40,6 +50,17 @@ public class BDD {
 		}
 	}
 
+	/**
+	 * permet d'ajouter un client à la base de données
+	 * @param categorie
+	 * @param id_individu
+	 * @param nom
+	 * @param prenom
+	 * @param e_mail
+	 * @param num_tel
+	 * @param pseudo_client
+	 * @param mot_de_passe_client
+	 */
 public static void ajouterClient(String categorie,Integer id_individu, String nom, String prenom, String e_mail, String num_tel, String pseudo_client, String mot_de_passe_client) {
 	
 	try {
@@ -68,7 +89,16 @@ public static void ajouterClient(String categorie,Integer id_individu, String no
    
 	}
 	
-	
+	/**
+	 * permet d'ajouter un agent à la base de données
+	 * @param id_individu
+	 * @param nom
+	 * @param prenom
+	 * @param e_mail
+	 * @param num_tel
+	 * @param pseudo_agent
+	 * @param mot_de_passe_agent
+	 */
 
 public static void ajouterAgent(Integer id_individu, String nom, String prenom, String e_mail, String num_tel, String pseudo_agent, String mot_de_passe_agent) {
 	try {
@@ -91,6 +121,19 @@ public static void ajouterAgent(Integer id_individu, String nom, String prenom, 
 		e.printStackTrace();
 	}
 }
+
+	/**
+	 * permet d'ajouter le responsable à la base de données
+	 * @param id_individu
+	 * @param nom
+	 * @param prenom
+	 * @param e_mail
+	 * @param num_tel
+	 * @param pseudo_agent
+	 * @param mot_de_passe_agent
+	 * @param pseudo_respo
+	 * @param mot_de_passe_respo
+	 */
 
 public static void ajouterRespo(Integer id_individu, String nom, String prenom, String e_mail, String num_tel, String pseudo_agent, String mot_de_passe_agent, String pseudo_respo, String mot_de_passe_respo) {
 	try {
@@ -117,49 +160,13 @@ public static void ajouterRespo(Integer id_individu, String nom, String prenom, 
 }
 
 
-public static int search(){
-	Connection conn = null;
-    try {
-    	// db parameters
-    	String url = "jdbc:sqlite:bdd.db";
-    	//create a connection to the database
-    	Class.forName("org.sqlite.JDBC");
-    	conn = DriverManager.getConnection(url);
-
-    	
-    	// Requête SQL
-    	String query = "SELECT * FROM client";
-   
-
-    	Statement state = (Statement) Connexion.getinstance().createStatement();
-
-        ResultSet result = ((java.sql.Statement) state).executeQuery(query);
-        while (result.next()) {
-        	String p = result.getString("prenom");
-        	String n = result.getString("nom");
-        	System.out.println("Le client est "+p+" "+n);
-        }
-      
-       
-
-
-    } catch (SQLException e1) {
-    	System.out.println(e1.getMessage());
-    	return (0);
-    } catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} finally {
-    	try {
-    		if (conn != null) {
-    			conn.close();
-    		}
-    	} catch (SQLException ex) {
-    		System.out.println(ex.getMessage());
-    	}
-    }
-	return 0;
-}
+/**
+ * regarde si un enregistrement se trouve dans une table
+ * @param BDD
+ * @param colonne
+ * @param enregistrement
+ * @return booleen qui répend à la question
+ */
 
 public static boolean est_dans_BDD(String BDD, String colonne, String enregistrement) {
 Connection conn = null;
@@ -193,6 +200,13 @@ try {
 return false;
 
 }
+
+/**
+ * trouve l'identifiant d'un nouvel individu
+ * @param nom
+ * @param prenom
+ * @return l'individu
+ */
 
 public static int trouver_id(String nom, String prenom){
 	Connection conn = null;
@@ -282,6 +296,11 @@ public static int trouver_id(String nom, String prenom){
 	return rep;
 }
 
+/**
+ * trouve l'identifiant d'une nouvelle adresse
+ * @return
+ */
+
 public static int trouver_id_adresse() {
 Connection conn = null;
 int trouve = 0;
@@ -315,6 +334,11 @@ return trouve;
 
 }
 
+/**
+ * trouve l'identifiant d'une nouvelle transaction
+ * @return
+ */
+
 public static int trouver_id_transaction() {
 	Connection conn = null;
 	int trouve = 0;
@@ -347,6 +371,11 @@ public static int trouver_id_transaction() {
 	return trouve;
 	
     }
+
+/**
+ * trouve l'identifiant d'une nouvelle annonce
+ * @return
+ */
 
 public static int trouver_id_annonce() {
 	Connection conn = null;
@@ -389,6 +418,11 @@ public static int trouver_id_annonce() {
 	return trouve;
 	
     }
+
+/**
+ * trouve l'identifiant d'un nouveau bien
+ * @return identifiant
+ */
 
 public static int trouver_id_bien() {
 	Connection conn = null;
@@ -438,6 +472,12 @@ public static int trouver_id_bien() {
 	
     }
 
+/**
+ * compte le nombre de transaction où l'agent a été impliqué
+ * @param agent
+ * @return
+ */
+
 public static int compte_transactions(Agent_immobilier agent) {
 	int compte_transaction = 0;
 	Connection conn = null;
@@ -470,6 +510,12 @@ public static int compte_transactions(Agent_immobilier agent) {
 	}
     return compte_transaction;
 	}
+
+/**
+ * compte le nombre d'annonces actives sur lesquelles se trouve le responsable
+ * @param agent
+ * @return
+ */
 
 public static int compte_annonces(Agent_immobilier agent) {
 	int compte_annonce = 0;
@@ -505,7 +551,12 @@ public static int compte_annonces(Agent_immobilier agent) {
 	}
 	
 	
-   
+/**
+ * permet de construire un individu sous forme d'objet à partir d'un enregistrement de la base de données   
+ * @param id_individu
+ * @param statut
+ * @return individu
+ */
 
 public static Individu construire_ind(int id_individu,String statut){
 	Connection conn = null;
@@ -568,6 +619,12 @@ public static Individu construire_ind(int id_individu,String statut){
 	
 }
 
+/**
+ * permet de construire une adresse sous forme d'objet à partir d'un enregistrement de la base de données   
+ * @param id_adresse
+ * @return adresse construite
+ */
+
 public static Adresse construire_adresse(int id_adresse){
 	Connection conn = null;
 	int trouve = 0;
@@ -608,6 +665,13 @@ public static Adresse construire_adresse(int id_adresse){
 	return null;
 	
 }
+
+/**
+ * permet de construire un bien sous forme d'objet à partir d'un enregistrement de la base de données   
+ * @param id_bien
+ * @param statut
+ * @return bien construit
+ */
 
 public static Bien_immobilier construire_bien(int id_bien,String statut){
 	Connection conn = null;
@@ -688,6 +752,10 @@ public static Bien_immobilier construire_bien(int id_bien,String statut){
 	
 }
 
+/**
+ * permet de construire une annonce sous forme d'objet à partir d'un enregistrement de la base de données   
+ */
+
 public static Annonce construire_annonce(int id_annonce, String type_bien){
 	Connection conn = null;
 	int trouve = 0;
@@ -748,6 +816,12 @@ public static Annonce construire_annonce(int id_annonce, String type_bien){
 	
 }
 
+/**
+ * permet de construire une transaction sous forme d'objet à partir d'un enregistrement de la base de données   
+ * @param id_transaction
+ * @return transaction construite
+ */
+
 public static Transaction construire_transaction(int id_transaction){
 	Connection conn = null;
 	int trouve = 0;
@@ -798,6 +872,15 @@ public static void ajouterCreneau(String creneau) {
 	}
 }
 
+/**
+ * permet d'ajouter un rendez-vous dans la base de données
+ * @param creneau
+ * @param id_particulier
+ * @param id_agent
+ * @param id_bien
+ * @param rdv_valide
+ */
+
 public static void ajouterRDV(String creneau, int id_particulier, int id_agent, int id_bien, int rdv_valide){
 	try {
 		PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"rendezvous\"(heure,id_particulier,id_agent,id_bien,rdv_valide) VALUES (?,?,?,?,?)");
@@ -818,111 +901,7 @@ public static void ajouterRDV(String creneau, int id_particulier, int id_agent, 
 		e.printStackTrace();
 	}
 }
-public static int trouver_id2(String nom, String prenom) throws SQLException {
-Connection conn = null;
-int rep = 0;
-try {
-	String url = "jdbc:sqlite:F:\\Projet info\\BDD\\bdd.db";
-	Class.forName("org.sqlite.JDBC");
-	conn = DriverManager.getConnection(url);
-	// RequÃªte SQL
-	String query = "SELECT id_individu FROM client WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	String query2 = "SELECT id_individu FROM particulier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	String query3 = "SELECT id_individu FROM agent_immobilier WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
-	String query4 = "SELECT id_individu FROM respo_agence WHERE nom LIKE '" +nom + "' AND prenom LIKE '" +prenom+"'";
 
-	Statement state = Connexion.getinstance().createStatement();
-	Statement state2 = Connexion.getinstance().createStatement();
-	Statement state3 = Connexion.getinstance().createStatement();
-	Statement state4 = Connexion.getinstance().createStatement();
-	Statement state5 = Connexion.getinstance().createStatement();
-	Statement state6 = Connexion.getinstance().createStatement();
-	Statement state7 = Connexion.getinstance().createStatement();
-	Statement state8 = Connexion.getinstance().createStatement();
-
-
-	ResultSet result = state.executeQuery(query);
-	if (result.next()){
-	rep = result.getInt("id_individu");}
-
-	ResultSet result2 = state2.executeQuery(query2);
-	if (result2.next()){
-    	rep = result2.getInt("id_individu");}
-
-	ResultSet result3 = state3.executeQuery(query3);
-	if (result3.next()){
-    	rep = result3.getInt("id_individu");}
-
-	ResultSet result4 = state4.executeQuery(query4);
-	if (result4.next()){
-    	rep = result4.getInt("id_individu");}
-
-	if (rep == 0) {
-		String query5 = "SELECT MAX(id_individu) FROM respo_agence";
-    	String query6 = "SELECT MAX(id_individu) FROM particulier";
-    	String query7 = "SELECT MAX(id_individu) FROM client";
-    	String query8 = "SELECT MAX(id_individu) FROM agent_immobilier";
-
-	ResultSet result5 = state5.executeQuery(query5);
-	int respo_max = 0;
-	if (result5.next()){
-	respo_max = result5.getInt("MAX(id_individu)");}
-
-	ResultSet result6 = state6.executeQuery(query6);
-	int part_max = 0;
-	if (result6.next()){
-    	part_max = result6.getInt("MAX(id_individu)");}
-
-	ResultSet result7 = state7.executeQuery(query7);
-	int client_max = 0;
-	if (result7.next()){
-    	client_max = result7.getInt("MAX(id_individu)");}
-
-	ResultSet result8 = state8.executeQuery(query8);
-	int agent_max = 0;
-	if (result8.next()){
-    	agent_max = result8.getInt("MAX(id_individu)");}
-
-	rep = Math.max(Math.max(Math.max(part_max,client_max),respo_max),agent_max);
-	rep++;
-
-	 state.close();
-	 state2.close();
-	 state3.close();
-	 state4.close();
-	 state5.close();
-	 state6.close();
-	 state7.close();
-	 state8.close();
-	 result.close();
-	 result2.close();
-	 result3.close();
-	 result4.close();
-	 result5.close();
-	 result6.close();
-	 result7.close();
-	 result8.close();
-	 conn.close();
-
-	}
-} catch (SQLException e1) {
-	System.out.println(e1.getMessage());
-
-} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-} finally {
-	try {
-
-			conn.close();
-
-	} catch (SQLException ex) {
-		System.out.println(ex.getMessage());
-	}
-}
-conn.close();
-
-return rep;
-}
 public static void ajouterReceptionClientParticulier(Integer id_client, int id_particulier, int id_bien, int id_annonce){
 	try {
 	PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO \"reception_client_particulier"
@@ -943,6 +922,13 @@ public static void ajouterReceptionClientParticulier(Integer id_client, int id_p
 }
 }
 
+/**
+ * ajoute un enregistrement dans la table "reception_respo_transaction"
+ * @param id_annonce
+ * @param id_client
+ * @param id_particulier
+ */
+
 public static void ajouterReceptionRespoTrans(int id_annonce,int id_client, int id_particulier){
 	try {
 	PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO reception_respo_transaction(id_client,id_particulier,id_annonce) VALUES (?,?,?)");
@@ -960,7 +946,12 @@ public static void ajouterReceptionRespoTrans(int id_annonce,int id_client, int 
 	e.printStackTrace();
 }
 }
-	
+
+/**
+ * permet de modifier le statut du bien et de l'annonce
+ * @param annonce
+ */
+
 public static void suppr_annonce(Annonce annonce) {
 	Connection conn = null;
 	    try {
@@ -1013,18 +1004,6 @@ public static void suppr_annonce(Annonce annonce) {
 	    		System.out.println(ex.getMessage());
 	    	}
 		}}
-
-	public static void main(String[] args) {
-		//BDD.ajouterParticulier(100,"Dupont", "Jean","jean.dupont@gmail.com","06 23 14 56 87");
-		//BDD.ajouterAgent(0, "à déterminer", "à déterminer", "à déterminer", "à déterminer", "à déterminer", "à déterminer");
-		//System.out.println(BDD.trouver_id_annonce());
-		//System.out.println(BDD.est_dans_BDD("client", "pseudo_client", "jdpt99"));
-		//System.out.println("gfde");
-		//BDD.ajouterReceptionClientParticulier(104, 100,5 , 2);
-//Client client = (Client) BDD.construire_ind(103, "client");
-//client.choisir_particulier();	
-
-	}
 
 
 }

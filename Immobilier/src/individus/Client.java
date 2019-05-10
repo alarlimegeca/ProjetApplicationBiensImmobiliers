@@ -75,9 +75,12 @@ public class Client extends Particulier {
 			this.setRespo(respo);
 	 }
 	
-	// METHODES
-	
-	static Scanner scan = new Scanner(System.in);
+	// AUTRES METHODES
+
+	 /**
+	  * permet au client de demander un compte client au responsable
+	  */
+	 
 	
 	public static void creer_compte() {
 	    
@@ -115,6 +118,10 @@ public class Client extends Particulier {
 	}
 	
 	
+	/**
+	 * permet au client de se connecter à son compte client
+	 * @return le client qui sera pris en paramètre de la fenêtre client
+	 */
 	
 	public static Client se_connecter_client() {
 		String pseudo = Dialogue.pseudo("client");
@@ -165,7 +172,14 @@ public class Client extends Particulier {
 
 	}
 	
+	/**
+	 * permet au client de proposer une nouvelle annonce au responsable d'agence
+	 */
+	
 	public void soumettre_annonce() {
+		
+		// On rentre les informations générales
+		
 		String titre = Dialogue.titreAnnonce();
 		
 		JOptionPane jop = new JOptionPane();
@@ -226,6 +240,8 @@ public class Client extends Particulier {
 		int id_bien = BDD.trouver_id_bien();	
 		
 		Annonce annonce = new Annonce(0,"",true,null,0,null,null,this,typeBien);
+		
+		// On rentre les paramètres du bien selon le cas correspondant
 		
 		if (typeBien.equals("Constructible")) {
 		String qual = Dialogue.qualiteTerrain();
@@ -315,10 +331,17 @@ public class Client extends Particulier {
 	
 	}
 	
+	/**
+	 * le client choisit le particulier avec qui la transaction sera faite parmi plusieurs candidats 
+	 */
+	
 	public void choisir_particulier() {
 		Connection conn = null;
 		ArrayList<String> titres_annonces = new ArrayList();
 		ArrayList<Annonce> annonces = new ArrayList();
+		
+		// Le client choisit l'annonce
+		
 	    try {
 	    	String url = "jdbc:sqlite:bdd.db";
 	    	Class.forName("org.sqlite.JDBC");
@@ -399,6 +422,9 @@ public class Client extends Particulier {
 	    		System.out.println(ex.getMessage());
 	    	}
 		}
+	    
+	    // Le client choisit le particulier
+	    
 	    if (l_particuliers.size()==0) {
 	    	JOptionPane jop4 = new JOptionPane();
 			jop4.showMessageDialog(null, "Vous n'avez aucune proposition", "Récapitulatif bien", JOptionPane.INFORMATION_MESSAGE);  
@@ -414,7 +440,5 @@ public class Client extends Particulier {
 	}
 	    }
 	
-	public static void main(String[] args) {
-	}
 
 }

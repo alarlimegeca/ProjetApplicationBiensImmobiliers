@@ -7,15 +7,23 @@ import individus.Agent_immobilier;
 import individus.Connexion;
 
 public class Notation {
+	
+	// ATTRIBUTS
 	private Agent_immobilier agent;
 	private double note;
 	private String date;
+	
+	// CONSTRUCTEURS
 	
 	public Notation(Agent_immobilier agent, double note, String date) {
 		this.agent =agent;
 		this.note = note;
 		this.date = date;
 	}
+	
+	/**
+	 * ajoute une note dans la base de données
+	 */
 	
 	public void ajouterNote() {
 			try {
@@ -35,9 +43,6 @@ public class Notation {
 			}
 	}
 
-	  public static void main(String[] args) {
-
-		  
-	  }
+	  
 }
 

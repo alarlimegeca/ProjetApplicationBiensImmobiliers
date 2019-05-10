@@ -52,6 +52,10 @@ public class Agent_immobilier extends Individu{
 	
 	// AUTRES METHODES
 	
+	/**
+	 * permet à l'agent immobilier de consulter ses statistiques
+	 */
+	
 	public void voir_statistiques() {
 		Connection conn = null;
         try {
@@ -115,6 +119,11 @@ public class Agent_immobilier extends Individu{
         }
 	}
 	
+	/**
+	 * permet à l'agent immobilier d'accèder
+	 * @return l'agent qui vient de se connecter
+	 */
+	
 	public static Agent_immobilier se_connecter_agent() {
 	    String pseudo = Dialogue.pseudo("agent_immobilier");
 		String passe = Dialogue.mot_de_passe("agent_immobilier");
@@ -159,6 +168,15 @@ public class Agent_immobilier extends Individu{
         }
 		return null;
 
+	}
+	
+	/**
+	 * permet d'ajouter un créneau
+	 */
+	
+	public static void ajouterCreneau() {
+		String creneau = Dialogue.creneau();
+		BDD.ajouterCreneau(creneau);
 	}
 
 }

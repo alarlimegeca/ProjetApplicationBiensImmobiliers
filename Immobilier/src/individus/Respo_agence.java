@@ -1,6 +1,7 @@
 package individus;
 
 import interactions.Annonce;
+import interactions.Creneau;
 import interactions.Notation;
 import interactions.Transaction;
 
@@ -124,6 +125,10 @@ public class Respo_agence extends Agent_immobilier {
 	
 	// AUTRES METHODES
 	
+	/**
+	 * le responsable peut valider ou non les candidatures des individus souhaitant devenir clients
+	 */
+	
 	public static void valider_client(){
 		ArrayList<Client> receptionC = new ArrayList<>();
 		Connection conn = null;
@@ -181,66 +186,9 @@ public class Respo_agence extends Agent_immobilier {
 		}
 	}
 	
-	public static int voirStatAgent(int id_agent) {
-		Connection conn = null;
-        try {
-        	// db parameters
-        	String url = "jdbc:sqlite:bdd.db";
-        	//create a connection to the database
-        	Class.forName("org.sqlite.JDBC");
-        	conn = DriverManager.getConnection(url);
-
-        	
-        	// Requ�te SQL
-        	String query = "SELECT * FROM notation WHERE id_agent='"+id_agent+"'";
-       
-
-        	Statement state = Connexion.getinstance().createStatement();
-
-            ResultSet result = state.executeQuery(query);
-            double somme_note=0;
-            double nbr_note=0;
-            while (result.next()) {
-            	int id = result.getInt("id_agent");
-            	int note = result.getInt("note");
-            	String date = result.getString("date");
-            	somme_note+=note;
-            	nbr_note+=1;
-            	System.out.println("L'agent "+id+" a reçu la note : "+note +" le "+date);
-            }
-            double moy_note=somme_note/nbr_note;
-            System.out.println("La note moyenne de cet agent est de : "+moy_note);
-            if (moy_note<10) {
-                System.out.println("Nous vous proposons une prime de 0€");               
-            }
-            else if (moy_note>=10 && moy_note<15 ) {
-                System.out.println("Nous vous proposons une prime de 100€");               
-
-            }
-            else {
-                System.out.println("Nous vous proposons une prime de 200€");               
-            }
-          
-           
-
-
-        } catch (SQLException e1) {
-        	System.out.println(e1.getMessage());
-        	return (0);
-        } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-        	try {
-        		if (conn != null) {
-        			conn.close();
-        		}
-        	} catch (SQLException ex) {
-        		System.out.println(ex.getMessage());
-        	}
-        }
-		return 0;
-	}
+	/**
+	 * Le responsable peut noter ses agents en fonction de leurs résultats
+	 */
 	
 	public static void noter_agents() {
 		ArrayList<String> l_agents = new ArrayList();
@@ -296,6 +244,12 @@ public class Respo_agence extends Agent_immobilier {
 		
 	}
 	
+	/**
+	 * permet au responsable d'accéder à son espace personnel après s'être correctement connecté
+	 * @return le responsable qui vient de se connecter
+	 */
+	
+	
 	public static Respo_agence se_connecter_respo() {
 		String pseudo = Dialogue.pseudo("responsable d'agence");
 		String passe = Dialogue.mot_de_passe("responsable d'agence");
@@ -343,6 +297,10 @@ public class Respo_agence extends Agent_immobilier {
 		return null;
 
 	}
+	
+	/**
+	 * permet au responsable de valider l'annonce et d'y associer un agent s'il choisit de la valider
+	 */
 	
 	public static void valider_annonces() {
 		
@@ -430,6 +388,9 @@ public class Respo_agence extends Agent_immobilier {
 			    		System.out.println(ex.getMessage());
 			    	}
 				}
+			
+			    // Choix agent immobilier
+			
 			    String[] agents = l_agents.toArray(new String[0]);
 			    
 			    String choix = Dialogue.choisir_agent(agents);
@@ -439,7 +400,7 @@ public class Respo_agence extends Agent_immobilier {
 			    int id_agent = Integer.parseInt(list.get(0));
 			    Agent_immobilier agent = (Agent_immobilier) BDD.construire_ind(id_agent, "agent_immobilier");
 			    
-			
+			// Le responsble décide de mettre en ligne l'annonce ou non
 			
 			int decision = Dialogue.confirmation("Souhaitez-vous mettre en ligne cette annonce ?");
 			if (decision == 0){
@@ -450,6 +411,10 @@ public class Respo_agence extends Agent_immobilier {
 		
 		}
 	}
+	
+	/**
+	 * permet au responsable de valider une transaction après que le client et le particulier se sont mis d'accord
+	 */
 	
 public static void valider_transaction() {
 	ArrayList<Transaction> receptionT = new ArrayList<>();
@@ -517,9 +482,15 @@ public static void valider_transaction() {
 	}
 }
 
-public static void main(String[] args) {
-		
-		valider_transaction();
-		//voirStatAgent(1);
+	/**
+	 * permet au responsable de valider les rendez-vous 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+
+	public static void fonction_validation_rdv() throws ClassNotFoundException, SQLException{
+		Creneau.demandeRdv();   
+		Dialogue.pas_de_demande();
+	
 	}
 }

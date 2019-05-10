@@ -15,6 +15,9 @@ import individus.Client;
 import individus.Respo_agence;
 
 public class FenClient extends JFrame {
+	
+  // ATTRIBUTS
+	
   private JMenuBar menuBar = new JMenuBar();
   private JMenu actions = new JMenu("Actions");
   private Client client;
@@ -22,12 +25,13 @@ public class FenClient extends JFrame {
   private JMenuItem item_ann = new JMenuItem("Soumettre une annonce");
   private JMenuItem item_choix = new JMenuItem("Choisir l'acquéreur ou le locataire du bien");
 
-  public static void main(String[] args){
-   
-  }
+  // ACCESSEUR
+  
   public Client getClient(){
   	return client;
   }
+  
+  // LIENS BOUTONS CODE
   
   public FenClient(Client client){
 	this.client = client;

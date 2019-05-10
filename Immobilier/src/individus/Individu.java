@@ -62,6 +62,14 @@ public abstract class Individu {
 		this.num_tel = num_tel;
 	}
 
+	// AUTRES METHODES
+	
+	/**
+	 * permet d'afficher les attributs de l'individu en fonction de son statut
+	 * @param statut
+	 * @return affichage individu
+	 */
+	
 	public String toString(String statut){
 		  String str = "Description " +statut+"\n";
 		  if (this.id_individu == 0) {

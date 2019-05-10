@@ -24,6 +24,8 @@ import individus.Particulier;
 import individus.Respo_agence;
 
 public class Application extends JFrame {
+	
+  // ATTRIBUTS	
   private JMenuBar menuBar = new JMenuBar();
   private JMenu espace = new JMenu("Espaces");
   private JMenu sous_parti = new JMenu("Particulier");
@@ -39,10 +41,12 @@ public class Application extends JFrame {
   private JMenuItem conn_agent = new JMenuItem("Se connecter");
   private JMenuItem creer_client = new JMenuItem("Créer un nouveau compte");
 
+  // ENTREE DU PROGRAMME
   public static void main(String[] args){
     Application appli = new Application();
   }
 
+  // CONSTRUCTEUR
   public Application(){
     this.setSize(400, 200);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,6 +68,8 @@ public class Application extends JFrame {
     this.menuBar.add(espace);
     this.setJMenuBar(menuBar);
     this.setVisible(true);
+    
+    // LIAISONS BOUTONS CODE
     
     conn_respo.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent event){
