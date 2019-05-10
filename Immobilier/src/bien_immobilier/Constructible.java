@@ -9,10 +9,14 @@ import interactions.TypeTransaction;
 
 public class Constructible extends Bien_immobilier {
 	
+	//ATTRIBUTS
+	
 	private int qualite_terrain;
 	private double commerce;
 	private double ecole;
 
+	//CONSTRUCTEUR
+	
 	public Constructible (int id_bien, String nom, boolean en_ligne, Adresse adresse,double surface, double transports, TypeHabitation type_habitation, int qualite_terrain,double commerce, double ecole) {
 		super(id_bien, nom, en_ligne,adresse,surface,transports, type_habitation);
 		this.qualite_terrain=qualite_terrain;
@@ -20,6 +24,8 @@ public class Constructible extends Bien_immobilier {
 		this.ecole=ecole;
 		
 	}
+	
+	//ACCESSEURS ET MUTATEURS
 	
 	public int getQualite_terrain() {
 		return qualite_terrain;
@@ -40,7 +46,13 @@ public class Constructible extends Bien_immobilier {
 		this.ecole=ecole;
 	}
 
-		public void ajouterBien_immo_Constr() {
+	//AUTRES METHODES
+	
+	/**
+	 * Méthode d'ajout d'un bien immobilier de type Constructible avec ses différents attributs à la base de données
+	 */
+		
+	public void ajouterBien_immo_Constr() {
 		try {
 			String type_hab= getType_habitation().getContenu2();
 			PreparedStatement preparedState = Connexion.getinstance().prepareStatement("INSERT INTO constructible(id_bien,nom,id_adresse,surface,transports,type_habitation,qualite_terrain,commerce,ecole,en_ligne) VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -65,21 +77,18 @@ public class Constructible extends Bien_immobilier {
 			e.printStackTrace();
 		}
 	}
-		
-	 public String toString(){
-		    String str;
-		      str = "Description bien \n";
-		      str += "Nom : " + this.getNom() + "\n";
-		      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
-		      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
-		      str += "Distance � l'�cole la plus proche : " + this.ecole  +  " km\n";
-		      str += "Distance aux commerces : " + this.commerce + " km\n";
-		      str += "Qualit� terrain : " + this.qualite_terrain + "\n";
-		      str += "Surface du bien : " + this.getSurface() + "\n";
-		      return str;
-		    }	
 	
-	 public double estimation_Constr(TypeTransaction type_transaction) {
+	
+	
+	/**
+	 * Méthode d'estimation d'un bien Constructible
+	 * L'estimation est calculée par rapport au nombre de mètres carrés ainsi qu'à la localisation du bien.
+	 * La valeur obtenue est alors ajustée selon les avantages et inconvénients autour du bien.
+	 * @return la valeur de l'estimation qu'il s'agisse du prix de vente (vente), du loyer (location) 
+	 * ou de la rente (vente en viager).
+	 */
+	
+	public double estimation_Constr(TypeTransaction type_transaction) {
 			String env=getAdresse().getEnvironnement().getContenu1();
 	
 			double dt=0;
@@ -121,21 +130,22 @@ public class Constructible extends Bien_immobilier {
 			if (TypeTrans=="Location") {return (0.00437826)*getSurface()*m2*dmoy;}
 			else {return (0.003393009)*getSurface()*m2*dmoy;}
 	}
+	
+	/**
+	 * Donne une description des objets de la classe Constructible
+	 */
+	
+	 public String toString(){
+		    String str;
+		      str = "Description bien \n";
+		      str += "Nom : " + this.getNom() + "\n";
+		      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+		      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+		      str += "Distance à l'école la plus proche : " + this.ecole  +  " km\n";
+		      str += "Distance aux commerces : " + this.commerce + " km\n";
+		      str += "Qualité terrain : " + this.qualite_terrain + "\n";
+		      str += "Surface du bien : " + this.getSurface() + "\n";
+		      return str;
+		    }	
 		
-	public static void main(String[] args) {
-		TypeHabitation type_habitation=TypeHabitation.Appartement;
-		int id_bien=2;
-		int id_adresse=8;
-		String nom="maisonbleue";
-		double transports=9.4;
-		int qualite_terrain=2;
-		double commerce=7;
-		double ecole=5;
-		double surface=56;
-		boolean ligne = false;
-		Environnement t = Environnement.parseEnvironnement("Campagne");
-		Adresse adresse = new Adresse(qualite_terrain, qualite_terrain, nom, nom, nom, nom, nom, t);
-		Constructible constructible = new Constructible(id_bien, nom,ligne, adresse,  surface,transports,  type_habitation, qualite_terrain, ecole,commerce);
-	System.out.println(constructible.estimation_Constr(TypeTransaction.parseTransaction("Location")));
-	}
 }
