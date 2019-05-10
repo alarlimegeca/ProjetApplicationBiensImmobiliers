@@ -1,10 +1,10 @@
 # ProjetApplicationBiensImmobiliers
 
-Cette application permet de simuler différents écosystèmes selon des choix définis par l'utilisateur.
+Notre projet est une application de gestion de biens immobiliers capable de répondre aux besoins de particuliers, de clients ou bien encore du personnel de l'agence. 
 
 ## <a name="sommaire"></a>Sommaire 
 * [Développé par](#developpe-par)
-* [Installation](#installation)
+* [Installation et lancement](#installation et lancement)
 * [Exemples](#exemples)
 * [Mises à jour à prévoir](#maj)
 
@@ -15,10 +15,9 @@ Cette application permet de simuler différents écosystèmes selon des choix d�
 </br>Dans le cadre du cours de projet JAVA, de première année d'ingénieur à l'ENSG.
 
 
-## <a name="installation"></a> Installation
+## <a name="installation et lancement"></a> Installation et lancement
 Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gitHUB en cliquant sur [ce lien](https://github.com/LePaulM/ProjetJavaEcosysteme.git)
 Ensuite lancez [tel fichier]() 
-Vous pouvez ensuite choisir les différents paramètres et observer votre simulation.
 
 ## <a name="exemples"></a> Exemples
 Voici quelques images de notre application []() 
