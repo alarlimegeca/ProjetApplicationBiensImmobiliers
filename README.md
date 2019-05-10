@@ -19,5 +19,7 @@ Ensuite lancez [tel fichier]()
 * exemple particulier
 * exemple responsable d'agence
 
-## <a name="maj"></a> Mises à jour 
-
+## <a name="maj"></a> Et encore... 
+Les objectifs suivants pour l'application sont d'étoffer la base de données avec plus de biens et d'attributs.
+Dans le même temps, la recherche d'un bien est à complexifier.  
+La méthode d'estimation nécessite également d'être améliorée afin d'éviter certaines valeurs incohérentes dans certains cas.
