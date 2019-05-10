@@ -90,7 +90,8 @@ public class Constructible extends Bien_immobilier {
 	
 	public double estimation_Constr(TypeTransaction type_transaction) {
 			String env=getAdresse().getEnvironnement().getContenu1();
-	
+			
+			//coefficients modificateurs pour chaque attribut
 			double dt=0;
 			double dc=0;
 			double de=0;
