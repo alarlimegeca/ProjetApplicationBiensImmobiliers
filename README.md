@@ -2,12 +2,6 @@
 
 Notre projet est une application de gestion de biens immobiliers capable de répondre aux besoins de particuliers, de clients ou bien encore du personnel de l'agence. 
 
-## <a name="sommaire"></a>Sommaire 
-* [Développé par](#developpe-par)
-* [Installation et lancement](#Installation et lancement)
-* [Exemples](#exemples)
-* [Mises à jour à prévoir](#maj)
-
 ## <a name="developpe-par"></a>Développé par 
 * "Alfred MENGIN" <Alfred.Mengin@ensg.eu>
 * "Arthur GENET" <Arthur.Genet@ensg.eu>
