@@ -9,9 +9,9 @@ Cette application permet de simuler différents écosystèmes selon des choix d�
 * [Mises à jour à prévoir](#maj)
 
 ## <a name="developpe-par"></a>Développé par 
-* "Paul MIANCIEN" <Paul.Miancien@ensg.eu>
-* "Armand DRUGEON" <Armand.Drugeon@ensg.eu>
-* "Louise GRALL" <Louise.Grall@ensg.eu>
+* "Alfred MENGIN" <Alfred.Mengin@ensg.eu>
+* "Arthur GENET" <Arthur.Genet@ensg.eu>
+* "Lilian CALAS" <Lilian.Calas@ensg.eu>
 </br>Dans le cadre du cours de projet JAVA, de première année d'ingénieur à l'ENSG.
 
 
