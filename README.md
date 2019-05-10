@@ -14,7 +14,7 @@ Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gi
 Ensuite lancez [tel fichier]() 
 
 ## <a name="exemples"></a> Exemples
-Voici quelques images de notre application []() 
+
 
 ## <a name="maj"></a> Mises à jour à prévoir
 Dans l'avenir nous aimerions ajouter les élements suivants à notre application:
