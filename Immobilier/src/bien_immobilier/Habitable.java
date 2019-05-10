@@ -12,10 +12,15 @@ import individus.Connexion;
 public class Habitable extends Construit {
 	
     private int nombre_pieces;
+	
+	//ATTRIBUTS
+	
 	private int nombre_sallesdeau;
 	private double commerce;
 	private double ecole;
 	private double jardin;
+	
+	//CONSTRUCTEUR
 	
 	public Habitable (int id_bien, String nom, boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation, double surface_batie,int date_construction, int nombre_pieces, int nombre_sallesdeau, double commerce, double ecole, double jardin) {
 		super( id_bien,  nom, en_ligne, adresse, surface, transports, type_habitation, surface_batie, date_construction);
@@ -25,6 +30,9 @@ public class Habitable extends Construit {
 		this.ecole=ecole;
 		this.jardin=jardin;
 	}
+	
+	
+	//ACCESSEURS ET MUTATEURS
 	
 	public double getCommerce () {
 		return commerce;
@@ -56,6 +64,13 @@ public class Habitable extends Construit {
 	public void setJardin (double jardin) {
 		this.jardin=jardin;
 	}
+	
+	//AUTRES METHODES
+	
+	/**
+	 * Méthode d'ajout d'un bien immobilier de type Habitable avec ses différents attributs à la base de données
+	 */
+	
 	public void ajouterBien_immo_Hab() {
 		 {
 		try {
@@ -87,27 +102,20 @@ public class Habitable extends Construit {
 		}
 		 }
 	}
+
+	/**
+	 * Méthode d'estimation d'un bien Habitable
+	 * L'estimation est calculée par rapport au nombre de mètres carrés ainsi qu'à la localisation du bien.
+	 * La valeur obtenue est alors ajustée selon les avantages et inconvénients autour du bien.
+	 * @return la valeur de l'estimation qu'il s'agisse du prix de vente (vente), du loyer (location) 
+	 * ou de la rente (vente en viager).
+	 */
 	
-	public String toString(){
-	    String str;
-	      str = "Description bien \n";
-	      str += "Nom : " + this.getNom() +"\n";
-	      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
-	      str += "Ann�e de construction : " + this.getDate_construction() +"\n";
-	      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
-	      str += "Distance � l'�cole la plus proche : " + this.ecole  +  " km\n";
-	      str += "Distance aux commerces : " + this.commerce + " km\n";
-	      str += "Nombre de pi�ces : " + this.nombre_pieces + "\n";
-	      str += "Nombre de salles d'eau : " + this.nombre_sallesdeau + "\n";
-	      str += "Surface du bien : " + this.getSurface() + " m� \n";
-	      str += "Surface batie : " + this.getSurface_batie() + " m� \n";
-	      str += "Surface jardin : " + this.jardin + " m� \n";
-	      return str;
-	    }	
-public double estimation_Hab(TypeTransaction type_transaction) {
+	public double estimation_Hab(TypeTransaction type_transaction) {
 		
 		String env=getAdresse().getEnvironnement().getContenu1();
 		
+		//coefficients modificateurs du prix
 		double dt=0;
 		double dc=0;
 		double de=0;
@@ -157,10 +165,20 @@ public double estimation_Hab(TypeTransaction type_transaction) {
 		else {return (0.003393009)*getSurface()*m2*dmoy;}
 		
 }
-	
-	public static void main(String[] args){
-	  
-	  }
-
-	
+	public String toString(){
+	    String str;
+	      str = "Description bien \n";
+	      str += "Nom : " + this.getNom() +"\n";
+	      str += "Type : " + this.getType_habitation().getContenu2()+ "\n";
+	      str += "Année de construction : " + this.getDate_construction() +"\n";
+	      str += "Distance aux transports en commun : " + this.getTransports() +" km\n";
+	      str += "Distance à l'école la plus proche : " + this.ecole  +  " km\n";
+	      str += "Distance aux commerces : " + this.commerce + " km\n";
+	      str += "Nombre de pièces : " + this.nombre_pieces + "\n";
+	      str += "Nombre de salles d'eau : " + this.nombre_sallesdeau + "\n";
+	      str += "Surface du bien : " + this.getSurface() + " m² \n";
+	      str += "Surface batie : " + this.getSurface_batie() + " m² \n";
+	      str += "Surface jardin : " + this.jardin + " m² \n";
+	      return str;
+	    }		
 }
