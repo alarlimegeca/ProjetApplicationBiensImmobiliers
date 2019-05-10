@@ -10,7 +10,7 @@ Notre projet est une application de gestion de biens immobiliers capable de rép
 
 
 ## <a name="installation et lancement"></a> Installation et lancement
-Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gitHUB en cliquant sur [ce lien](https://github.com/LePaulM/ProjetJavaEcosysteme.git)
+Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gitHUB en cliquant sur [ce lien](https://github.com/alarlimegeca/ProjetApplicationBiensImmobiliers)
 
 Vous aurez besoin de télécharger un browser de SQLite :
 
