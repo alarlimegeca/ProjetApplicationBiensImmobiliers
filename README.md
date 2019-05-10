@@ -14,10 +14,10 @@ Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gi
 Ensuite lancez [tel fichier]() 
 
 ## <a name="exemples"></a> Exemples
+* exemple client
+* exemple agent 
+* exemple particulier
+* exemple responsable d'agence
 
+## <a name="maj"></a> Mises à jour 
 
-## <a name="maj"></a> Mises à jour à prévoir
-Dans l'avenir nous aimerions ajouter les élements suivants à notre application:
-* Un menu "personnalisé" qui permettra à l'utilisateur de créer complétement son propre écosystème avec ses propres animaux
-* blabla
-* blabla
