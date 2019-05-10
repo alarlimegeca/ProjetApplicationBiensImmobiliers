@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public abstract class Bien_immobilier {
+	
+	//ATTRIBUTS
+	
 	private int id_bien;
 	private String nom;
 	private boolean en_ligne;
@@ -14,6 +17,7 @@ public abstract class Bien_immobilier {
 	private TypeHabitation type_habitation;
 	private Environnement environnement;
 	
+	//CONSTRUCTEUR
 	
 	public Bien_immobilier(int id_bien, String nom,boolean en_ligne, Adresse adresse, double surface,double transports, TypeHabitation type_habitation) {
 		super();
@@ -25,6 +29,9 @@ public abstract class Bien_immobilier {
 		this.transports=transports;
 		this.type_habitation=type_habitation;
 		}
+	
+	//ACCESSEURS ET MUTATEURS
+	
 	public int getId_bien() {
 		return id_bien;
 	}
@@ -65,6 +72,10 @@ public abstract class Bien_immobilier {
 	public Adresse getAdresse() {
 		return adresse;
 	}
+	
+	/**
+	 * Connection à la base de données 
+	 */
 	
 	static final String DB_URL = "jdbc:postgresql://localhost:5432/gestion_immobilier"; 
 	static final String USER = "postgres"; 
