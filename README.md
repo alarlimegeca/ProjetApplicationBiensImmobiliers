@@ -14,10 +14,14 @@ Afin de pouvoir utiliser notre application, télechargez tous les fichiers du gi
 Ensuite lancez [tel fichier]() 
 
 ## <a name="exemples"></a> Exemples
-* exemple client
-* exemple agent 
-* exemple particulier
-* exemple responsable d'agence
+* Exemple client
+  
+* Exemple agent 
+
+* Exemple particulier
+
+* Exemple responsable d'agence
+
 
 ## <a name="maj"></a> Et encore... 
 Les objectifs suivants pour l'application sont d'étoffer la base de données avec plus de biens et d'attributs.
