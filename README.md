@@ -112,6 +112,9 @@ Les fonctions notation, ajouter un créneau et voir les statistiques se réalise
 
 
 ## <a name="maj"></a> Et encore... 
-Les objectifs suivants pour l'application sont d'étoffer la base de données avec plus de biens et d'attributs.
-Dans le même temps, la recherche d'un bien est à complexifier.  
-La méthode d'estimation nécessite également d'être améliorée afin d'éviter certaines valeurs incohérentes dans certains cas.
+Nous sommes content du résultat final de notre projet. Bien qu'il y ait de nombreux petits ajouts qui permettraient d'ajouter des fonctionnalités ou de corriger quelques erreurs, les fonctions principales fonctionnent et l'application est utilisable en l'état. 
+Un de nos problèmes concerne peut-être plus la partie orienté objet de notre programme. Quand nous avons choisi ce sujet, nous savions qu'il demanderait un gros travail sur la partie base de données. N'étant pas encore très à l'aise avec ces outils, nous avons décidé de les prendre en main assez rapidement. A partir de là, nous nous sommes peut-être trop concentrés sur cet aspect et n'avons pas utilisé pleinement le potentiel de l'orienté objet.
+Dans la classe Transaction, nous avons également rencontré un problème pour la récupération du prix d’estimation du bien immobilier. En effet « 0 € » s’affiche au lieu de la bonne valeur.
+Nous aurions aimé pousser un peu plus la partie statistiques avec des critères supplémentaires, il en est de même pour le nombre de biens et leurs attributs et ainsi avoir une recherche de bien plus élaborée.
+Nous avons aussi un problème avec la fonctionnalité « valider une demande de rendez-vous ». Malgré nos efforts, nous n’avons pas réussi à empêcher l’erreur « database is locked » qui nous a empêcher de modifier notre table « rendezvous » pour le valider ou le supprimer.
+
